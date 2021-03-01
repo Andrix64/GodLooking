@@ -1,0 +1,19 @@
+TEST_1:
+1) caricamento texture sfondo formato hdr
+2) caricamento della scena con fonti luminose
+3) caricamento di scena con animazioni
+4) impostazione telecamera per muoverla nello spazio 3d
+5) possibilità di cambiare la modalità di disegno delle ombre con il tasto "s" (vedi "PROBLEMA")
+
+TEST_2
+1) caricamento texture sfondo formato OpenEXR
+2) rimossa fonte luminosa e animazione oggetti per presentare l'illuminazione tramite sfondo
+3) sfondo mappato su cubemap per farlo risultare meno sgranato
+4) caricamento di scena con telecamera animata
+5) possibilità di cambiare il tone mapping con il tasto "t" e l'esposizione con il "+" e "-" (vedi "PROBLEMA")
+6) migliorato caricamento di sfondo e scena, ora paralleli
+
+PROBLEMA
+I cambiamenti funzionano solamente quando l'oggetto stesso è riflesso nello specchio... non ho la piu pallida idea del perchè
+
+

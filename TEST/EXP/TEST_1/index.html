@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js/glTF loader/shadowmap/altro</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+	</head>
+
+	<body>
+		<div id="info">
+			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - TEST LOZZA<br />
+			Shadow Map <a target="_blank" rel="noopener" id="sm">Basic</a><br />
+		</div>
+
+		<script type="module">
+
+			import * as THREE from '../three.js/build/three.module.js';
+ 
+			import { OrbitControls } from '../three.js/examples/jsm/controls/OrbitControls.js';
+			import { GLTFLoader } from '../three.js/examples/jsm/loaders/GLTFLoader.js';
+			import { RGBELoader } from '../three.js/examples/jsm/loaders/RGBELoader.js';
+			import { RoughnessMipmapper } from '../three.js/examples/jsm/utils/RoughnessMipmapper.js';
+			import { Reflector } from '../three.js/examples/jsm/objects/Reflector.js';
+
+
+			let camera, scene, renderer;
+			let spotLight;
+			let mixer,clock;
+			init();
+			render();
+
+			function init() {
+
+				const container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
+				camera.position.set( - 1.8, 0.6, 2.7 );
+
+				scene = new THREE.Scene();
+
+				clock = new THREE.Clock();
+
+
+				new RGBELoader()
+					.setDataType( THREE.UnsignedByteType )
+					.setPath( 'hdr/' )
+					.load( 'vulture_hide_1k.hdr', function ( texture ) {
+
+						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+
+						scene.background = envMap;
+						scene.environment = envMap;
+
+						texture.dispose();
+						pmremGenerator.dispose();
+
+						render();
+						// model
+						// use of RoughnessMipmapper is optional
+						const roughnessMipmapper = new RoughnessMipmapper( renderer );
+
+						const loader = new GLTFLoader().setPath( 'gltf/' );
+						loader.load( 'Donut.gltf', function ( gltf ) {
+							gltf.scene.scale.multiplyScalar(10);
+							console.log(gltf.scene);
+							gltf.scene.traverse( function ( child ) {
+
+								if ( child.isMesh ) {
+									
+									// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+									// roughnessMipmapper.generateMipmaps( child.material );
+									child.castShadow = true;
+                                	child.receiveShadow = true;
+
+								}
+								if(child.isSpotLight){
+									child.penumbra = 0.1;
+									child.castShadow = true;
+									child.shadow.camera.near = 1;
+									child.shadow.camera.far = 15;
+									child.shadow.mapSize.width = 2048;
+									child.shadow.mapSize.height = 2048;
+									//	PER VEDERE RAGGIO CAMERA
+									//scene.add( new THREE.CameraHelper( child.shadow.camera ) );
+								}
+								
+
+							} );
+							scene.add( gltf.scene );
+
+							//ANIMATIONS
+							mixer = new THREE.AnimationMixer( gltf.scene );
+        
+							gltf.animations.forEach( ( clip ) => {
+							
+								mixer.clipAction( clip ).play();
+							
+							} );
+							//END ANIMATIONS
+
+							roughnessMipmapper.dispose();
+
+							render();
+
+						} );
+
+					} );
+					
+					//SPECCHIO
+					let geometry = new THREE.PlaneGeometry( 6, 6 );
+						let plane = new Reflector( geometry, {
+							clipBias: 0.003,
+							textureWidth: window.innerWidth * window.devicePixelRatio,
+							textureHeight: window.innerHeight * window.devicePixelRatio,
+							color: 0x777777
+						} );
+						plane.position.z= -2;
+						scene.add( plane );
+						//FINE SPECCHIO
+						
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.toneMapping = THREE.NoToneMapping;
+				renderer.toneMappingExposure = 1;
+				renderer.outputEncoding = THREE.sRGBEncoding;
+
+				renderer.shadowMap.enabled = true;//SHADOWMAP
+				renderer.shadowMap.type = THREE.BasicShadowMap;//SHADOWMAP TYPE
+
+				container.appendChild( renderer.domElement );
+
+				const pmremGenerator = new THREE.PMREMGenerator( renderer );
+				pmremGenerator.compileEquirectangularShader();
+
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.minDistance = 2;
+				controls.maxDistance = 10;
+				controls.target.set( 0, 0, - 0.2 );
+				controls.update();
+
+				window.addEventListener( 'resize', onWindowResize );
+				window.addEventListener( 'keydown', onKeyClick );
+
+			}
+			var s=1;
+			function onKeyClick() {
+
+				if (event.isComposing || event.keyCode === 83) {
+					switch(s){
+						case 1:
+							renderer.shadowMap.type = THREE.PCFShadowMap;
+							document.getElementById("sm").innerHTML="PCF";
+							s++;
+							break;
+						case 2:
+							renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+							document.getElementById("sm").innerHTML="PCFSoft";
+							s++;
+							break;
+						case 3:
+							renderer.shadowMap.type = THREE.VSMShadowMap; //ROTTO
+							document.getElementById("sm").innerHTML="VSM";
+							s++;
+							break;
+						default:
+							renderer.shadowMap.type = THREE.BasicShadowMap;
+							document.getElementById("sm").innerHTML="Basic";
+							s=1;
+							break;
+					}
+				}
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+			function render() {
+				requestAnimationFrame( render );
+  
+				var delta = clock.getDelta();
+				
+				if ( mixer ) mixer.update( delta );
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+</html>
