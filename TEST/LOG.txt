@@ -13,7 +13,16 @@ TEST_2
 5) possibilità di cambiare il tone mapping con il tasto "t" e l'esposizione con il "+" e "-" (vedi "PROBLEMA")
 6) migliorato caricamento di sfondo e scena, ora paralleli
 
-PROBLEMA
-I cambiamenti funzionano solamente quando l'oggetto stesso è riflesso nello specchio... non ho la piu pallida idea del perchè
+TEST_3
+1) Risolto "PROBLEMA"
+2) Primo test di visualizzazione di un oggetto(animato o non) in ambiente 3d(animato o non)
+3) Utilizzo di RectAreaLight (pannello di luce) per illuminare la stanza
+4) Camera-control modificato per limitare la vista ed evitare compenetrazione con oggetti di sfondo
 
+PROBELMI
+1) le ombre fanno pena, hanno varie linee nere come se fossero disturbate,migliorare la risoluzione non cambia
+problema più visibile in BASIC shadowmap
 
+IDEE
+1) utilizzo DOF(Depth of Field) in post processing
+2) utilizzo generale del post processing per migliore visualizzazione
