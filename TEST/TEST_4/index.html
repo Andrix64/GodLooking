@@ -17,11 +17,6 @@
 			Shadow Map <a target="_blank" rel="noopener" id="sm">PCFSoft</a><br />
 		</div>
 		<input id="color-picker" value='#276cb8' />
-		<script>
-			$('#color-picker').spectrum({
-				type: "component"
-			});
-		</script>
 		<script type="module">
 			const pathThree="../../three.js";
 
@@ -45,6 +40,21 @@
 			let mixer,mixer2,clock;
 			let pmremGenerator;
 			let objectShown;
+			$('#color-picker').spectrum({
+				type: "component"
+			});
+
+			$("#color-picker").on('change.spectrum', function(e,color) {
+				objectShown.traverse( function ( child ) {
+					if ( child.isMesh ) {
+						var s2 = "0x"+color.toHexString().substring(1);
+
+						child.material.color.setHex(s2); // #ff0000
+					}
+
+				} );
+			});
+
 			init();
 			render();
 			function init() {
@@ -63,7 +73,7 @@
 
 
 				console.log((Date.now()-sot1)/1000+" sec|Caricamento scena...");
-				const loader = new GLTFLoader().setPath( 'gltf/' );
+				const loader = new GLTFLoader().setPath( '../gltf/' );
 				loader.load( 'Cozy_Room.gltf', function ( gltf ) {
 					console.log((Date.now()-sot1)/1000+" sec|Scena caricata!");
 					gltf.scene.scale.multiplyScalar(10);
@@ -84,8 +94,8 @@
 							child.castShadow = true;
 							child.shadow.camera.near = 0.1;
 							child.shadow.camera.far = 30;
-							child.shadow.mapSize.width = 1024*10;
-							child.shadow.mapSize.height = 1024*10;
+							child.shadow.mapSize.width = 1024*4;
+							child.shadow.mapSize.height = 1024*4;
 							//	PER VEDERE RAGGIO CAMERA
 							//scene.add( new THREE.CameraHelper( child.shadow.camera ) );
 						}
@@ -116,9 +126,9 @@
 
 				var sot2 = Date.now()
 				console.log((Date.now()-sot2)/1000+" sec|Caricamento OGGETTO...");
-				const loader2 = new GLTFLoader().setPath( 'gltf/' );
+				const loader2 = new GLTFLoader().setPath( '../gltf/' );
 				loader2.load( 'Aneurysm.glb', function ( glb ) {
-					objectShown=glb;
+					objectShown=glb.scene;
 					console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
 					glb.scene.scale.multiplyScalar(0.1);
 					glb.scene.position.set(0,1,0);
@@ -172,7 +182,7 @@
 				console.log((Date.now()-sot3)/1000+" sec|Caricamento HDR...");
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
-					.setPath( 'hdr/' )
+					.setPath( '../hdr/' )
 					.load( 'moonless_golf_4k.hdr', function ( texture ) {
 						console.log((Date.now()-sot3)/1000+" sec|HDR caricato!");
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
