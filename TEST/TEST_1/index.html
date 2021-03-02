@@ -45,7 +45,7 @@
 
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
-					.setPath( 'hdr/' )
+					.setPath( '../hdr/' )
 					.load( 'vulture_hide_1k.hdr', function ( texture ) {
 
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
@@ -61,7 +61,7 @@
 						// use of RoughnessMipmapper is optional
 						const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
-						const loader = new GLTFLoader().setPath( 'gltf/' );
+						const loader = new GLTFLoader().setPath( '../gltf/' );
 						loader.load( 'Donut.gltf', function ( gltf ) {
 							gltf.scene.scale.multiplyScalar(10);
 							console.log(gltf.scene);
