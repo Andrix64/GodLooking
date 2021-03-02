@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js/glTF loader/shadowmap/altro</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="../../spectrum/dist/spectrum.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../spectrum/dist/spectrum.min.css">
+	</head>
+
+	<body>
+		<div id="info">
+			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - TEST LOZZA<br />
+			Tone Mapping <a target="_blank" rel="noopener" id="tm">ACESFilmic</a> --- Exposure <a target="_blank" rel="noopener" id="lv">1</a><br />
+			Shadow Map <a target="_blank" rel="noopener" id="sm">PCFSoft</a><br />
+		</div>
+		<input id="color-picker" value='#276cb8' />
+		<script>
+			$('#color-picker').spectrum({
+				type: "component"
+			});
+		</script>
+		<script type="module">
+			const pathThree="../../three.js";
+
+			import * as THREE from '../../three.js/build/three.module.js';
+
+			import { OrbitControls } from '../../three.js/examples/jsm/controls/OrbitControls.js';
+
+			import { GLTFLoader } from '../../three.js/examples/jsm/loaders/GLTFLoader.js';
+			import { RGBELoader } from '../../three.js/examples/jsm/loaders/RGBELoader.js';
+			//import { EXRLoader } from '../../three.js/examples/jsm/loaders/EXRLoader.js';
+
+			import { RoughnessMipmapper } from '../../three.js/examples/jsm/utils/RoughnessMipmapper.js';
+
+			//import { Reflector } from '../../three.js/examples/jsm/objects/Reflector.js';
+
+			import { RectAreaLightHelper } from '../../three.js/examples/jsm/helpers/RectAreaLightHelper.js';
+			import { RectAreaLightUniformsLib } from '../../three.js/examples/jsm/lights/RectAreaLightUniformsLib.js';
+
+			let camera, scene, renderer;
+			let spotLight;
+			let mixer,mixer2,clock;
+			let pmremGenerator;
+			let objectShown;
+			init();
+			render();
+			function init() {
+
+				const container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight,0.1, 400 );
+				camera.position.set(3,5,-3);
+				scene = new THREE.Scene();
+
+
+				clock = new THREE.Clock();
+
+				var sot1 = Date.now()
+
+
+				console.log((Date.now()-sot1)/1000+" sec|Caricamento scena...");
+				const loader = new GLTFLoader().setPath( 'gltf/' );
+				loader.load( 'Cozy_Room.gltf', function ( gltf ) {
+					console.log((Date.now()-sot1)/1000+" sec|Scena caricata!");
+					gltf.scene.scale.multiplyScalar(10);
+					
+					
+
+					scene.add( gltf.scene );
+					const roughnessMipmapper = new RoughnessMipmapper( renderer );
+					gltf.scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+							roughnessMipmapper.generateMipmaps( child.material );
+							child.castShadow = true;
+							child.receiveShadow = true;
+						}
+						if(child.isSpotLight){
+							child.penumbra = 0.1;
+							child.castShadow = true;
+							child.shadow.camera.near = 0.1;
+							child.shadow.camera.far = 30;
+							child.shadow.mapSize.width = 1024*10;
+							child.shadow.mapSize.height = 1024*10;
+							//	PER VEDERE RAGGIO CAMERA
+							//scene.add( new THREE.CameraHelper( child.shadow.camera ) );
+						}
+						if(child.isCamera){
+							//camera = child;
+							//onWindowResize();
+							//scene.add( new THREE.CameraHelper( child ) );
+						}
+
+					} );
+					
+					
+					roughnessMipmapper.dispose();
+					//ANIMATIONS
+					mixer = new THREE.AnimationMixer( gltf.scene );
+
+					gltf.animations.forEach( ( clip ) => {
+					
+						mixer.clipAction( clip ).play();
+					
+					} );
+					//END ANIMATIONS
+
+					render();
+
+				} );
+
+
+				var sot2 = Date.now()
+				console.log((Date.now()-sot2)/1000+" sec|Caricamento OGGETTO...");
+				const loader2 = new GLTFLoader().setPath( 'gltf/' );
+				loader2.load( 'Aneurysm.glb', function ( glb ) {
+					objectShown=glb;
+					console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
+					glb.scene.scale.multiplyScalar(0.1);
+					glb.scene.position.set(0,1,0);
+					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
+
+					scene.add( glb.scene );
+					glb.scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+							roughnessMipmapper2.generateMipmaps( child.material );
+							child.castShadow = true;
+							child.receiveShadow = true;
+						}
+
+					} );
+					roughnessMipmapper2.dispose();
+					//ANIMATIONS
+					mixer2 = new THREE.AnimationMixer( glb.scene );
+
+					glb.animations.forEach( ( clip ) => {
+					
+						mixer2.clipAction( clip ).play();
+					
+					} );
+					//END ANIMATIONS
+					endObjectRender()
+				} );
+
+				/*
+				console.log((Date.now()-sot)+"Caricamento exr...");
+				new EXRLoader()
+					.setDataType( THREE.UnsignedByteType )
+					.setPath( 'hdr/' )
+					.load( 'oberer_kuhberg_2k.exr', function ( texture ) {
+						console.log((Date.now()-sot)+"exr caricato!");
+						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+						console.log((Date.now()-sot)+"envMap Caricata");
+						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+      					rt.fromEquirectangularTexture(renderer, texture);
+						console.log((Date.now()-sot)+"exr convertito in cubemap!");
+						scene.background = rt;
+
+						//scene.environment = envMap;
+
+						texture.dispose();
+						pmremGenerator.dispose();
+
+					} );
+*/
+				var sot3 = Date.now()
+				console.log((Date.now()-sot3)/1000+" sec|Caricamento HDR...");
+				new RGBELoader()
+					.setDataType( THREE.UnsignedByteType )
+					.setPath( 'hdr/' )
+					.load( 'moonless_golf_4k.hdr', function ( texture ) {
+						console.log((Date.now()-sot3)/1000+" sec|HDR caricato!");
+						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+						console.log((Date.now()-sot3)/1000+" sec|envMap Caricata");
+						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+      					rt.fromEquirectangularTexture(renderer, texture);
+						console.log((Date.now()-sot3)/1000+" sec|HDR convertito in cubemap!");
+						scene.background = rt;
+
+						scene.environment = envMap;
+
+						texture.dispose();
+						pmremGenerator.dispose();
+
+					} );
+
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 1;
+				renderer.outputEncoding = THREE.sRGBEncoding;
+
+				renderer.shadowMap.enabled = false;//SHADOWMAP
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap;//SHADOWMAP TYPE
+
+				container.appendChild( renderer.domElement );
+
+				pmremGenerator = new THREE.PMREMGenerator( renderer );
+				pmremGenerator.compileEquirectangularShader();
+
+
+					
+				RectAreaLightUniformsLib.init();
+
+				const rectLight1 = new THREE.RectAreaLight( 0xffdd99, 1,40, 40 );
+				rectLight1.position.set( 40, 0, 0 );
+				rectLight1.rotation.y = Math.PI / 2;
+				scene.add( rectLight1 );
+				//scene.add( new RectAreaLightHelper( rectLight1 ) );
+
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.minDistance = 2;
+				controls.maxDistance = 7;
+				controls.maxPolarAngle=Math.PI/2;
+				controls.enablePan=false;
+				controls.target.set( 0, 1, 0);
+				controls.update();
+
+				window.addEventListener( 'resize', onWindowResize );
+				window.addEventListener( 'keydown', onKeyClick );
+
+			}
+
+			function endObjectRender(){
+				console.log(objectShown)
+			}
+
+			var t=5,s=3;
+			function onKeyClick() {
+				if (event.isComposing || event.keyCode === 84) {
+					scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							
+							child.material.needsUpdate = true;
+
+						}
+					} );
+					switch(t){
+						case 1:
+							renderer.toneMapping=THREE.LinearToneMapping;
+							document.getElementById("tm").innerHTML="Linear";
+							t++;
+							break;
+						case 2:
+							renderer.toneMapping=THREE.ReinhardToneMapping;
+							document.getElementById("tm").innerHTML="Reinhard";
+							t++;
+							break;
+						case 3:
+							renderer.toneMapping=THREE.CineonToneMapping;
+							document.getElementById("tm").innerHTML="Cineon";
+							t++;
+							break;
+						case 4:
+							renderer.toneMapping=THREE.ACESFilmicToneMapping;
+							document.getElementById("tm").innerHTML="ACESFilmic";
+							t++;
+							break;
+						default:
+							renderer.toneMapping=THREE.NoToneMapping;
+							document.getElementById("tm").innerHTML="No";
+							t=1;
+							break;
+					}
+				}
+
+				if (event.isComposing || event.keyCode === 83) {
+					scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							
+							child.material.needsUpdate = true;
+
+						}
+					} );
+					switch(s){
+						case 1:
+							renderer.shadowMap.type = THREE.PCFShadowMap;
+							document.getElementById("sm").innerHTML="PCF";
+							s++;
+							break;
+						case 2:
+							renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+							document.getElementById("sm").innerHTML="PCFSoft";
+							s++;
+							break;
+						/*case 3:
+							renderer.shadowMap.type = THREE.VSMShadowMap;
+							document.getElementById("sm").innerHTML="VSM";
+							s++;
+							break;*/
+						default:
+							renderer.shadowMap.type = THREE.BasicShadowMap;
+							document.getElementById("sm").innerHTML="Basic";
+							s=1;
+							break;
+					}
+				}
+
+				if (event.isComposing || event.keyCode === 109) {
+					if(renderer.toneMappingExposure != 0)
+					{
+						renderer.toneMappingExposure--;
+					}
+					document.getElementById("lv").innerHTML=renderer.toneMappingExposure;
+					
+				}
+				if (event.isComposing || event.keyCode === 107) {
+					renderer.toneMappingExposure++;
+					document.getElementById("lv").innerHTML=renderer.toneMappingExposure;
+
+				}
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+			function render() {
+				requestAnimationFrame( render );
+  
+				var delta = clock.getDelta();
+				
+				if ( mixer ) mixer.update( delta );
+				if ( mixer2 ) mixer2.update( delta );
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+</html>
