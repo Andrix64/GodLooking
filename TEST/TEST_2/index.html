@@ -47,8 +47,8 @@
 
 
 				console.log((Date.now()-sot)+"Caricamento scena...");
-				const loader = new GLTFLoader().setPath( 'gltf/' );
-				loader.load( 'Donut.gltf', function ( gltf ) {
+				const loader = new GLTFLoader().setPath( '../gltf/' );
+				loader.load( 'Donut2.gltf', function ( gltf ) {
 					console.log((Date.now()-sot)+"Scena caricata!");
 					gltf.scene.scale.multiplyScalar(10);
 					
@@ -117,7 +117,7 @@
 				console.log((Date.now()-sot)+"Caricamento exr...");
 				new EXRLoader()
 					.setDataType( THREE.UnsignedByteType )
-					.setPath( 'hdr/' )
+					.setPath( '../hdr/' )
 					.load( 'oberer_kuhberg_2k.exr', function ( texture ) {
 						console.log((Date.now()-sot)+"exr caricato!");
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
