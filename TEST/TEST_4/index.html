@@ -5,30 +5,91 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="main.css">
+		
+		<!--bootstrap-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<!--spectrum-->
 		<link rel="stylesheet" type="text/css" href="../../spectrum/dist/spectrum.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="../../spectrum/dist/spectrum.js"></script>
 		
 	</head>
 
 	<body>
+		<!-- Caricamento -->
 		<div id="cover" style="opacity: 1;width: 100%; height: 100%;position: absolute;">
+			<div class="container-fluid" style="width: 100%; height: 100%;position: absolute;z-index: 10;">
+				<div class="row justify-content-md-center align-items-end" style="height: 50%;">
+					<div class="col col-lg-5">
+						<video style="max-width: 640px;max-height: 360px;" width="100%" height="100%" autoplay loop>
+							<source src="../mp4/loading.mp4" type="video/mp4" />
+							Your browser does not support the video tag.
+						</video>
+					</div>
+				</div>
+				<div class="row justify-content-md-center align-items-start" style="height: 50%;">
+					<div class="col col-lg-5">
+						<div class="progress">
+							<div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<img src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
-
-			<video style="top: 50%;left: 50%;margin-top: -155px;margin-left: -320px;position: absolute;" width="640" height="360" autoplay loop>
-				<source src="../mp4/loading.mp4" type="video/mp4" />
-				Your browser does not support the video tag.
-			</video>
-
 		</div>
 		
-		<div id="info" style="opacity: 0;">
-			<a href="https://threejs.org" target="_blank" rel="noopener" >three.js</a> - TEST LOZZA<br />
-			Tone Mapping <a target="_blank" rel="noopener" id="tm">ACESFilmic</a> --- Exposure <a target="_blank" rel="noopener" id="lv">1</a><br />
-			Shadow Map <a target="_blank" rel="noopener" id="sm">PCFSoft</a><br />
-			<input id="color-picker" value='#276cb8' />
+		<!-- Info -->
+			
 		</div>
-		
+
+		<nav id="info" class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: absolute;width: 100%;opacity: 0;">
+			<a class="navbar-brand">
+				<img src="../png/logo.png" width="60" height="30" alt="">
+			</a>
+			<a class="navbar-brand" href="#">Test 4</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  	<span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="navbarSupportedContent" >
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Tone Mapping
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a id="TM0" class="dropdown-item" href="#">No</a>
+							<a id="TM1" class="dropdown-item" href="#">Linear</a>
+							<a id="TM2" class="dropdown-item" href="#">Reinhard</a>
+							<a id="TM3" class="dropdown-item" href="#">Cineon</a>
+							<a id="TM4" class="dropdown-item" href="#">ACESFilmic</a>
+						</div>
+					</li>
+					<!-- Shadow map button
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Shadow Mapping
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a id="SM0" class="dropdown-item disabled" href="#">Basic</a>
+							<a id="SM1" class="dropdown-item disabled" href="#">PCF</a>
+							<a id="SM2" class="dropdown-item disabled" href="#">PCFSoft</a>
+							<a id="SM3" class="dropdown-item disabled" href="#">VSM</a>
+						</div>
+					</li>
+					-->
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input id="color-picker" value='#276cb8' style="width: 100%"/>
+				</form>
+			</div>
+		</nav>
+		<!-- Three.js-->
 		<script type="module">
 			const pathThree="../../three.js";
 
@@ -67,9 +128,7 @@
 			$("#color-picker").on("dragstop.spectrum", function(e,color) {
 				objectShown.traverse( function ( child ) {
 					if ( child.isMesh ) {
-						var s2 = "0x"+color.toHexString().substring(1);
-						console.log(child.material.color.getHexString());
-						child.material.color.setHex(s2); // #ff0000
+						child.material.color.setHex("0x"+color.toHexString().substring(1)); 
 					}
 
 				} );
@@ -92,7 +151,7 @@
 				var sot1 = Date.now()
 
 
-				console.log((Date.now()-sot1)/1000+" sec|Caricamento scena...");
+				console.log("Caricamento scena...");
 				const loader = new GLTFLoader().setPath( '../gltf/' );
 				loader.load( 'Cozy_Room.gltf', function ( gltf ) {
 					console.log((Date.now()-sot1)/1000+" sec|Scena caricata!");
@@ -145,7 +204,7 @@
 
 
 				var sot2 = Date.now()
-				console.log((Date.now()-sot2)/1000+" sec|Caricamento OGGETTO...");
+				console.log("Caricamento OGGETTO...");
 				const loader2 = new GLTFLoader().setPath( '../gltf/' );
 				loader2.load( 'Aneurysm.glb', function ( glb ) {
 					objectShown=glb.scene;
@@ -202,7 +261,7 @@
 					} );
 */
 				var sot3 = Date.now()
-				console.log((Date.now()-sot3)/1000+" sec|Caricamento HDR...");
+				console.log("Caricamento HDR...");
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
 					.setPath( '../hdr/' )
@@ -258,111 +317,104 @@
 				controls.update();
 
 				window.addEventListener( 'resize', onWindowResize );
-				window.addEventListener( 'keydown', onKeyClick );
+				let g;
+				for(g=0;g<=4;g++)
+					document.getElementById("TM"+g).addEventListener("click", CToneMap.bind(g));
 
+				//SHADOWMAP CHANGER
+				/*
+				for(g=0;g<=3;g++)
+					document.getElementById("SM"+g).addEventListener("click", CShadowMap.bind(g));
+				*/
 				allRendered();
 			}
-			
-			function allRendered(){
-				allrend++;
-				console.log(allrend+"|"+4)
-				if(allrend=="4"){
-					document.getElementById("cover").style.opacity=0;
-					document.getElementById("info").style.opacity=1;
+
+			function fadeout(){
+				document.getElementById("cover").style.opacity-=0.05;
+				if(document.getElementById("cover").style.opacity>0){
+					setTimeout(fadeout, 50);
+				}else{
 					document.getElementById("cover").style.width="1px";
 					document.getElementById("cover").style.height="1px";
-					
+					document.getElementById("info").style.opacity=1;
 				}
 			}
+
+			function allRendered(){
+				allrend++;
+				document.getElementById("progress-bar").style.width=allrend/4*100+"%";
+				console.log(allrend+"|"+4)
+				if(allrend=="4"){
+					fadeout();
+				}
+			}
+
 			function endObjectRender(){
 				$("#color-picker").spectrum("enable");
 			}
 
-			var t=5,s=3;
-			function onKeyClick() {
-				if (event.isComposing || event.keyCode === 84) {
-					scene.traverse( function ( child ) {
-						if ( child.isMesh ) {
-							
-							child.material.needsUpdate = true;
+			function CToneMap(){
+				scene.traverse( function ( child ) {
+					if ( child.isMesh ) {
+						
+						child.material.needsUpdate = true;
 
-						}
-					} );
-					switch(t){
-						case 1:
-							renderer.toneMapping=THREE.LinearToneMapping;
-							document.getElementById("tm").innerHTML="Linear";
-							t++;
-							break;
-						case 2:
-							renderer.toneMapping=THREE.ReinhardToneMapping;
-							document.getElementById("tm").innerHTML="Reinhard";
-							t++;
-							break;
-						case 3:
-							renderer.toneMapping=THREE.CineonToneMapping;
-							document.getElementById("tm").innerHTML="Cineon";
-							t++;
-							break;
-						case 4:
-							renderer.toneMapping=THREE.ACESFilmicToneMapping;
-							document.getElementById("tm").innerHTML="ACESFilmic";
-							t++;
-							break;
-						default:
-							renderer.toneMapping=THREE.NoToneMapping;
-							document.getElementById("tm").innerHTML="No";
-							t=1;
-							break;
 					}
+				} );
+				switch(this){
+					case 1:
+						renderer.toneMapping=THREE.LinearToneMapping;
+						break;
+					case 2:
+						renderer.toneMapping=THREE.ReinhardToneMapping;
+						break;
+					case 3:
+						renderer.toneMapping=THREE.CineonToneMapping;
+						break;
+					case 4:
+						renderer.toneMapping=THREE.ACESFilmicToneMapping;
+						break;
+					default:
+						renderer.toneMapping=THREE.NoToneMapping;
+						break;
 				}
 
-				if (event.isComposing || event.keyCode === 83) {
-					scene.traverse( function ( child ) {
-						if ( child.isMesh ) {
-							
-							child.material.needsUpdate = true;
+				for(var f=0;f<=4;f++)
+				{
+					document.getElementById("TM"+f).style.fontWeight="normal";
+					console.log("TM"+f)
+				}
+				console.log()
+				document.getElementById("TM"+this).style.fontWeight="bold";
+			}
 
-						}
-					} );
-					switch(s){
-						case 1:
-							renderer.shadowMap.type = THREE.PCFShadowMap;
-							document.getElementById("sm").innerHTML="PCF";
-							s++;
-							break;
-						case 2:
-							renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-							document.getElementById("sm").innerHTML="PCFSoft";
-							s++;
-							break;
-						/*case 3:
-							renderer.shadowMap.type = THREE.VSMShadowMap;
-							document.getElementById("sm").innerHTML="VSM";
-							s++;
-							break;*/
-						default:
-							renderer.shadowMap.type = THREE.BasicShadowMap;
-							document.getElementById("sm").innerHTML="Basic";
-							s=1;
-							break;
+			function CShadowMap(){
+				scene.traverse( function ( child ) {
+					if ( child.isMesh ) {
+						
+						child.material.needsUpdate = true;
+
 					}
+				} );
+				switch(this){
+					case 1:
+						renderer.shadowMap.type = THREE.PCFShadowMap;
+						break;
+					case 2:
+						renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+						break;
+					case 3:
+						renderer.shadowMap.type = THREE.VSMShadowMap;
+						break;
+					default:
+						renderer.shadowMap.type = THREE.BasicShadowMap;
+						break;
 				}
-
-				if (event.isComposing || event.keyCode === 109) {
-					if(renderer.toneMappingExposure != 0)
-					{
-						renderer.toneMappingExposure--;
-					}
-					document.getElementById("lv").innerHTML=renderer.toneMappingExposure;
-					
+				for(var f=0;f<=3;f++)
+				{
+					document.getElementById("SM"+f).style.fontWeight="normal";
 				}
-				if (event.isComposing || event.keyCode === 107) {
-					renderer.toneMappingExposure++;
-					document.getElementById("lv").innerHTML=renderer.toneMappingExposure;
-
-				}
-
+				document.getElementById("SM"+this).style.fontWeight="bold";
 			}
 
 			function onWindowResize() {
