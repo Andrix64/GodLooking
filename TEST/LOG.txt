@@ -19,6 +19,10 @@ TEST_3
 3) Utilizzo di RectAreaLight (pannello di luce) per illuminare la stanza
 4) Camera-control modificato per limitare la vista ed evitare compenetrazione con oggetti di sfondo
 
+TEST_4
+1) Aggiunto Color Picker che cambia il colore dell'oggetto esposto
+2) Disattivata la mappatura delle ombre per "Problema 1"
+
 PROBELMI
 1) le ombre fanno pena, hanno varie linee nere come se fossero disturbate,migliorare la risoluzione non cambia
 problema più visibile in BASIC shadowmap
