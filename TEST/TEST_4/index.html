@@ -5,9 +5,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="main.css">
+		<link rel="stylesheet" type="text/css" href="../../spectrum/dist/spectrum.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="../../spectrum/dist/spectrum.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../spectrum/dist/spectrum.min.css">
+		<script src="../../spectrum/dist/spectrum.js"></script>
+		
 	</head>
 
 	<body>
@@ -15,8 +16,9 @@
 			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - TEST LOZZA<br />
 			Tone Mapping <a target="_blank" rel="noopener" id="tm">ACESFilmic</a> --- Exposure <a target="_blank" rel="noopener" id="lv">1</a><br />
 			Shadow Map <a target="_blank" rel="noopener" id="sm">PCFSoft</a><br />
+			<input id="color-picker" value='#276cb8' />
 		</div>
-		<input id="color-picker" value='#276cb8' />
+		
 		<script type="module">
 			const pathThree="../../three.js";
 
@@ -41,14 +43,20 @@
 			let pmremGenerator;
 			let objectShown;
 			$('#color-picker').spectrum({
-				type: "component"
+				type: "component",
+				showPalette: false,
+				disabled: true,
+				showButtons: false,
+				allowEmpty: false,
+				showAlpha: false
+
 			});
 
-			$("#color-picker").on('change.spectrum', function(e,color) {
+			$("#color-picker").on("dragstop.spectrum", function(e,color) {
 				objectShown.traverse( function ( child ) {
 					if ( child.isMesh ) {
 						var s2 = "0x"+color.toHexString().substring(1);
-
+						console.log(child.material.color.getHexString());
 						child.material.color.setHex(s2); // #ff0000
 					}
 
@@ -129,6 +137,7 @@
 				const loader2 = new GLTFLoader().setPath( '../gltf/' );
 				loader2.load( 'Aneurysm.glb', function ( glb ) {
 					objectShown=glb.scene;
+					
 					console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
 					glb.scene.scale.multiplyScalar(0.1);
 					glb.scene.position.set(0,1,0);
@@ -141,6 +150,7 @@
 							roughnessMipmapper2.generateMipmaps( child.material );
 							child.castShadow = true;
 							child.receiveShadow = true;
+							$("#color-picker").spectrum("set", child.material.color.getHexString());
 						}
 
 					} );
@@ -239,7 +249,7 @@
 			}
 
 			function endObjectRender(){
-				console.log(objectShown)
+				$("#color-picker").spectrum("enable");
 			}
 
 			var t=5,s=3;
