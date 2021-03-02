@@ -12,8 +12,18 @@
 	</head>
 
 	<body>
-		<div id="info">
-			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - TEST LOZZA<br />
+		<div id="cover" style="opacity: 1;width: 100%; height: 100%;position: absolute;">
+			<img src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
+
+			<video style="top: 50%;left: 50%;margin-top: -155px;margin-left: -320px;position: absolute;" width="640" height="360" autoplay loop>
+				<source src="../mp4/loading.mp4" type="video/mp4" />
+				Your browser does not support the video tag.
+			</video>
+
+		</div>
+		
+		<div id="info" style="opacity: 0;">
+			<a href="https://threejs.org" target="_blank" rel="noopener" >three.js</a> - TEST LOZZA<br />
 			Tone Mapping <a target="_blank" rel="noopener" id="tm">ACESFilmic</a> --- Exposure <a target="_blank" rel="noopener" id="lv">1</a><br />
 			Shadow Map <a target="_blank" rel="noopener" id="sm">PCFSoft</a><br />
 			<input id="color-picker" value='#276cb8' />
@@ -42,6 +52,8 @@
 			let mixer,mixer2,clock;
 			let pmremGenerator;
 			let objectShown;
+
+			let allrend=0;
 			$('#color-picker').spectrum({
 				type: "component",
 				showPalette: false,
@@ -128,7 +140,7 @@
 					//END ANIMATIONS
 
 					render();
-
+					allRendered();
 				} );
 
 
@@ -165,6 +177,7 @@
 					} );
 					//END ANIMATIONS
 					endObjectRender()
+					allRendered();
 				} );
 
 				/*
@@ -206,6 +219,7 @@
 
 						texture.dispose();
 						pmremGenerator.dispose();
+						allRendered();
 
 					} );
 
@@ -246,8 +260,20 @@
 				window.addEventListener( 'resize', onWindowResize );
 				window.addEventListener( 'keydown', onKeyClick );
 
+				allRendered();
 			}
-
+			
+			function allRendered(){
+				allrend++;
+				console.log(allrend+"|"+4)
+				if(allrend=="4"){
+					document.getElementById("cover").style.opacity=0;
+					document.getElementById("info").style.opacity=1;
+					document.getElementById("cover").style.width="1px";
+					document.getElementById("cover").style.height="1px";
+					
+				}
+			}
 			function endObjectRender(){
 				$("#color-picker").spectrum("enable");
 			}
