@@ -141,7 +141,7 @@
 				const container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight,0.1, 400 );
+				camera = new THREE.PerspectiveCamera( 40, 1,0.1, 400 );
 				camera.position.set(3,5,-3);
 				scene = new THREE.Scene();
 
@@ -285,7 +285,7 @@
 
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				//renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				renderer.toneMappingExposure = 1;
 				renderer.outputEncoding = THREE.sRGBEncoding;
@@ -316,7 +316,6 @@
 				controls.target.set( 0, 1, 0);
 				controls.update();
 
-				window.addEventListener( 'resize', onWindowResize );
 				let g;
 				for(g=0;g<=4;g++)
 					document.getElementById("TM"+g).addEventListener("click", CToneMap.bind(g));
@@ -345,6 +344,8 @@
 				document.getElementById("progress-bar").style.width=allrend/4*100+"%";
 				if(allrend=="4"){
 					fadeout();
+					window.addEventListener( 'resize', onWindowResize );
+					onWindowResize();
 				}
 			}
 
