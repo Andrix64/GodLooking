@@ -98,7 +98,6 @@
 			import { OrbitControls } from '../../three.js/examples/jsm/controls/OrbitControls.js';
 
 			import { GLTFLoader } from '../../three.js/examples/jsm/loaders/GLTFLoader.js';
-			import { OBJLoader } from '../../three.js/examples/jsm/loaders/OBJLoader.js';
 			import { MTLLoader } from '../../three.js/examples/jsm/loaders/MTLLoader.js';
 			import { RGBELoader } from '../../three.js/examples/jsm/loaders/RGBELoader.js';
 			//import { EXRLoader } from '../../three.js/examples/jsm/loaders/EXRLoader.js';
@@ -213,8 +212,9 @@
 					
 					console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
 					glb.scene.scale.multiplyScalar(10);
-					glb.scene.position.set(0,0,0.2);
+					glb.scene.position.set(0,0,1);
 					glb.scene.rotation.y=-Math.PI / 4;
+
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
 					scene.add( glb.scene );
