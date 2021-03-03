@@ -4,7 +4,8 @@
 		<title>three.js/glTF loader/shadowmap/altro</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		
+		<link rel="stylesheet" type="text/css" href="./main.css">
+
 		<!--bootstrap-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		
@@ -47,7 +48,7 @@
 		</div>
 
 		<nav id="info" class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: absolute;width: 100%;opacity: 0;">
-			<a class="navbar-brand" href="www.dvisionlab.com">
+			<a class="navbar-brand" href="http://www.dvisionlab.com">
 				<img src="../png/logo.png" width="60" height="30" alt="logo">
 			</a>
 			<a class="navbar-brand" href="#" style="cursor: default">Test 4</a>
@@ -182,7 +183,7 @@
 							//onWindowResize();
 							//scene.add( new THREE.CameraHelper( child ) );
 						}
-
+						console.log((Date.now()-sot1)/1000+" sec|Scena aggiunta!");
 					} );
 					
 					
@@ -235,6 +236,7 @@
 					} );
 					//END ANIMATIONS
 					endObjectRender()
+					console.log((Date.now()-sot2)/1000+" sec|OGGETTO aggiunto!");
 					allRendered();
 				} );
 
@@ -267,16 +269,15 @@
 					.load( 'moonless_golf_4k.hdr', function ( texture ) {
 						console.log((Date.now()-sot3)/1000+" sec|HDR caricato!");
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
-						console.log((Date.now()-sot3)/1000+" sec|envMap Caricata");
 						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
       					rt.fromEquirectangularTexture(renderer, texture);
-						console.log((Date.now()-sot3)/1000+" sec|HDR convertito in cubemap!");
 						scene.background = rt;
 
 						scene.environment = envMap;
 
 						texture.dispose();
 						pmremGenerator.dispose();
+						console.log((Date.now()-sot3)/1000+" sec|HDR appicato!");
 						allRendered();
 
 					} );
@@ -342,7 +343,6 @@
 			function allRendered(){
 				allrend++;
 				document.getElementById("progress-bar").style.width=allrend/4*100+"%";
-				console.log(allrend+"|"+4)
 				if(allrend=="4"){
 					fadeout();
 				}
@@ -381,9 +381,7 @@
 				for(var f=0;f<=4;f++)
 				{
 					document.getElementById("TM"+f).style.fontWeight="normal";
-					console.log("TM"+f)
 				}
-				console.log()
 				document.getElementById("TM"+this).style.fontWeight="bold";
 			}
 
