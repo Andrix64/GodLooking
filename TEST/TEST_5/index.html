@@ -98,6 +98,8 @@
 			import { OrbitControls } from '../../three.js/examples/jsm/controls/OrbitControls.js';
 
 			import { GLTFLoader } from '../../three.js/examples/jsm/loaders/GLTFLoader.js';
+			import { OBJLoader } from '../../three.js/examples/jsm/loaders/OBJLoader.js';
+			import { MTLLoader } from '../../three.js/examples/jsm/loaders/MTLLoader.js';
 			import { RGBELoader } from '../../three.js/examples/jsm/loaders/RGBELoader.js';
 			//import { EXRLoader } from '../../three.js/examples/jsm/loaders/EXRLoader.js';
 
@@ -206,18 +208,13 @@
 				var sot2 = Date.now()
 				console.log("Caricamento OGGETTO...");
 				const loader2 = new GLTFLoader().setPath( '../gltf/' );
-				loader2.load( 'Aneurysm.glb', function ( glb ) {
+				loader2.load( 'totem.glb', function ( glb ) {
 					objectShown=glb.scene;
 					
 					console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
-<<<<<<< HEAD
 					glb.scene.scale.multiplyScalar(10);
 					glb.scene.position.set(0,0,0.2);
 					glb.scene.rotation.y=-Math.PI / 4;
-=======
-					glb.scene.scale.multiplyScalar(0.1);
-					glb.scene.position.set(0,1,0);
->>>>>>> parent of b26c8d6 (test 5)
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
 					scene.add( glb.scene );
@@ -247,26 +244,51 @@
 				} );
 
 				/*
-				console.log((Date.now()-sot)+"Caricamento exr...");
-				new EXRLoader()
-					.setDataType( THREE.UnsignedByteType )
-					.setPath( 'hdr/' )
-					.load( 'oberer_kuhberg_2k.exr', function ( texture ) {
-						console.log((Date.now()-sot)+"exr caricato!");
-						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
-						console.log((Date.now()-sot)+"envMap Caricata");
-						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
-      					rt.fromEquirectangularTexture(renderer, texture);
-						console.log((Date.now()-sot)+"exr convertito in cubemap!");
-						scene.background = rt;
+				var sot2 = Date.now()
+				console.log("Caricamento OGGETTO...");
 
-						//scene.environment = envMap;
 
-						texture.dispose();
-						pmremGenerator.dispose();
+				new MTLLoader()
+					.setPath( '../obj/' )
+					.load( 'totem.mtl', function ( materials ) {
+
+						materials.preload();
+
+						new OBJLoader()
+							.setMaterials( materials )
+							.setPath( '../obj/' )
+							.load( 'totem.obj', function ( obj ) {
+								objectShown=obj;
+								
+								console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
+								obj.scale.multiplyScalar(1);
+								obj.position.set(0,1,0);
+								obj.rotation.x = -Math.PI / 2;
+								const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
+
+								scene.add( obj );
+								obj.traverse( function ( child ) {
+									console.log(child);
+									if ( child.isMesh ) {
+										// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+										roughnessMipmapper2.generateMipmaps( child.material );
+										child.castShadow = true;
+										child.receiveShadow = true;
+										$("#color-picker").spectrum("set", child.material.color.getHexString());
+									}
+
+								} );
+								roughnessMipmapper2.dispose();
+								endObjectRender()
+								console.log((Date.now()-sot2)/1000+" sec|OGGETTO aggiunto!");
+								allRendered();
+							});
 
 					} );
-*/
+
+				*/
+
+
 				var sot3 = Date.now()
 				console.log("Caricamento HDR...");
 				new RGBELoader()
@@ -318,7 +340,7 @@
 				controls.minDistance = 2;
 				controls.maxDistance = 100;
 				controls.maxPolarAngle=Math.PI/2;
-				controls.enablePan=true;
+				controls.enablePan=false;
 				controls.target.set( 0, 1, 0);
 				controls.update();
 
