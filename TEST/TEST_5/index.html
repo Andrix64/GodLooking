@@ -143,7 +143,7 @@
 				document.body.appendChild( container );
 
 				camera = new THREE.PerspectiveCamera( 40, 1,0.1, 400 );
-				camera.position.set(3,5,-3);
+				camera.position.set(-10,0,10);
 				scene = new THREE.Scene();
 
 
@@ -337,12 +337,25 @@
 				//scene.add( new RectAreaLightHelper( rectLight1 ) );
 					*/
 				const controls = new OrbitControls( camera, renderer.domElement );
-				controls.minDistance = 2;
-				controls.maxDistance = 100;
+				controls.minDistance = 7;
+				controls.maxDistance = 30;
 				controls.maxPolarAngle=Math.PI/2;
-				controls.enablePan=false;
-				controls.target.set( 0, 1, 0);
+				controls.enablePan=true;
+				controls.target.set( 0, 0, 1);
+
+				var minPan = new THREE.Vector3( - 4, - 2, - 4 );
+				var maxPan = new THREE.Vector3( 4, 10, 4 );
+				var _v = new THREE.Vector3();
+				
+				controls.addEventListener("change", function() {
+					_v.copy(controls.target);
+					controls.target.clamp(minPan, maxPan);
+					_v.sub(controls.target);
+					camera.position.sub(_v);
+				})
+
 				controls.update();
+				
 
 				let g;
 				for(g=0;g<=4;g++)
@@ -355,6 +368,7 @@
 				*/
 				allRendered();
 			}
+			var click=false;
 
 			function fadeout(){
 				document.getElementById("cover").style.opacity-=0.05;
@@ -373,6 +387,7 @@
 				if(allrend=="4"){
 					fadeout();
 					window.addEventListener( 'resize', onWindowResize );
+					click=true;
 					onWindowResize();
 				}
 			}
