@@ -4,7 +4,6 @@
 		<title>three.js/glTF loader/shadowmap/altro</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="main.css">
 		
 		<!--bootstrap-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -15,8 +14,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 		<!--spectrum-->
-		<link rel="stylesheet" type="text/css" href="../../spectrum/dist/spectrum.css">
-		<script src="../../spectrum/dist/spectrum.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../spectrum/src/spectrum.css">
+		<script src="../../spectrum/src/spectrum.js"></script>
 		
 	</head>
 
@@ -26,7 +25,7 @@
 			<div class="container-fluid" style="width: 100%; height: 100%;position: absolute;z-index: 10;">
 				<div class="row justify-content-md-center align-items-end" style="height: 50%;">
 					<div class="col col-lg-5">
-						<video style="max-width: 640px;max-height: 360px;" width="100%" height="100%" autoplay loop>
+						<video draggable="false" style="max-width: 640px;max-height: 360px;" width="100%" height="100%" autoplay loop>
 							<source src="../mp4/loading.mp4" type="video/mp4" />
 							Your browser does not support the video tag.
 						</video>
@@ -40,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-			<img src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
+			<img draggable="false" src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
 		</div>
 		
 		<!-- Info -->
@@ -48,10 +47,10 @@
 		</div>
 
 		<nav id="info" class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: absolute;width: 100%;opacity: 0;">
-			<a class="navbar-brand">
-				<img src="../png/logo.png" width="60" height="30" alt="">
+			<a class="navbar-brand" href="www.dvisionlab.com">
+				<img src="../png/logo.png" width="60" height="30" alt="logo">
 			</a>
-			<a class="navbar-brand" href="#">Test 4</a>
+			<a class="navbar-brand" href="#" style="cursor: default">Test 4</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			  	<span class="navbar-toggler-icon"></span>
 			</button>
@@ -85,7 +84,7 @@
 					-->
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
-					<input id="color-picker" value='#276cb8' style="width: 100%"/>
+					<input id="color-picker" value='#276cb8' class="spectrum" style="width: 100%;cursor: pointer;"/>
 				</form>
 			</div>
 		</nav>
