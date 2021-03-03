@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js/glTF loader/shadowmap/altro</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="./main.css">
+
+		<!--bootstrap-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<!--spectrum-->
+		<link rel="stylesheet" type="text/css" href="../../spectrum/src/spectrum.css">
+		<script src="../../spectrum/src/spectrum.js"></script>
+		
+	</head>
+
+	<body>
+		<!-- Caricamento -->
+		<div id="cover" style="opacity: 1;width: 100%; height: 100%;position: absolute;">
+			<div class="container-fluid" style="width: 100%; height: 100%;position: absolute;z-index: 10;">
+				<div class="row justify-content-md-center align-items-end" style="height: 50%;">
+					<div class="col col-lg-5">
+						<video draggable="false" style="max-width: 640px;max-height: 360px;" width="100%" height="100%" autoplay loop>
+							<source src="../mp4/loading.mp4" type="video/mp4" />
+							Your browser does not support the video tag.
+						</video>
+					</div>
+				</div>
+				<div class="row justify-content-md-center align-items-start" style="height: 50%;">
+					<div class="col col-lg-5">
+						<div class="progress">
+							<div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<img draggable="false" src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
+		</div>
+		
+		<!-- Info -->
+			
+		</div>
+
+		<nav id="info" class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: absolute;width: 100%;opacity: 0;">
+			<a class="navbar-brand" href="http://www.dvisionlab.com">
+				<img src="../png/logo.png" width="60" height="30" alt="logo">
+			</a>
+			<a class="navbar-brand" href="#" style="cursor: default">Test 4</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  	<span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="navbarSupportedContent" >
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Tone Mapping
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a id="TM0" class="dropdown-item" href="#">No</a>
+							<a id="TM1" class="dropdown-item" href="#">Linear</a>
+							<a id="TM2" class="dropdown-item" href="#">Reinhard</a>
+							<a id="TM3" class="dropdown-item" href="#">Cineon</a>
+							<a id="TM4" class="dropdown-item" href="#">ACESFilmic</a>
+						</div>
+					</li>
+					<!-- Shadow map button
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Shadow Mapping
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a id="SM0" class="dropdown-item disabled" href="#">Basic</a>
+							<a id="SM1" class="dropdown-item disabled" href="#">PCF</a>
+							<a id="SM2" class="dropdown-item disabled" href="#">PCFSoft</a>
+							<a id="SM3" class="dropdown-item disabled" href="#">VSM</a>
+						</div>
+					</li>
+					-->
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input id="color-picker" value='#276cb8' class="spectrum" style="width: 100%;cursor: pointer;"/>
+				</form>
+			</div>
+		</nav>
+		<!-- Three.js-->
+		<script type="module">
+			const pathThree="../../three.js";
+
+			import * as THREE from '../../three.js/build/three.module.js';
+
+			import { OrbitControls } from '../../three.js/examples/jsm/controls/OrbitControls.js';
+
+			import { GLTFLoader } from '../../three.js/examples/jsm/loaders/GLTFLoader.js';
+			import { RGBELoader } from '../../three.js/examples/jsm/loaders/RGBELoader.js';
+			//import { EXRLoader } from '../../three.js/examples/jsm/loaders/EXRLoader.js';
+
+			import { RoughnessMipmapper } from '../../three.js/examples/jsm/utils/RoughnessMipmapper.js';
+
+			//import { Reflector } from '../../three.js/examples/jsm/objects/Reflector.js';
+
+			import { RectAreaLightHelper } from '../../three.js/examples/jsm/helpers/RectAreaLightHelper.js';
+			import { RectAreaLightUniformsLib } from '../../three.js/examples/jsm/lights/RectAreaLightUniformsLib.js';
+
+			let camera, scene, renderer;
+			let spotLight;
+			let mixer,mixer2,clock;
+			let pmremGenerator;
+			let objectShown;
+
+			let allrend=0;
+			$('#color-picker').spectrum({
+				type: "component",
+				showPalette: false,
+				disabled: true,
+				showButtons: false,
+				allowEmpty: false,
+				showAlpha: false
+
+			});
+
+			$("#color-picker").on("dragstop.spectrum", function(e,color) {
+				objectShown.traverse( function ( child ) {
+					if ( child.isMesh ) {
+						child.material.color.setHex("0x"+color.toHexString().substring(1)); 
+					}
+
+				} );
+			});
+
+			init();
+			render();
+			function init() {
+
+				const container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 40, 1,0.1, 400 );
+				camera.position.set(3,5,-3);
+				scene = new THREE.Scene();
+
+
+				clock = new THREE.Clock();
+
+				var sot1 = Date.now()
+
+
+				console.log("Caricamento scena...");
+				const loader = new GLTFLoader().setPath( '../gltf/Parco/' );
+				loader.load( 'Parco.gltf', function ( gltf ) {
+					console.log((Date.now()-sot1)/1000+" sec|Scena caricata!");
+					gltf.scene.scale.multiplyScalar(10);
+					
+					
+
+					scene.add( gltf.scene );
+					const roughnessMipmapper = new RoughnessMipmapper( renderer );
+					gltf.scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+							roughnessMipmapper.generateMipmaps( child.material );
+							child.castShadow = true;
+							child.receiveShadow = true;
+						}
+						if(child.isSpotLight){
+							child.penumbra = 0.1;
+							child.castShadow = true;
+							child.shadow.camera.near = 0.1;
+							child.shadow.camera.far = 30;
+							child.shadow.mapSize.width = 1024*4;
+							child.shadow.mapSize.height = 1024*4;
+							//	PER VEDERE RAGGIO CAMERA
+							//scene.add( new THREE.CameraHelper( child.shadow.camera ) );
+						}
+						if(child.isCamera){
+							//camera = child;
+							//onWindowResize();
+							//scene.add( new THREE.CameraHelper( child ) );
+						}
+					} );
+					
+					
+					roughnessMipmapper.dispose();
+					//ANIMATIONS
+					mixer = new THREE.AnimationMixer( gltf.scene );
+
+					gltf.animations.forEach( ( clip ) => {
+					
+						mixer.clipAction( clip ).play();
+					
+					} );
+					//END ANIMATIONS
+
+					render();
+					console.log((Date.now()-sot1)/1000+" sec|Scena aggiunta!");
+					allRendered();
+				} );
+
+
+				var sot2 = Date.now()
+				console.log("Caricamento OGGETTO...");
+				const loader2 = new GLTFLoader().setPath( '../gltf/' );
+				loader2.load( 'Aneurysm.glb', function ( glb ) {
+					objectShown=glb.scene;
+					
+					console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
+<<<<<<< HEAD
+					glb.scene.scale.multiplyScalar(10);
+					glb.scene.position.set(0,0,0.2);
+					glb.scene.rotation.y=-Math.PI / 4;
+=======
+					glb.scene.scale.multiplyScalar(0.1);
+					glb.scene.position.set(0,1,0);
+>>>>>>> parent of b26c8d6 (test 5)
+					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
+
+					scene.add( glb.scene );
+					glb.scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+							roughnessMipmapper2.generateMipmaps( child.material );
+							child.castShadow = true;
+							child.receiveShadow = true;
+							$("#color-picker").spectrum("set", child.material.color.getHexString());
+						}
+
+					} );
+					roughnessMipmapper2.dispose();
+					//ANIMATIONS
+					mixer2 = new THREE.AnimationMixer( glb.scene );
+
+					glb.animations.forEach( ( clip ) => {
+					
+						mixer2.clipAction( clip ).play();
+					
+					} );
+					//END ANIMATIONS
+					endObjectRender()
+					console.log((Date.now()-sot2)/1000+" sec|OGGETTO aggiunto!");
+					allRendered();
+				} );
+
+				/*
+				console.log((Date.now()-sot)+"Caricamento exr...");
+				new EXRLoader()
+					.setDataType( THREE.UnsignedByteType )
+					.setPath( 'hdr/' )
+					.load( 'oberer_kuhberg_2k.exr', function ( texture ) {
+						console.log((Date.now()-sot)+"exr caricato!");
+						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+						console.log((Date.now()-sot)+"envMap Caricata");
+						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+      					rt.fromEquirectangularTexture(renderer, texture);
+						console.log((Date.now()-sot)+"exr convertito in cubemap!");
+						scene.background = rt;
+
+						//scene.environment = envMap;
+
+						texture.dispose();
+						pmremGenerator.dispose();
+
+					} );
+*/
+				var sot3 = Date.now()
+				console.log("Caricamento HDR...");
+				new RGBELoader()
+					.setDataType( THREE.UnsignedByteType )
+					.setPath( '../hdr/' )
+					.load( 'lilienstein_2k.hdr', function ( texture ) {
+						console.log((Date.now()-sot3)/1000+" sec|HDR caricato!");
+						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+      					rt.fromEquirectangularTexture(renderer, texture);
+						scene.background = rt;
+
+						scene.environment = envMap;
+
+						texture.dispose();
+						pmremGenerator.dispose();
+						console.log((Date.now()-sot3)/1000+" sec|HDR appicato!");
+						allRendered();
+
+					} );
+
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				//renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 1;
+				renderer.outputEncoding = THREE.sRGBEncoding;
+
+				renderer.shadowMap.enabled = false;//SHADOWMAP
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap;//SHADOWMAP TYPE
+
+				container.appendChild( renderer.domElement );
+
+				pmremGenerator = new THREE.PMREMGenerator( renderer );
+				pmremGenerator.compileEquirectangularShader();
+
+
+				/*
+				RectAreaLightUniformsLib.init();
+
+				const rectLight1 = new THREE.RectAreaLight( 0xffdd99, 1,40, 40 );
+				rectLight1.position.set( 40, 0, 0 );
+				rectLight1.rotation.y = Math.PI / 2;
+				scene.add( rectLight1 );
+				//scene.add( new RectAreaLightHelper( rectLight1 ) );
+					*/
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.minDistance = 2;
+				controls.maxDistance = 100;
+				controls.maxPolarAngle=Math.PI/2;
+				controls.enablePan=true;
+				controls.target.set( 0, 1, 0);
+				controls.update();
+
+				let g;
+				for(g=0;g<=4;g++)
+					document.getElementById("TM"+g).addEventListener("click", CToneMap.bind(g));
+
+				//SHADOWMAP CHANGER
+				/*
+				for(g=0;g<=3;g++)
+					document.getElementById("SM"+g).addEventListener("click", CShadowMap.bind(g));
+				*/
+				allRendered();
+			}
+
+			function fadeout(){
+				document.getElementById("cover").style.opacity-=0.05;
+				if(document.getElementById("cover").style.opacity>0){
+					setTimeout(fadeout, 50);
+				}else{
+					document.getElementById("cover").style.width="1px";
+					document.getElementById("cover").style.height="1px";
+					document.getElementById("info").style.opacity=1;
+				}
+			}
+
+			function allRendered(){
+				allrend++;
+				document.getElementById("progress-bar").style.width=allrend/4*100+"%";
+				if(allrend=="4"){
+					fadeout();
+					window.addEventListener( 'resize', onWindowResize );
+					onWindowResize();
+				}
+			}
+
+			function endObjectRender(){
+				$("#color-picker").spectrum("enable");
+			}
+
+			function CToneMap(){
+				scene.traverse( function ( child ) {
+					if ( child.isMesh ) {
+						
+						child.material.needsUpdate = true;
+
+					}
+				} );
+				switch(this){
+					case 1:
+						renderer.toneMapping=THREE.LinearToneMapping;
+						break;
+					case 2:
+						renderer.toneMapping=THREE.ReinhardToneMapping;
+						break;
+					case 3:
+						renderer.toneMapping=THREE.CineonToneMapping;
+						break;
+					case 4:
+						renderer.toneMapping=THREE.ACESFilmicToneMapping;
+						break;
+					default:
+						renderer.toneMapping=THREE.NoToneMapping;
+						break;
+				}
+
+				for(var f=0;f<=4;f++)
+				{
+					document.getElementById("TM"+f).style.fontWeight="normal";
+				}
+				document.getElementById("TM"+this).style.fontWeight="bold";
+			}
+
+			function CShadowMap(){
+				scene.traverse( function ( child ) {
+					if ( child.isMesh ) {
+						
+						child.material.needsUpdate = true;
+
+					}
+				} );
+				switch(this){
+					case 1:
+						renderer.shadowMap.type = THREE.PCFShadowMap;
+						break;
+					case 2:
+						renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+						break;
+					case 3:
+						renderer.shadowMap.type = THREE.VSMShadowMap;
+						break;
+					default:
+						renderer.shadowMap.type = THREE.BasicShadowMap;
+						break;
+				}
+				for(var f=0;f<=3;f++)
+				{
+					document.getElementById("SM"+f).style.fontWeight="normal";
+				}
+				document.getElementById("SM"+this).style.fontWeight="bold";
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+			function render() {
+				requestAnimationFrame( render );
+  
+				var delta = clock.getDelta();
+				
+				if ( mixer ) mixer.update( delta );
+				if ( mixer2 ) mixer2.update( delta );
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+</html>
