@@ -24,6 +24,11 @@ TEST_4
 2) Disattivata la mappatura delle ombre per "Problema 1"
 3) Aggiunto animazione per il caricamento
 
+TEST_5
+1)Aggiunto controllo alla posizione della camera e la possibilità di spostarsi con il tasto destro
+2)Aggiunto location "parco"
+3)Aggiunto modello cliente
+
 PROBELMI
 1) le ombre fanno pena, hanno varie linee nere come se fossero disturbate,migliorare la risoluzione non cambia
 problema più visibile in BASIC shadowmap
