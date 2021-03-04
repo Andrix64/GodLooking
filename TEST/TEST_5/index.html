@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 	<head>
 		<title>three.js/glTF loader/shadowmap/altro</title>
 		<meta charset="utf-8">
@@ -7,12 +7,13 @@
 		<link rel="stylesheet" type="text/css" href="./main.css">
 
 		<!--bootstrap-->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 		
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+		
 
 		<!--spectrum-->
 		<link rel="stylesheet" type="text/css" href="../../spectrum/src/spectrum.css">
@@ -22,25 +23,35 @@
 
 	<body>
 		<!-- Caricamento -->
-		<div id="cover" style="opacity: 1;width: 100%; height: 100%;position: absolute;">
-			<div class="container-fluid" style="width: 100%; height: 100%;position: absolute;z-index: 10;">
+		<div id="cover" style="opacity: 1;width: 100%; height: 100%;position: absolute;z-index: 10;">
+			<img draggable="false" src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
+			<div class="container-fluid" style="height: 100%;position: absolute;">
 				<div class="row justify-content-md-center align-items-end" style="height: 50%;">
 					<div class="col col-lg-5">
-						<video draggable="false" style="max-width: 640px;max-height: 360px;" width="100%" height="100%" autoplay loop>
+						<video draggable="false" width="100%" height="100%" autoplay loop>
 							<source src="../mp4/loading.mp4" type="video/mp4" />
 							Your browser does not support the video tag.
 						</video>
 					</div>
 				</div>
-				<div class="row justify-content-md-center align-items-start" style="height: 50%;">
+				<div class="row justify-content-md-center align-items-start" style="height: 10%;">
 					<div class="col col-lg-5">
 						<div class="progress">
 							<div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
 						</div>
 					</div>
 				</div>
+				<div class="row justify-content-md-center" >
+					<div class="col-2 font-weight-bold" id="load1"> </div>
+				</div>
+				<div class="row justify-content-md-center">
+					<div class="col-2 font-weight-bold" id="load2"> </div>
+				</div>
+				<div class="row justify-content-md-center">
+					<div class="col-2 font-weight-bold" id="load3"> </div>
+				</div>
 			</div>
-			<img draggable="false" src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
+			
 		</div>
 		
 		<!-- Info -->
@@ -48,45 +59,46 @@
 		</div>
 
 		<nav id="info" class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: absolute;width: 100%;opacity: 0;">
-			<a class="navbar-brand" href="http://www.dvisionlab.com">
-				<img src="../png/logo.png" width="60" height="30" alt="logo">
-			</a>
-			<a class="navbar-brand" href="#" style="cursor: default">Test 4</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			  	<span class="navbar-toggler-icon"></span>
-			</button>
-		  
-			<div class="collapse navbar-collapse" id="navbarSupportedContent" >
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Tone Mapping
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a id="TM0" class="dropdown-item" href="#">No</a>
-							<a id="TM1" class="dropdown-item" href="#">Linear</a>
-							<a id="TM2" class="dropdown-item" href="#">Reinhard</a>
-							<a id="TM3" class="dropdown-item" href="#">Cineon</a>
-							<a id="TM4" class="dropdown-item" href="#">ACESFilmic</a>
-						</div>
-					</li>
-					<!-- Shadow map button
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Shadow Mapping
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a id="SM0" class="dropdown-item disabled" href="#">Basic</a>
-							<a id="SM1" class="dropdown-item disabled" href="#">PCF</a>
-							<a id="SM2" class="dropdown-item disabled" href="#">PCFSoft</a>
-							<a id="SM3" class="dropdown-item disabled" href="#">VSM</a>
-						</div>
-					</li>
-					-->
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input id="color-picker" value='#276cb8' class="spectrum" style="width: 100%;cursor: pointer;"/>
-				</form>
+			<div class="container-fluid">
+				<a class="navbar-brand" href="http://www.dvisionlab.com">
+					<img src="../png/logo.png" width="60" height="30" alt="logo">
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			
+				<div class="collapse navbar-collapse" id="navbarSupportedContent" >
+					<ul class="navbar-nav mr-auto me-auto mb-2 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Tone Mapping
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a id="TM0" class="dropdown-item" href="#">No</a>
+								<a id="TM1" class="dropdown-item" href="#">Linear</a>
+								<a id="TM2" class="dropdown-item" href="#">Reinhard</a>
+								<a id="TM3" class="dropdown-item" href="#">Cineon</a>
+								<a id="TM4" class="dropdown-item" href="#" style="font-weight: bold;">ACESFilmic</a>
+							</div>
+						</li>
+						<!-- Shadow map button
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Shadow Mapping
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a id="SM0" class="dropdown-item disabled" href="#">Basic</a>
+								<a id="SM1" class="dropdown-item disabled" href="#">PCF</a>
+								<a id="SM2" class="dropdown-item disabled" href="#">PCFSoft</a>
+								<a id="SM3" class="dropdown-item disabled" href="#">VSM</a>
+							</div>
+						</li>
+						-->
+					</ul>
+					<form class="d-flex">
+						<input id="color-picker" value='#276cb8' class="spectrum" style="cursor: pointer;width: 100%;"/>
+					</form>
+				</div>
 			</div>
 		</nav>
 		<!-- Three.js-->
@@ -149,13 +161,8 @@
 
 				clock = new THREE.Clock();
 
-				var sot1 = Date.now()
-
-
-				console.log("Caricamento scena...");
 				const loader = new GLTFLoader().setPath( '../gltf/Parco/' );
 				loader.load( 'Parco.gltf', function ( gltf ) {
-					console.log((Date.now()-sot1)/1000+" sec|Scena caricata!");
 					gltf.scene.scale.multiplyScalar(10);
 					
 					
@@ -199,18 +206,22 @@
 					//END ANIMATIONS
 
 					render();
-					console.log((Date.now()-sot1)/1000+" sec|Scena aggiunta!");
 					allRendered();
+				},
+				function ( xhr ) {
+					document.getElementById("load1").innerHTML="Scena: "+Math.floor( xhr.loaded / xhr.total * 100 )+"% loaded";
+				},
+				// called when loading has errors
+				function ( error ) {
+					document.getElementById("load3").innerHTML="An error happened loading the scene";
+
 				} );
 
 
-				var sot2 = Date.now()
-				console.log("Caricamento OGGETTO...");
 				const loader2 = new GLTFLoader().setPath( '../gltf/' );
 				loader2.load( 'totem.glb', function ( glb ) {
 					objectShown=glb.scene;
-					
-					console.log((Date.now()-sot2)/1000+" sec|OGGETTO caricato!");
+
 					glb.scene.scale.multiplyScalar(10);
 					glb.scene.position.set(0,0,1);
 					glb.scene.rotation.y=-Math.PI / 4;
@@ -239,8 +250,15 @@
 					} );
 					//END ANIMATIONS
 					endObjectRender()
-					console.log((Date.now()-sot2)/1000+" sec|OGGETTO aggiunto!");
 					allRendered();
+				},
+				function ( xhr ) {
+					document.getElementById("load2").innerHTML="Oggetto: "+Math.floor( xhr.loaded / xhr.total * 100 )+"% loaded";
+				},
+				// called when loading has errors
+				function ( error ) {
+					document.getElementById("load3").innerHTML="An error happened loading the Object";
+
 				} );
 
 				/*
@@ -288,14 +306,10 @@
 
 				*/
 
-
-				var sot3 = Date.now()
-				console.log("Caricamento HDR...");
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
 					.setPath( '../hdr/' )
 					.load( 'lilienstein_2k.hdr', function ( texture ) {
-						console.log((Date.now()-sot3)/1000+" sec|HDR caricato!");
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
       					rt.fromEquirectangularTexture(renderer, texture);
@@ -305,8 +319,15 @@
 
 						texture.dispose();
 						pmremGenerator.dispose();
-						console.log((Date.now()-sot3)/1000+" sec|HDR appicato!");
 						allRendered();
+
+					},
+					function ( xhr ) {
+						document.getElementById("load3").innerHTML="HDR: "+Math.floor( xhr.loaded / xhr.total * 100 )+"% loaded";
+					},
+					// called when loading has errors
+					function ( error ) {
+						document.getElementById("load3").innerHTML="An error happened loading HDR";
 
 					} );
 
@@ -481,6 +502,5 @@
 			}
 
 		</script>
-
 	</body>
 </html>
