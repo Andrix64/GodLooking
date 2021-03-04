@@ -155,7 +155,7 @@
 				document.body.appendChild( container );
 
 				camera = new THREE.PerspectiveCamera( 40, 1,0.1, 400 );
-				camera.position.set(-10,0,10);
+				camera.position.set(-10,10,10);
 				scene = new THREE.Scene();
 
 
@@ -273,8 +273,8 @@
 				controls.minDistance = 7;
 				controls.maxDistance = 30;
 				controls.maxPolarAngle=Math.PI/2;
-				controls.enablePan=true;
-				controls.target.set( 0, 0, 1);
+				controls.enablePan=false;
+				controls.target.set( 0, 3, 0);
 
 				var minPan = new THREE.Vector3( - 4, - 2, - 4 );
 				var maxPan = new THREE.Vector3( 4, 10, 4 );
