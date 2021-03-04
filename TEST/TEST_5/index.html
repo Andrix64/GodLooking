@@ -164,7 +164,7 @@
 
 				clock = new THREE.Clock();
 
-				const loader = new GLTFLoader().setPath( '../gltf/Parco1/' );
+				const loader = new GLTFLoader().setPath( '../gltf/Parco/' );
 				loader.load( 'Parco.gltf', function ( gltf ) {
 					document.getElementById("load1").innerHTML="Scena: 100% loaded";
 					gltf.scene.scale.multiplyScalar(10);
@@ -314,7 +314,7 @@
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
 					.setPath( '../hdr/' )
-					.load( 'lilienstein_2k.hdr', function ( texture ) {
+					.load( 'lilienstein_4k.hdr', function ( texture ) {
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
       					rt.fromEquirectangularTexture(renderer, texture);

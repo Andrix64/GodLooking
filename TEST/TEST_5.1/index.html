@@ -161,8 +161,8 @@
 
 				clock = new THREE.Clock();
 
-				const loader = new GLTFLoader().setPath( '../gltf/Parco/' );
-				loader.load( 'Parco.glb', function ( gltf ) {
+				const loader = new GLTFLoader().setPath( '../gltf/baked/' );
+				loader.load( 'Industrial.gltf', function ( gltf ) {
 					document.getElementById("load1").innerHTML="Scena: 100% loaded";
 					gltf.scene.scale.multiplyScalar(2);
 					
