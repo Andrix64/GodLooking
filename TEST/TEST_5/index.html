@@ -26,7 +26,7 @@
 		<div id="cover" style="opacity: 1;width: 100%; height: 100%;position: absolute;z-index: 10;">
 			<img draggable="false" src="../png/white.png"  style="width: 100%; height: 100%;position: absolute;">
 			<div class="container-fluid" style="height: 100%;position: absolute;">
-				<div class="row justify-content-md-center align-items-end" style="height: 50%;">
+				<div class="row justify-content-md-center align-items-end">
 					<div class="col col-lg-5">
 						<video draggable="false" width="100%" height="100%" autoplay loop>
 							<source src="../mp4/loading.mp4" type="video/mp4" />
@@ -34,7 +34,7 @@
 						</video>
 					</div>
 				</div>
-				<div class="row justify-content-md-center align-items-start" style="height: 10%;">
+				<div class="row justify-content-md-center align-items-start">
 					<div class="col col-lg-5">
 						<div class="progress">
 							<div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
@@ -42,13 +42,16 @@
 					</div>
 				</div>
 				<div class="row justify-content-md-center" >
-					<div class="col-2 font-weight-bold" id="load1"> </div>
+					<div class="col font-weight-bold text-center" id="load1"> </div>
 				</div>
 				<div class="row justify-content-md-center">
-					<div class="col-2 font-weight-bold" id="load2"> </div>
+					<div class="col font-weight-bold text-center" id="load2"> </div>
 				</div>
 				<div class="row justify-content-md-center">
-					<div class="col-2 font-weight-bold" id="load3"> </div>
+					<div class="col font-weight-bold text-center" id="load3"> </div>
+				</div>
+				<div class="row justify-content-md-center">
+					<div class="col font-weight-italic text-center" id="load3"> (Do not worry if seem stuck the texture file is big)</div>
 				</div>
 			</div>
 			
@@ -163,6 +166,7 @@
 
 				const loader = new GLTFLoader().setPath( '../gltf/Parco/' );
 				loader.load( 'Parco.gltf', function ( gltf ) {
+					document.getElementById("load1").innerHTML="Scena: 100% loaded";
 					gltf.scene.scale.multiplyScalar(10);
 					
 					
@@ -209,7 +213,7 @@
 					allRendered();
 				},
 				function ( xhr ) {
-					document.getElementById("load1").innerHTML="Scena: "+Math.floor( xhr.loaded / xhr.total * 100 )+"% loaded";
+					document.getElementById("load1").innerHTML="Scena: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
 				},
 				// called when loading has errors
 				function ( error ) {
@@ -220,6 +224,7 @@
 
 				const loader2 = new GLTFLoader().setPath( '../gltf/' );
 				loader2.load( 'totem.glb', function ( glb ) {
+					document.getElementById("load2").innerHTML="Oggetto: 100% loaded";
 					objectShown=glb.scene;
 
 					glb.scene.scale.multiplyScalar(10);
@@ -253,7 +258,7 @@
 					allRendered();
 				},
 				function ( xhr ) {
-					document.getElementById("load2").innerHTML="Oggetto: "+Math.floor( xhr.loaded / xhr.total * 100 )+"% loaded";
+					document.getElementById("load2").innerHTML="Oggetto: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
 				},
 				// called when loading has errors
 				function ( error ) {
