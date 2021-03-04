@@ -29,6 +29,7 @@ TEST_5
 2)Aggiunto location "parco"
 3)Aggiunto modello cliente
 
+
 PROBELMI
 1) le ombre fanno pena, hanno varie linee nere come se fossero disturbate,migliorare la risoluzione non cambia
 problema più visibile in BASIC shadowmap
