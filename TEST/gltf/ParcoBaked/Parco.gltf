@@ -1,0 +1,191 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.4.40",
+        "version" : "2.0"
+    },
+    "extensionsUsed" : [
+        "KHR_draco_mesh_compression"
+    ],
+    "extensionsRequired" : [
+        "KHR_draco_mesh_compression"
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "extras" : {
+                "glTF2ExportSettings" : {
+                    "export_apply" : 1,
+                    "export_draco_mesh_compression_enable" : 1,
+                    "export_extras" : 1,
+                    "export_format" : "GLTF_SEPARATE",
+                    "export_image_format" : "AUTO",
+                    "export_tangents" : 1,
+                    "export_texture_dir" : "texture",
+                    "use_selection" : 1
+                }
+            },
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Plane.002",
+            "scale" : [
+                42.9766960144043,
+                42.9766960144043,
+                42.9766960144043
+            ],
+            "translation" : [
+                -1.7377561330795288,
+                1.4575713872909546,
+                6.012317180633545
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "TerrenoHD",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "metallicRoughnessTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                }
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Plane.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TANGENT" : 2,
+                        "TEXCOORD_0" : 3
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 1,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 4,
+                    "material" : 0,
+                    "mode" : 4
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "cobblestone_floor_08_nor_2k",
+            "uri" : "texture/cobblestone_floor_08_nor_2k.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "cobblestone_floor_08_diff_2k",
+            "uri" : "texture/cobblestone_floor_08_diff_2k.jpg"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "cobblestone_floor_08_rough_2k",
+            "uri" : "texture/cobblestone_floor_08_rough_2k.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "componentType" : 5126,
+            "count" : 2754,
+            "max" : [
+                0.19471940398216248,
+                -0.015720071271061897,
+                0.029703130945563316
+            ],
+            "min" : [
+                -0.1353137046098709,
+                -0.07637231796979904,
+                -0.32013189792633057
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 2754,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 2754,
+            "type" : "VEC4"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 2754,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 15900,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 44064,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 10001,
+            "byteOffset" : 44064
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9986
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 54068,
+            "uri" : "Parco.bin"
+        }
+    ]
+}

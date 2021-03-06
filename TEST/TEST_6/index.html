@@ -344,6 +344,38 @@
 
 				} );
 
+
+				const loader3 = new GLTFLoader().setPath( '../gltf/NewParco/' );
+
+				loader3.setDRACOLoader( dracoLoader );
+
+				loader3.load( 'Wood.glb', function ( glb ) {
+
+					glb.scene.scale.multiplyScalar(10);
+					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
+
+					scene.add( glb.scene );
+					glb.scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+							roughnessMipmapper2.generateMipmaps( child.material );
+							child.castShadow = true;
+							child.receiveShadow = true;
+						}
+
+					} );
+					roughnessMipmapper2.dispose();
+					//ANIMATIONS
+					mixer2 = new THREE.AnimationMixer( glb.scene );
+
+					glb.animations.forEach( ( clip ) => {
+					
+						mixer2.clipAction( clip ).play();
+					
+					} );
+					//END ANIMATIONS
+				} );
+
 				/*
 				var sot2 = Date.now()
 				console.log("Caricamento OGGETTO...");
