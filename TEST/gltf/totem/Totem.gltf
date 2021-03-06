@@ -1,0 +1,145 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.4.40",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "extras" : {
+                "glTF2ExportSettings" : {
+                    "export_apply" : 1,
+                    "export_extras" : 1,
+                    "export_format" : "GLTF_SEPARATE",
+                    "export_image_format" : "AUTO",
+                    "export_tangents" : 1,
+                    "export_texture_dir" : "texture",
+                    "use_selection" : 1
+                }
+            },
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "dvision_Importato",
+            "translation" : [
+                0,
+                -0.12744936347007751,
+                0
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Material.001",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    1,
+                    0.0016795038245618343,
+                    0,
+                    1
+                ],
+                "metallicFactor" : 0.8999999761581421,
+                "roughnessFactor" : 0.18030302226543427
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "dvision_Importato",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TANGENT" : 2,
+                        "TEXCOORD_0" : 3
+                    },
+                    "indices" : 4,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 241031,
+            "max" : [
+                0.19017082452774048,
+                0.9269062280654907,
+                0.18196739256381989
+            ],
+            "min" : [
+                -0.17439617216587067,
+                -0.8530937433242798,
+                -0.172105610370636
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 241031,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 241031,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 241031,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5125,
+            "count" : 723024,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 2892372,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2892372,
+            "byteOffset" : 2892372
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3856496,
+            "byteOffset" : 5784744
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1928248,
+            "byteOffset" : 9641240
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2892096,
+            "byteOffset" : 11569488
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 14461584,
+            "uri" : "Totem.bin"
+        }
+    ]
+}
