@@ -434,7 +434,7 @@
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
 					.setPath( '../hdr/' )
-					.load( 'lilienstein_4k.hdr', function ( texture ) {
+					.load( 'lilienstein_2k.hdr', function ( texture ) {
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
       					rt.fromEquirectangularTexture(renderer, texture);
