@@ -51,7 +51,7 @@
 					<div class="col font-weight-bold text-center" id="load3"> </div>
 				</div>
 				<div class="row justify-content-md-center">
-					<div class="col font-weight-italic text-center" id="load3"> (Do not worry if seem stuck the texture file is big)</div>
+					<div class="col font-weight-bold text-center" id="load4"> </div>
 				</div>
 			</div>
 			
@@ -233,7 +233,7 @@
 					},
 					// called when loading has errors
 					function ( error ) {
-						document.getElementById("load3").innerHTML="An error happened loading the scene";
+						document.getElementById("load1").innerHTML="An error happened loading the scene";
 
 					}
 				);
@@ -332,7 +332,6 @@
 					
 					} );
 					//END ANIMATIONS
-					endObjectRender()
 					allRendered();
 				},
 				function ( xhr ) {
@@ -340,7 +339,7 @@
 				},
 				// called when loading has errors
 				function ( error ) {
-					document.getElementById("load3").innerHTML="An error happened loading the Object";
+					document.getElementById("load2").innerHTML="An error happened loading the Object";
 
 				} );
 
@@ -374,6 +373,16 @@
 					
 					} );
 					//END ANIMATIONS
+					endObjectRender()
+					allRendered();
+				} ,
+				function ( xhr ) {
+					document.getElementById("load4").innerHTML="Decorazioni: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
+				},
+				// called when loading has errors
+				function ( error ) {
+					document.getElementById("load4").innerHTML="An error happened loading the Decorations";
+
 				} );
 
 				/*
@@ -519,8 +528,8 @@
 
 			function allRendered(){
 				allrend++;
-				document.getElementById("progress-bar").style.width=allrend/4*100+"%";
-				if(allrend=="4"){
+				document.getElementById("progress-bar").style.width=allrend/5*100+"%";
+				if(allrend=="5"){
 					fadeout();
 					window.addEventListener( 'resize', onWindowResize );
 					click=true;
