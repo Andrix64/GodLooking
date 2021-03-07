@@ -302,7 +302,8 @@
 
 				*/
 				const loader2 = new GLTFLoader().setPath( '../gltf/totem/' );
-				loader2.load( 'Totem.gltf', function ( glb ) {
+				loader2.setDRACOLoader( dracoLoader );
+				loader2.load( 'Totem.glb', function ( glb ) {
 					document.getElementById("load2").innerHTML="Oggetto: 100% loaded";
 					objectShown=glb.scene;
 

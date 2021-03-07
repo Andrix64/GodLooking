@@ -3,12 +3,19 @@
         "generator" : "Khronos glTF Blender I/O v1.4.40",
         "version" : "2.0"
     },
+    "extensionsUsed" : [
+        "KHR_draco_mesh_compression"
+    ],
+    "extensionsRequired" : [
+        "KHR_draco_mesh_compression"
+    ],
     "scene" : 0,
     "scenes" : [
         {
             "extras" : {
                 "glTF2ExportSettings" : {
                     "export_apply" : 1,
+                    "export_draco_mesh_compression_enable" : 1,
                     "export_extras" : 1,
                     "export_format" : "GLTF_SEPARATE",
                     "export_image_format" : "AUTO",
@@ -41,12 +48,12 @@
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     1,
-                    0.0016795038245618343,
                     0,
+                    0.005268814507871866,
                     1
                 ],
                 "metallicFactor" : 0.8999999761581421,
-                "roughnessFactor" : 0.18030302226543427
+                "roughnessFactor" : 0
             }
         }
     ],
@@ -61,15 +68,25 @@
                         "TANGENT" : 2,
                         "TEXCOORD_0" : 3
                     },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 1,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
                     "indices" : 4,
-                    "material" : 0
+                    "material" : 0,
+                    "mode" : 4
                 }
             ]
         }
     ],
     "accessors" : [
         {
-            "bufferView" : 0,
             "componentType" : 5126,
             "count" : 241031,
             "max" : [
@@ -85,25 +102,22 @@
             "type" : "VEC3"
         },
         {
-            "bufferView" : 1,
             "componentType" : 5126,
             "count" : 241031,
             "type" : "VEC3"
         },
         {
-            "bufferView" : 2,
+            "bufferView" : 0,
             "componentType" : 5126,
             "count" : 241031,
             "type" : "VEC4"
         },
         {
-            "bufferView" : 3,
             "componentType" : 5126,
             "count" : 241031,
             "type" : "VEC2"
         },
         {
-            "bufferView" : 4,
             "componentType" : 5125,
             "count" : 723024,
             "type" : "SCALAR"
@@ -112,33 +126,18 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 2892372,
+            "byteLength" : 3856496,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 2892372,
-            "byteOffset" : 2892372
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3856496,
-            "byteOffset" : 5784744
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1928248,
-            "byteOffset" : 9641240
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 2892096,
-            "byteOffset" : 11569488
+            "byteLength" : 1121199,
+            "byteOffset" : 3856496
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 14461584,
+            "byteLength" : 4977696,
             "uri" : "Totem.bin"
         }
     ]
