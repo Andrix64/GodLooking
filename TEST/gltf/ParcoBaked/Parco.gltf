@@ -4,7 +4,8 @@
         "version" : "2.0"
     },
     "extensionsUsed" : [
-        "KHR_draco_mesh_compression"
+        "KHR_draco_mesh_compression",
+        "KHR_materials_transmission"
     ],
     "extensionsRequired" : [
         "KHR_draco_mesh_compression"
@@ -21,18 +22,550 @@
                     "export_image_format" : "AUTO",
                     "export_tangents" : 1,
                     "export_texture_dir" : "texture",
-                    "use_selection" : 1
+                    "use_selection" : 0
                 }
             },
             "name" : "Scene",
             "nodes" : [
-                0
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26
             ]
         }
     ],
     "nodes" : [
         {
             "mesh" : 0,
+            "name" : "Bank_02",
+            "rotation" : [
+                0.6495468020439148,
+                -0.279975950717926,
+                0.2802188992500305,
+                0.6489836573600769
+            ],
+            "scale" : [
+                0.01329751592129469,
+                0.01329751592129469,
+                0.01329751592129469
+            ],
+            "translation" : [
+                -0.8734285831451416,
+                -1.054016351699829,
+                -0.9299107789993286
+            ]
+        },
+        {
+            "extras" : {
+                "renderset_uuid" : "9e2f53c48fdd4c8db0fc12d8b6945402"
+            },
+            "mesh" : 1,
+            "name" : "Tree_Picea-abies_C_spring-summer-autumn.001",
+            "translation" : [
+                1.5314819812774658,
+                -0.7914041876792908,
+                -3.3447165489196777
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "street_lamp.001",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -4.637164115905762,
+                1.1988381147384644,
+                0.9705551266670227
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "street_lamp.002",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -5.565208911895752,
+                1.4877305030822754,
+                -9.291923522949219
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "street_lamp.003",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -15.276912689208984,
+                -0.14771905541419983,
+                -7.367905616760254
+            ]
+        },
+        {
+            "mesh" : 5,
+            "name" : "street_lamp.004",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -24.603792190551758,
+                3.920309066772461,
+                -9.47397518157959
+            ]
+        },
+        {
+            "mesh" : 6,
+            "name" : "street_lamp.005",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -20.14093017578125,
+                0.3828408718109131,
+                1.5076732635498047
+            ]
+        },
+        {
+            "mesh" : 7,
+            "name" : "street_lamp.006",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -21.344398498535156,
+                3.9009439945220947,
+                10.282963752746582
+            ]
+        },
+        {
+            "mesh" : 8,
+            "name" : "street_lamp.007",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -11.616362571716309,
+                4.0173468589782715,
+                14.495102882385254
+            ]
+        },
+        {
+            "mesh" : 9,
+            "name" : "street_lamp.008",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -14.424455642700195,
+                3.2998833656311035,
+                22.618515014648438
+            ]
+        },
+        {
+            "mesh" : 10,
+            "name" : "street_lamp.009",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -14.775466918945312,
+                2.205514907836914,
+                33.850887298583984
+            ]
+        },
+        {
+            "mesh" : 11,
+            "name" : "street_lamp.010",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -26.408994674682617,
+                5.259091854095459,
+                28.28484344482422
+            ]
+        },
+        {
+            "mesh" : 12,
+            "name" : "street_lamp.011",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -27.01072883605957,
+                4.9593119621276855,
+                19.359119415283203
+            ]
+        },
+        {
+            "mesh" : 13,
+            "name" : "street_lamp.012",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -36.086883544921875,
+                5.299163818359375,
+                17.604061126708984
+            ]
+        },
+        {
+            "mesh" : 14,
+            "name" : "street_lamp.013",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -36.83905029296875,
+                3.7514615058898926,
+                7.976315021514893
+            ]
+        },
+        {
+            "mesh" : 15,
+            "name" : "street_lamp.014",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -44.36072540283203,
+                3.8531956672668457,
+                10.182673454284668
+            ]
+        },
+        {
+            "mesh" : 16,
+            "name" : "street_lamp.015",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                5.953357696533203,
+                0.982583224773407,
+                3.2571451663970947
+            ]
+        },
+        {
+            "mesh" : 17,
+            "name" : "street_lamp.016",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                13.113994598388672,
+                2.6877923011779785,
+                8.25153923034668
+            ]
+        },
+        {
+            "mesh" : 18,
+            "name" : "street_lamp.017",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                16.06249237060547,
+                -0.22253087162971497,
+                0.6095147132873535
+            ]
+        },
+        {
+            "mesh" : 19,
+            "name" : "street_lamp.018",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                20.27463150024414,
+                -0.3377065658569336,
+                -5.046786785125732
+            ]
+        },
+        {
+            "mesh" : 20,
+            "name" : "street_lamp.019",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                12.813127517700195,
+                1.5978143215179443,
+                -10.342047691345215
+            ]
+        },
+        {
+            "mesh" : 21,
+            "name" : "street_lamp.020",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                12.572433471679688,
+                3.3680882453918457,
+                -19.24771499633789
+            ]
+        },
+        {
+            "mesh" : 22,
+            "name" : "street_lamp.021",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                3.065032958984375,
+                4.4922871589660645,
+                -21.654651641845703
+            ]
+        },
+        {
+            "mesh" : 23,
+            "name" : "street_lamp.022",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                3.9676342010498047,
+                5.889682769775391,
+                -29.778064727783203
+            ]
+        },
+        {
+            "mesh" : 24,
+            "name" : "street_lamp.023",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.0023816784378141165,
+                0.0023816784378141165,
+                0.0023816784378141165
+            ],
+            "translation" : [
+                -1.0267596244812012,
+                6.254213809967041,
+                -35.91575241088867
+            ]
+        },
+        {
+            "mesh" : 25,
+            "name" : "Plane.001",
+            "scale" : [
+                42.9766960144043,
+                42.9766960144043,
+                42.9766960144043
+            ],
+            "translation" : [
+                -1.7377561330795288,
+                1.4575713872909546,
+                6.012317180633545
+            ]
+        },
+        {
+            "mesh" : 26,
             "name" : "Plane.002",
             "scale" : [
                 42.9766960144043,
@@ -49,7 +582,7 @@
     "materials" : [
         {
             "doubleSided" : true,
-            "name" : "TerrenoHD",
+            "name" : "wire_153228214",
             "normalTexture" : {
                 "index" : 0,
                 "texCoord" : 0
@@ -65,18 +598,149 @@
                     "texCoord" : 0
                 }
             }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "wire_135059008",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 3,
+                    "texCoord" : 0
+                },
+                "roughnessFactor" : 0.3772730827331543
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "Bark_Picea-abies",
+            "normalTexture" : {
+                "index" : 4,
+                "scale" : 2,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.5225215554237366,
+                    0.5225215554237366,
+                    0.5225215554237366,
+                    1
+                ],
+                "baseColorTexture" : {
+                    "index" : 5,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.800000011920929
+            }
+        },
+        {
+            "alphaCutoff" : 0.20000000298023224,
+            "alphaMode" : "MASK",
+            "doubleSided" : true,
+            "name" : "Leaf_Picea-abies",
+            "normalTexture" : {
+                "index" : 6,
+                "scale" : 10,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 7,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "wire_154185229.001",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "metallicFactor" : 0.7350649237632751,
+                "roughnessFactor" : 0.41688311100006104
+            }
+        },
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                1,
+                1,
+                0.5081970021603155
+            ],
+            "extensions" : {
+                "KHR_materials_transmission" : {
+                    "transmissionFactor" : 0.9428571462631226
+                }
+            },
+            "name" : "Material.006",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.8000000715255737,
+                    0.7300427556037903,
+                    0.05904192104935646,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "TerrenoLD",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 8,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "TerrenoHD",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 9,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0
+            }
         }
     ],
     "meshes" : [
         {
-            "name" : "Plane.001",
+            "name" : "Bank_02",
             "primitives" : [
                 {
                     "attributes" : {
                         "POSITION" : 0,
                         "NORMAL" : 1,
-                        "TANGENT" : 2,
-                        "TEXCOORD_0" : 3
+                        "TEXCOORD_0" : 2
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 0,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 0,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -88,8 +752,1140 @@
                             }
                         }
                     },
-                    "indices" : 4,
-                    "material" : 0,
+                    "indices" : 7,
+                    "material" : 1,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "Tree_Picea-abies_C_spring-summer-autumn",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 2,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 11,
+                    "material" : 2,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13,
+                        "TEXCOORD_0" : 14
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 3,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 15,
+                    "material" : 3,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 16,
+                        "NORMAL" : 17,
+                        "TEXCOORD_0" : 18
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 4,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 20,
+                        "NORMAL" : 21,
+                        "TEXCOORD_0" : 22
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 5,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.002",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 24,
+                        "NORMAL" : 25,
+                        "TEXCOORD_0" : 26
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 6,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 27,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 28,
+                        "NORMAL" : 29,
+                        "TEXCOORD_0" : 30
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 7,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 31,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.003",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 32,
+                        "NORMAL" : 33,
+                        "TEXCOORD_0" : 34
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 8,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 35,
+                        "NORMAL" : 36,
+                        "TEXCOORD_0" : 37
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 9,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.004",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 38,
+                        "NORMAL" : 39,
+                        "TEXCOORD_0" : 40
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 10,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 41,
+                        "NORMAL" : 42,
+                        "TEXCOORD_0" : 43
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 11,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.005",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 44,
+                        "NORMAL" : 45,
+                        "TEXCOORD_0" : 46
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 12,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 47,
+                        "NORMAL" : 48,
+                        "TEXCOORD_0" : 49
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 13,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.006",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 50,
+                        "NORMAL" : 51,
+                        "TEXCOORD_0" : 52
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 14,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 53,
+                        "NORMAL" : 54,
+                        "TEXCOORD_0" : 55
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 15,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.007",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 56,
+                        "NORMAL" : 57,
+                        "TEXCOORD_0" : 58
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 16,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 59,
+                        "NORMAL" : 60,
+                        "TEXCOORD_0" : 61
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 17,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.008",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 62,
+                        "NORMAL" : 63,
+                        "TEXCOORD_0" : 64
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 18,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 65,
+                        "NORMAL" : 66,
+                        "TEXCOORD_0" : 67
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 19,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.009",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 68,
+                        "NORMAL" : 69,
+                        "TEXCOORD_0" : 70
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 20,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 71,
+                        "NORMAL" : 72,
+                        "TEXCOORD_0" : 73
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 21,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.010",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 74,
+                        "NORMAL" : 75,
+                        "TEXCOORD_0" : 76
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 22,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 77,
+                        "NORMAL" : 78,
+                        "TEXCOORD_0" : 79
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 23,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.011",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 80,
+                        "NORMAL" : 81,
+                        "TEXCOORD_0" : 82
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 24,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 83,
+                        "NORMAL" : 84,
+                        "TEXCOORD_0" : 85
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 25,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.012",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 86,
+                        "NORMAL" : 87,
+                        "TEXCOORD_0" : 88
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 26,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 89,
+                        "NORMAL" : 90,
+                        "TEXCOORD_0" : 91
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 27,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.013",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 92,
+                        "NORMAL" : 93,
+                        "TEXCOORD_0" : 94
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 28,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 95,
+                        "NORMAL" : 96,
+                        "TEXCOORD_0" : 97
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 29,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.014",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 98,
+                        "NORMAL" : 99,
+                        "TEXCOORD_0" : 100
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 30,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 101,
+                        "NORMAL" : 102,
+                        "TEXCOORD_0" : 103
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 31,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.015",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 104,
+                        "NORMAL" : 105,
+                        "TEXCOORD_0" : 106
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 32,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 107,
+                        "NORMAL" : 108,
+                        "TEXCOORD_0" : 109
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 33,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.016",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 110,
+                        "NORMAL" : 111,
+                        "TEXCOORD_0" : 112
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 34,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 113,
+                        "NORMAL" : 114,
+                        "TEXCOORD_0" : 115
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 35,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.017",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 116,
+                        "NORMAL" : 117,
+                        "TEXCOORD_0" : 118
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 36,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 119,
+                        "NORMAL" : 120,
+                        "TEXCOORD_0" : 121
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 37,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.018",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 122,
+                        "NORMAL" : 123,
+                        "TEXCOORD_0" : 124
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 38,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 125,
+                        "NORMAL" : 126,
+                        "TEXCOORD_0" : 127
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 39,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.019",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 128,
+                        "NORMAL" : 129,
+                        "TEXCOORD_0" : 130
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 40,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 131,
+                        "NORMAL" : 132,
+                        "TEXCOORD_0" : 133
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 41,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.020",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 134,
+                        "NORMAL" : 135,
+                        "TEXCOORD_0" : 136
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 42,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 137,
+                        "NORMAL" : 138,
+                        "TEXCOORD_0" : 139
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 43,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.021",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 140,
+                        "NORMAL" : 141,
+                        "TEXCOORD_0" : 142
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 44,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 143,
+                        "NORMAL" : 144,
+                        "TEXCOORD_0" : 145
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 45,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.022",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 146,
+                        "NORMAL" : 147,
+                        "TEXCOORD_0" : 148
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 46,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 149,
+                        "NORMAL" : 150,
+                        "TEXCOORD_0" : 151
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 47,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "street_lamp.023",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 152,
+                        "NORMAL" : 153,
+                        "TEXCOORD_0" : 154
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 48,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "material" : 4,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 155,
+                        "NORMAL" : 156,
+                        "TEXCOORD_0" : 157
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 49,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 23,
+                    "material" : 5,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "Plane",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 158,
+                        "NORMAL" : 159,
+                        "TANGENT" : 160,
+                        "TEXCOORD_0" : 161
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 51,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 162,
+                    "material" : 6,
+                    "mode" : 4
+                }
+            ]
+        },
+        {
+            "name" : "Plane.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 163,
+                        "NORMAL" : 164,
+                        "TANGENT" : 165,
+                        "TEXCOORD_0" : 166
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 53,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 167,
+                    "material" : 7,
                     "mode" : 4
                 }
             ]
@@ -107,26 +1903,1410 @@
         {
             "sampler" : 0,
             "source" : 2
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 3
+        },
+        {
+            "sampler" : 0,
+            "source" : 4
+        },
+        {
+            "sampler" : 0,
+            "source" : 5
+        },
+        {
+            "sampler" : 0,
+            "source" : 6
+        },
+        {
+            "sampler" : 0,
+            "source" : 7
+        },
+        {
+            "sampler" : 0,
+            "source" : 8
         }
     ],
     "images" : [
         {
-            "mimeType" : "image/jpeg",
-            "name" : "cobblestone_floor_08_nor_2k",
-            "uri" : "texture/cobblestone_floor_08_nor_2k.jpg"
-        },
-        {
-            "mimeType" : "image/jpeg",
-            "name" : "cobblestone_floor_08_diff_2k",
-            "uri" : "texture/cobblestone_floor_08_diff_2k.jpg"
+            "mimeType" : "image/png",
+            "name" : "Normal_Panchina_2k",
+            "uri" : "texture/Normal_Panchina_2k.png"
         },
         {
             "mimeType" : "image/png",
-            "name" : "cobblestone_floor_08_rough_2k",
-            "uri" : "texture/cobblestone_floor_08_rough_2k.png"
+            "name" : "Panchina_2k",
+            "uri" : "texture/Panchina_2k.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Roughtness_Panchina_2k",
+            "uri" : "texture/Roughtness_Panchina_2k.png"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "Bark_Tilia-europaea_Normal",
+            "uri" : "texture/Bark_Tilia-europaea_Normal.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "Bark_Tilia-europaea_Diffuse",
+            "uri" : "texture/Bark_Tilia-europaea_Diffuse.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "Leaf_Picea-abies_Normal",
+            "uri" : "texture/Leaf_Picea-abies_Normal.jpg"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Leaf_Picea-abies_Diffuse",
+            "uri" : "texture/Leaf_Picea-abies_Diffuse.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Terreno_4k_LD",
+            "uri" : "texture/Terreno_4k_LD.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Terreno_2k",
+            "uri" : "texture/Terreno_2k.png"
         }
     ],
     "accessors" : [
+        {
+            "componentType" : 5126,
+            "count" : 272,
+            "max" : [
+                63.54779815673828,
+                32.357200622558594,
+                -2.439359426498413
+            ],
+            "min" : [
+                -63.547698974609375,
+                -32.359901428222656,
+                -79.15760040283203
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 272,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 272,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 408,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 1820,
+            "max" : [
+                63.54779815673828,
+                32.76599884033203,
+                -2.439359426498413
+            ],
+            "min" : [
+                -63.54779815673828,
+                -32.76599884033203,
+                -79.80860137939453
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 1820,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 1820,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 4848,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 75341,
+            "max" : [
+                1.5943381786346436,
+                5.9648871421813965,
+                1.549382209777832
+            ],
+            "min" : [
+                -1.5176053047180176,
+                -6.512512982226326e-07,
+                -1.4301059246063232
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 75341,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 75341,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5125,
+            "count" : 324840,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 74704,
+            "max" : [
+                1.9689083099365234,
+                6.296107292175293,
+                1.8782402276992798
+            ],
+            "min" : [
+                -1.8717845678329468,
+                0.07771557569503784,
+                -1.7717382907867432
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 74704,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 74704,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5125,
+            "count" : 87696,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 29604,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 1632,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 7227,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 7227,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 7227,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 29604,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 349,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 349,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 349,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 1632,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "max" : [
+                96.93225860595703,
+                96.89334106445312,
+                920.7717895507812
+            ],
+            "min" : [
+                -96.90904235839844,
+                -96.94805908203125,
+                -144.5067138671875
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6392,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "max" : [
+                49.798160552978516,
+                49.82823944091797,
+                114.644775390625
+            ],
+            "min" : [
+                -49.91543960571289,
+                -49.885459899902344,
+                30.7906494140625
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 289,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 89868,
+            "max" : [
+                1,
+                0.07962646335363388,
+                1
+            ],
+            "min" : [
+                -1,
+                -0.10515198111534119,
+                -1
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 89868,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 50,
+            "componentType" : 5126,
+            "count" : 89868,
+            "type" : "VEC4"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 89868,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5125,
+            "count" : 534954,
+            "type" : "SCALAR"
+        },
         {
             "componentType" : 5126,
             "count" : 2754,
@@ -148,7 +3328,7 @@
             "type" : "VEC3"
         },
         {
-            "bufferView" : 0,
+            "bufferView" : 52,
             "componentType" : 5126,
             "count" : 2754,
             "type" : "VEC4"
@@ -167,13 +3347,273 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 44064,
+            "byteLength" : 2075,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
+            "byteLength" : 11303,
+            "byteOffset" : 2076
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 538588,
+            "byteOffset" : 13380
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 499639,
+            "byteOffset" : 551968
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27044,
+            "byteOffset" : 1051608
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1078652
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 39798,
+            "byteOffset" : 1081404
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3314,
+            "byteOffset" : 1121204
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27099,
+            "byteOffset" : 1124520
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1151620
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27063,
+            "byteOffset" : 1154372
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1181436
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27091,
+            "byteOffset" : 1184188
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1211280
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27089,
+            "byteOffset" : 1214032
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1241124
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27089,
+            "byteOffset" : 1243876
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1270968
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27057,
+            "byteOffset" : 1273720
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1300780
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27044,
+            "byteOffset" : 1303532
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1330576
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27083,
+            "byteOffset" : 1333328
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1360412
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27058,
+            "byteOffset" : 1363164
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1390224
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27093,
+            "byteOffset" : 1392976
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1420072
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27083,
+            "byteOffset" : 1422824
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1449908
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27051,
+            "byteOffset" : 1452660
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1479712
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27054,
+            "byteOffset" : 1482464
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1509520
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27055,
+            "byteOffset" : 1512272
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1539328
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27049,
+            "byteOffset" : 1542080
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1569132
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27099,
+            "byteOffset" : 1571884
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1598984
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27048,
+            "byteOffset" : 1601736
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1628784
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27042,
+            "byteOffset" : 1631536
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1658580
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27048,
+            "byteOffset" : 1661332
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1688380
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27052,
+            "byteOffset" : 1691132
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1718184
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27041,
+            "byteOffset" : 1720936
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2751,
+            "byteOffset" : 1747980
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1437888,
+            "byteOffset" : 1750732
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 248782,
+            "byteOffset" : 3188620
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 44064,
+            "byteOffset" : 3437404
+        },
+        {
+            "buffer" : 0,
             "byteLength" : 10001,
-            "byteOffset" : 44064
+            "byteOffset" : 3481468
         }
     ],
     "samplers" : [
@@ -184,7 +3624,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 54068,
+            "byteLength" : 3491472,
             "uri" : "Parco.bin"
         }
     ]
