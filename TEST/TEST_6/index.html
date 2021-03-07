@@ -53,6 +53,9 @@
 				<div class="row justify-content-md-center">
 					<div class="col font-weight-bold text-center" id="load4"> </div>
 				</div>
+				<div class="row justify-content-md-center">
+					<div class="col font-weight-bold text-center" id="load5"> </div>
+				</div>
 			</div>
 			
 		</div>
@@ -345,12 +348,12 @@
 				} );
 
 
-				const loader3 = new GLTFLoader().setPath( '../gltf/NewParco/' );
+				const loader3 = new GLTFLoader().setPath( '../gltf/ParcoBaked/Wood/' );
 
 				loader3.setDRACOLoader( dracoLoader );
 
-				loader3.load( 'Wood.glb', function ( glb ) {
-
+				loader3.load( 'Wood.gltf', function ( glb ) {
+					document.getElementById("load4").innerHTML="Alberi: 100% loaded";
 					glb.scene.scale.multiplyScalar(10);
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
@@ -374,15 +377,55 @@
 					
 					} );
 					//END ANIMATIONS
-					endObjectRender()
 					allRendered();
 				} ,
 				function ( xhr ) {
-					document.getElementById("load4").innerHTML="Decorazioni: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
+					document.getElementById("load4").innerHTML="Alberi: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
 				},
 				// called when loading has errors
 				function ( error ) {
-					document.getElementById("load4").innerHTML="An error happened loading the Decorations";
+					document.getElementById("load4").innerHTML="An error happened loading the Alberi";
+
+				} );
+
+
+				const loader4 = new GLTFLoader().setPath( '../gltf/ParcoBaked/Lamp/' );
+
+				loader4.setDRACOLoader( dracoLoader );
+
+				loader4.load( 'Lamp.gltf', function ( glb ) {
+					document.getElementById("load5").innerHTML="Lampioni: 100% loaded";
+					glb.scene.scale.multiplyScalar(10);
+					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
+
+					scene.add( glb.scene );
+					glb.scene.traverse( function ( child ) {
+						if ( child.isMesh ) {
+							// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+							roughnessMipmapper2.generateMipmaps( child.material );
+							child.castShadow = true;
+							child.receiveShadow = true;
+						}
+
+					} );
+					roughnessMipmapper2.dispose();
+					//ANIMATIONS
+					mixer2 = new THREE.AnimationMixer( glb.scene );
+
+					glb.animations.forEach( ( clip ) => {
+					
+						mixer2.clipAction( clip ).play();
+					
+					} );
+					//END ANIMATIONS
+					allRendered();
+				} ,
+				function ( xhr ) {
+					document.getElementById("load5").innerHTML="Lampioni: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
+				},
+				// called when loading has errors
+				function ( error ) {
+					document.getElementById("load5").innerHTML="An error happened loading the lamp";
 
 				} );
 
@@ -529,8 +572,8 @@
 
 			function allRendered(){
 				allrend++;
-				document.getElementById("progress-bar").style.width=allrend/5*100+"%";
-				if(allrend=="5"){
+				document.getElementById("progress-bar").style.width=allrend/6*100+"%";
+				if(allrend==6){
 					fadeout();
 					window.addEventListener( 'resize', onWindowResize );
 					click=true;
