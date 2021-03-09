@@ -144,6 +144,15 @@
 
 				//instanziamento Scena
 				scene = new THREE.Scene();
+				{
+					//Nebbia
+					const near = 300;
+					const far = 1200;
+					const color = 'lightblue';
+					scene.fog = new THREE.Fog(color, near, far);
+					scene.background = new THREE.Color(color);
+				}
+				
 
 				// Caricamento DracoLoader per la decompressione del file
 				const dracoLoader = new DRACOLoader();
@@ -172,7 +181,7 @@
 					
 						roughnessMipmapper.dispose();
 
-						var gridLength=10;
+						var gridLength=5;
 						for(var y=-gridLength;y<=gridLength;y++)
 						{
 							if(y!=0){
@@ -241,7 +250,7 @@
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
       					rt.fromEquirectangularTexture(renderer, texture);
-						scene.background = rt;
+						//scene.background = rt;
 
 						scene.environment = envMap;
 
