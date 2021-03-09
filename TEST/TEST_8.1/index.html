@@ -108,6 +108,7 @@
 			import { EffectComposer } from '../../three.js/examples/jsm/postprocessing/EffectComposer.js';
 			import { RenderPass } from '../../three.js/examples/jsm/postprocessing/RenderPass.js';
 			import { BokehPass } from '../../three.js/examples/jsm/postprocessing/BokehPass.js';
+			import { SAOPass } from '../../three.js/examples/jsm/postprocessing/SAOPass.js';
 
 			//dichiarazione di variabili utili
 			let camera, scene, renderer;
@@ -152,10 +153,10 @@
 				scene = new THREE.Scene();
 				{
 					//Nebbia
-					const near = 200;
-					const far = 1200;
+					/*const near = 200;
+					const far = 1200;*/
 					const color = 'lightblue';
-					scene.fog = new THREE.Fog(color, near, far);
+					//scene.fog = new THREE.Fog(color, near, far);
 					scene.background = new THREE.Color(color);
 				}
 
@@ -357,15 +358,20 @@
 					width: window.innerWidth, 
 					height: window.innerHeight
 				} );
-				
+				const saoPass = new SAOPass( scene, camera, false, true );
+				saoPass.params['output']=SAOPass.OUTPUT.Default;
+				saoPass.params['saoIntensity']=0.00015;
+				saoPass.params['saoBias']=0.5;
 				const composer = new EffectComposer( renderer );
 
 				composer.addPass( renderPass );
+				composer.addPass( saoPass );
 				composer.addPass( bokehPass );
 				
 
 				postprocessing.composer = composer;
 				postprocessing.bokeh = bokehPass;
+				postprocessing.saoPass =saoPass
 			}
 
 			//funzione per la scomparsa della schermata di caricamento
