@@ -155,7 +155,7 @@
 				const container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 40, 1,0.1, 400 );
+				camera = new THREE.PerspectiveCamera( 40, 1,0.1, 10000 );
 				camera.position.set(-10,0,10);
 				scene = new THREE.Scene();
 
@@ -182,9 +182,7 @@
 
 						document.getElementById("load1").innerHTML="Scena: 100% loaded";
 						gltf.scene.scale.multiplyScalar(10);
-						
 
-						scene.add( gltf.scene );
 						const roughnessMipmapper = new RoughnessMipmapper( renderer );
 						gltf.scene.traverse( function ( child ) {
 							if ( child.isMesh ) {
@@ -212,15 +210,24 @@
 					
 					
 						roughnessMipmapper.dispose();
-						//ANIMATIONS
-						mixer = new THREE.AnimationMixer( gltf.scene );
 
-						gltf.animations.forEach( ( clip ) => {
-						
-							mixer.clipAction( clip ).play();
-						
-						} );
-						//END ANIMATIONS
+						var gridLength=10;
+						/*for(var k=-gridLength;k<=gridLength;k++)
+						{
+							for(var y=-gridLength;y<=gridLength;y++)
+							{
+								let re=gltf.scene.clone();
+								re.position.set((k*600),0,(y*600));
+								scene.add( re );
+							}
+						}*/
+						for(var y=-gridLength;y<=gridLength;y++)
+						{
+							let re=gltf.scene.clone();
+							re.position.set(0,0,(y*600));
+							scene.add( re );
+						}
+
 
 						render();
 						allRendered();
@@ -305,7 +312,7 @@
 					objectShown=glb.scene;
 
 					glb.scene.scale.multiplyScalar(10);
-					glb.scene.rotation.y=-Math.PI / 4;
+					glb.scene.rotation.y=-Math.PI / 2;
 
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
@@ -330,6 +337,7 @@
 					
 					} );
 					//END ANIMATIONS
+					endObjectRender();;
 					allRendered();
 				},
 				function ( xhr ) {
@@ -389,7 +397,7 @@
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
 					.setPath( '../hdr/' )
-					.load( 'teufelsberg_roof_4k.hdr', function ( texture ) {
+					.load( 'canary_wharf_4k.hdr', function ( texture ) {
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
       					rt.fromEquirectangularTexture(renderer, texture);
