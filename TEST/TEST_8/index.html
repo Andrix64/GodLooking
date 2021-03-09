@@ -331,7 +331,7 @@
 					}
 
 					//depth of field
-					postprocessing.bokeh.uniforms[ "focus" ].value = Math.sqrt(Math.sqrt(Math.pow(camera.position.x-controls.target.x, 2)+Math.pow(camera.position.y-controls.target.y, 2))+Math.pow(camera.position.z-controls.target.z, 2));
+					postprocessing.bokeh.uniforms[ "focus" ].value = Math.sqrt(Math.sqrt(Math.pow(camera.position.x-controls.target.x, 2)+Math.pow(camera.position.y-controls.target.y, 2))+Math.pow(camera.position.z-controls.target.z, 2))+5;
 				})
 
 				controls.update();

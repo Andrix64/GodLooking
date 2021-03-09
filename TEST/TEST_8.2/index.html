@@ -50,6 +50,12 @@
 				<div class="row justify-content-md-center">
 					<div class="col font-weight-bold text-center" id="load3"> </div>
 				</div>
+				<div class="row justify-content-md-center">
+					<div class="col font-weight-bold text-center" id="load4"> </div>
+				</div>
+				<div class="row justify-content-md-center">
+					<div class="col font-weight-bold text-center" id="load5"> </div>
+				</div>
 			</div>
 			
 		</div>
@@ -108,7 +114,6 @@
 			import { EffectComposer } from '../../three.js/examples/jsm/postprocessing/EffectComposer.js';
 			import { RenderPass } from '../../three.js/examples/jsm/postprocessing/RenderPass.js';
 			import { BokehPass } from '../../three.js/examples/jsm/postprocessing/BokehPass.js';
-			import { SAOPass } from '../../three.js/examples/jsm/postprocessing/SAOPass.js';
 
 			//dichiarazione di variabili utili
 			let camera, scene, renderer;
@@ -151,15 +156,7 @@
 
 				//instanziamento Scena
 				scene = new THREE.Scene();
-				{
-					//Nebbia
-					/*const near = 200;
-					const far = 1200;*/
-					const color = 'lightblue';
-					//scene.fog = new THREE.Fog(color, near, far);
-					scene.background = new THREE.Color(color);
-				}
-
+				
 				// Caricamento DracoLoader per la decompressione del file
 				const dracoLoader = new DRACOLoader();
 				dracoLoader.setDecoderPath( '../../three.js/examples/js/libs/draco/' );
@@ -168,7 +165,7 @@
 				// Caricamento Scena
 				const loader = new GLTFLoader();
 				loader.setDRACOLoader( dracoLoader );
-				loader.load('../gltf/Industriale/Industrial.gltf',
+				loader.load('../gltf/ParcoBaked/Parco.gltf',
 					function ( gltf ) {
 						document.getElementById("load1").innerHTML="Scena: 100% loaded";
 						gltf.scene.scale.multiplyScalar(10);
@@ -187,15 +184,6 @@
 					
 						roughnessMipmapper.dispose();
 
-						var gridLength=5;
-						for(var y=-gridLength;y<=gridLength;y++)
-						{
-							if(y!=0){
-								let re=gltf.scene.clone();
-								re.position.set(0,0,(y*600));
-								scene.add( re );
-							}
-						}
 
 
 						render();
@@ -210,17 +198,86 @@
 					}
 				);
 
+				// Caricamento Alberi
+				const loader2 = new GLTFLoader();
+				loader2.setDRACOLoader( dracoLoader );
+				loader2.load('../gltf/ParcoBaked/Wood/Wood.gltf',
+					function ( gltf ) {
+						document.getElementById("load4").innerHTML="Alberi: 100% loaded";
+						gltf.scene.scale.multiplyScalar(10);
+
+						const roughnessMipmapper = new RoughnessMipmapper( renderer );
+						scene.add( gltf.scene );
+						gltf.scene.traverse( function ( child ) {
+							if ( child.isMesh ) {
+								roughnessMipmapper.generateMipmaps( child.material );
+								child.castShadow = true;
+								child.receiveShadow = true;
+								sceneMeshes.push(child);
+							}
+						} );
+					
+					
+						roughnessMipmapper.dispose();
+
+
+
+						render();
+						allRendered();
+				},
+				function ( xhr ) {
+					document.getElementById("load4").innerHTML="Alberi: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
+				},
+				function ( error ) {
+					document.getElementById("load4").innerHTML="An error happened loading the Alberi";
+
+				}
+				);
+
+				// Caricamento Lampioni
+				const loader3 = new GLTFLoader();
+				loader3.setDRACOLoader( dracoLoader );
+				loader3.load('../gltf/ParcoBaked/Lamp/Lamp.gltf',
+					function ( gltf ) {
+						document.getElementById("load5").innerHTML="Lampioni: 100% loaded";
+						gltf.scene.scale.multiplyScalar(10);
+
+						const roughnessMipmapper = new RoughnessMipmapper( renderer );
+						scene.add( gltf.scene );
+						gltf.scene.traverse( function ( child ) {
+							if ( child.isMesh ) {
+								roughnessMipmapper.generateMipmaps( child.material );
+								child.castShadow = true;
+								child.receiveShadow = true;
+								sceneMeshes.push(child);
+							}
+						} );
+					
+					
+						roughnessMipmapper.dispose();
+
+						render();
+						allRendered();
+				},
+				function ( xhr ) {
+					document.getElementById("load5").innerHTML="Lampioni: "+Math.floor( xhr.loaded / xhr.total * 50 )+"% loaded";
+				},
+				function ( error ) {
+					document.getElementById("load5").innerHTML="An error happened loading the lamp";
+
+				}
+				);
 
 				// Caricamento Oggetto
-				const loader2 = new GLTFLoader().setPath( '../gltf/totem/' );
-				loader2.setDRACOLoader( dracoLoader );
+				const loader4 = new GLTFLoader().setPath( '../gltf/totem/' );
+				loader4.setDRACOLoader( dracoLoader );
 
-				loader2.load( 'Totem.glb', function ( glb ) {
+				loader4.load( 'Totem.glb', function ( glb ) {
 					document.getElementById("load2").innerHTML="Oggetto: 100% loaded";
 					objectShown=glb.scene;
 
 					glb.scene.scale.multiplyScalar(10);
-					glb.scene.rotation.y=-Math.PI / 2;
+					glb.scene.rotation.y=-Math.PI / 4;
 
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
@@ -252,11 +309,11 @@
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
 					.setPath( '../hdr/' )
-					.load( 'canary_wharf_4k.hdr', function ( texture ) {
+					.load( 'lilienstein_2k.hdr', function ( texture ) {
 						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 						const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
       					rt.fromEquirectangularTexture(renderer, texture);
-						//scene.background = rt;
+						scene.background = rt;
 
 						scene.environment = envMap;
 
@@ -358,20 +415,15 @@
 					width: window.innerWidth, 
 					height: window.innerHeight
 				} );
-				const saoPass = new SAOPass( scene, camera, false, true );
-				saoPass.params['output']=SAOPass.OUTPUT.Default;
-				saoPass.params['saoIntensity']=0.00015;
-				saoPass.params['saoBias']=0.5;
+				
 				const composer = new EffectComposer( renderer );
 
 				composer.addPass( renderPass );
-				composer.addPass( saoPass );
 				composer.addPass( bokehPass );
 				
 
 				postprocessing.composer = composer;
 				postprocessing.bokeh = bokehPass;
-				postprocessing.saoPass =saoPass
 			}
 
 			//funzione per la scomparsa della schermata di caricamento
@@ -389,8 +441,8 @@
 			//funzione di controllo se tutto è stato caricato
 			function allRendered(){
 				allrend++;
-				document.getElementById("progress-bar").style.width=allrend/4*100+"%";
-				if(allrend==4){
+				document.getElementById("progress-bar").style.width=allrend/6*100+"%";
+				if(allrend==6){
 					fadeout();
 					window.addEventListener( 'resize', onWindowResize );
 					onWindowResize();
