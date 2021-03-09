@@ -192,11 +192,11 @@
 				const renderPass = new RenderPass( scene, camera );
 
 				const bokehPass = new BokehPass( scene, camera, {
-					focus: 1.0,
+					focus: 10,
 					aperture: 0.025,
 					maxblur: 0.01,
 
-					width: width,
+					width: width, 
 					height: height
 				} );
 

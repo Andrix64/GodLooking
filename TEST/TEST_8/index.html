@@ -104,11 +104,17 @@
 			//importa il mapper dei riflessi hdr
 			import { RoughnessMipmapper } from '../../three.js/examples/jsm/utils/RoughnessMipmapper.js';
 
+			//Importa necessario per post processing
+			import { EffectComposer } from '../../three.js/examples/jsm/postprocessing/EffectComposer.js';
+			import { RenderPass } from '../../three.js/examples/jsm/postprocessing/RenderPass.js';
+			import { BokehPass } from '../../three.js/examples/jsm/postprocessing/BokehPass.js';
+
 			//dichiarazione di variabili utili
 			let camera, scene, renderer;
 			let pmremGenerator;
 			let objectShown;
 			let allrend=0;
+			const postprocessing = {};
 
 			//configurazione del color-picker
 			$('#color-picker').spectrum({
@@ -146,13 +152,12 @@
 				scene = new THREE.Scene();
 				{
 					//Nebbia
-					const near = 300;
+					const near = 200;
 					const far = 1200;
 					const color = 'lightblue';
 					scene.fog = new THREE.Fog(color, near, far);
 					scene.background = new THREE.Color(color);
 				}
-				
 
 				// Caricamento DracoLoader per la decompressione del file
 				const dracoLoader = new DRACOLoader();
@@ -281,6 +286,9 @@
 
 				container.appendChild( renderer.domElement );
 
+				// Creazione composer per post-processing
+				initPostprocessing()
+
 				//instinziamento della mappa di riflessi hdr
 				pmremGenerator = new THREE.PMREMGenerator( renderer );
 
@@ -290,11 +298,11 @@
 				controls.maxDistance = 30;
 				controls.maxPolarAngle=Math.PI/2;
 				controls.enablePan=true;
-				controls.target.set( 0, 0, 1);
+				controls.target.set( 0, 1, 0);
 				
 				//variabili per spostamento
-				var minPan = new THREE.Vector3( - 4, - 2, - 4 );
-				var maxPan = new THREE.Vector3( 4, 10, 4 );
+				var minPan = new THREE.Vector3( 0, - 2, 0 );
+				var maxPan = new THREE.Vector3( 0, 10, 0 );
 				var _v = new THREE.Vector3();
 				
 				//Variabili per collisione
@@ -321,6 +329,9 @@
 							camera.position.copy(intersects[0].point)
 						}
 					}
+
+					//fog
+					postprocessing.bokeh.uniforms[ "focus" ].value = Math.sqrt(Math.sqrt(Math.pow(camera.position.x-controls.target.x, 2)+Math.pow(camera.position.y-controls.target.y, 2))+Math.pow(camera.position.z-controls.target.z, 2));
 				})
 
 				controls.update();
@@ -332,6 +343,28 @@
 
 				
 				allRendered();
+			}
+
+			//init del postprocessing
+			function initPostprocessing() {
+				const renderPass = new RenderPass( scene, camera );
+
+				const bokehPass = new BokehPass( scene, camera, {
+					focus: 13.0,
+					aperture: 0.0002,
+					maxblur: 0.01,
+
+					width: window.innerWidth, 
+					height: window.innerHeight
+				} );
+
+				const composer = new EffectComposer( renderer );
+
+				composer.addPass( renderPass );
+				composer.addPass( bokehPass );
+
+				postprocessing.composer = composer;
+				postprocessing.bokeh = bokehPass;
 			}
 
 			//funzione per la scomparsa della schermata di caricamento
@@ -399,12 +432,11 @@
 
 			//funzione per il cambiamento di dimensione della finestra al resize di essa
 			function onWindowResize() {
-
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
-
+				postprocessing.composer.setSize( window.innerWidth, window.innerHeight );
 				render();
 
 			}
@@ -412,8 +444,8 @@
 			//funzione per il render generale
 			function render() {
 				requestAnimationFrame( render );
-				renderer.render( scene, camera );
-
+				
+				postprocessing.composer.render( 0.1 );
 			}
 
 		</script>
