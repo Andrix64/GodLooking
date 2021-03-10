@@ -283,6 +283,7 @@
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
 					scene.add( glb.scene );
+					glb.scene.translateY(-1)
 					glb.scene.traverse( function ( child ) {
 						if ( child.isMesh ) {
 							roughnessMipmapper2.generateMipmaps( child.material );
