@@ -282,22 +282,56 @@
 
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
+					
+
 					scene.add( glb.scene );
 					glb.scene.translateY(-1);
-					glb.scene.traverse( function ( child ) {
-						if ( child.isMesh ) {
-							roughnessMipmapper2.generateMipmaps( child.material );
-							child.castShadow = true;
-							child.receiveShadow = true;
-							if(child.name=="Struttura")
-								$("#color-picker").spectrum("set", child.material.color.getHexString());
-							if(child.name=="Finestra")
-								child.material.transparent=true;
-								child.material.opacity=0.1;
 
-						}
+					let proporzione=1;
+					const textureLoaded = new THREE.TextureLoader().load("../png/logo.png", function ( tex ) {
+						// tex and texture are the same in this example, but that might not always be the case
+						proporzione=tex.image.height/tex.image.width;
+
+						const materialLogo = new THREE.MeshBasicMaterial({
+							// color: 0xffffff,
+							map: textureLoaded,
+							transparent: true
+
+						})
+
+						glb.scene.traverse( function ( child ) {
+							if ( child.isMesh ) {
+								roughnessMipmapper2.generateMipmaps( child.material );
+								child.castShadow = true;
+								child.receiveShadow = true;
+								if(child.name=="Struttura")
+								{
+									$("#color-picker").spectrum("set", child.material.color.getHexString());
+								}
+									
+								if(child.name=="Finestra")
+								{
+									child.material.transparent=true;
+									child.material.opacity=0.1;
+								}
+								if(child.name.substring(0,4)=="Logo")
+								{
+									if(proporzione<1)
+										child.scale.set(child.scale.x,child.scale.y,child.scale.z*proporzione);
+									else
+										child.scale.set(child.scale.x*1/proporzione,child.scale.y,child.scale.z);
+
+									child.material=materialLogo;
+								}
+									
+
+							}
+
+						} );
 
 					} );
+					
+
 					roughnessMipmapper2.dispose();
 
 					endObjectRender();;
