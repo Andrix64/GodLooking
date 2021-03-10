@@ -20,7 +20,8 @@
                 3,
                 4,
                 5,
-                6
+                6,
+                7
             ]
         }
     ],
@@ -141,6 +142,26 @@
                 0.17951565980911255,
                 -0.12473136931657791,
                 0.0030670256819576025
+            ]
+        },
+        {
+            "mesh" : 7,
+            "name" : "Logo3",
+            "rotation" : [
+                0.7071067690849304,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "scale" : [
+                0.1648346334695816,
+                0.16622623801231384,
+                0.16622623801231384
+            ],
+            "translation" : [
+                0.002748930361121893,
+                -0.44437175989151,
+                0.18103717267513275
             ]
         }
     ],
@@ -373,6 +394,30 @@
                     "mode" : 4
                 }
             ]
+        },
+        {
+            "name" : "Plane.004",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 26,
+                        "NORMAL" : 27,
+                        "TEXCOORD_0" : 28
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 7,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 19,
+                    "mode" : 4
+                }
+            ]
         }
     ],
     "accessors" : [
@@ -575,6 +620,31 @@
             "componentType" : 5126,
             "count" : 4,
             "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "max" : [
+                1,
+                0,
+                1
+            ],
+            "min" : [
+                -1,
+                0,
+                -1
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC2"
         }
     ],
     "bufferViews" : [
@@ -612,11 +682,16 @@
             "buffer" : 0,
             "byteLength" : 186,
             "byteOffset" : 158084
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 186,
+            "byteOffset" : 158272
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 158272,
+            "byteLength" : 158460,
             "uri" : "Totem.bin"
         }
     ]
