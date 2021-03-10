@@ -130,7 +130,8 @@
 			$("#color-picker").on("dragstop.spectrum", function(e,color) {
 				objectShown.traverse( function ( child ) {
 					if ( child.isMesh ) {
-						child.material.color.setHex("0x"+color.toHexString().substring(1)); 
+						if(child.name=="Struttura")
+							child.material.color.setHex("0x"+color.toHexString().substring(1)); 
 					}
 
 				} );
@@ -212,10 +213,10 @@
 
 
 				// Caricamento Oggetto
-				const loader2 = new GLTFLoader().setPath( '../gltf/totem/' );
+				const loader2 = new GLTFLoader().setPath( '../gltf/LowPolyTotem/' );
 				loader2.setDRACOLoader( dracoLoader );
 
-				loader2.load( 'Totem.glb', function ( glb ) {
+				loader2.load( 'Totem.gltf', function ( glb ) {
 					document.getElementById("load2").innerHTML="Oggetto: 100% loaded";
 					objectShown=glb.scene;
 
@@ -225,12 +226,17 @@
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
 					scene.add( glb.scene );
+					glb.scene.translateY(-1)
 					glb.scene.traverse( function ( child ) {
 						if ( child.isMesh ) {
 							roughnessMipmapper2.generateMipmaps( child.material );
 							child.castShadow = true;
 							child.receiveShadow = true;
-							$("#color-picker").spectrum("set", child.material.color.getHexString());
+							if(child.name=="Struttura")
+								$("#color-picker").spectrum("set", child.material.color.getHexString());
+							if(child.name=="Finestra")
+								child.material.transparent=true;
+								child.material.opacity=0.1;
 						}
 
 					} );

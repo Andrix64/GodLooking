@@ -283,13 +283,12 @@
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
 					scene.add( glb.scene );
-					glb.scene.translateY(-1)
+					glb.scene.translateY(-1);
 					glb.scene.traverse( function ( child ) {
 						if ( child.isMesh ) {
 							roughnessMipmapper2.generateMipmaps( child.material );
 							child.castShadow = true;
 							child.receiveShadow = true;
-							console.log(child)
 							if(child.name=="Struttura")
 								$("#color-picker").spectrum("set", child.material.color.getHexString());
 							if(child.name=="Finestra")
