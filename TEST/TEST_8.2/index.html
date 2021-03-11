@@ -241,7 +241,7 @@
 				// Caricamento Alberi
 				const loader2 = new GLTFLoader();
 				loader2.setDRACOLoader( dracoLoader );
-				loader2.load('../gltf/ParcoBaked/Wood/Wood.gltf',
+				loader2.load('../gltf/WoodRender/Wood.gltf',
 					function ( gltf ) {
 						document.getElementById("load4").innerHTML="Alberi: 100% loaded";
 						gltf.scene.scale.multiplyScalar(10);
@@ -250,9 +250,10 @@
 						scene.add( gltf.scene );
 						gltf.scene.traverse( function ( child ) {
 							if ( child.isMesh ) {
-								roughnessMipmapper.generateMipmaps( child.material );
 								child.castShadow = true;
 								child.receiveShadow = true;
+								child.material.roughness=1;
+								child.material.flatShading=true
 								sceneMeshes.push(child);
 							}
 						} );
@@ -289,6 +290,7 @@
 								roughnessMipmapper.generateMipmaps( child.material );
 								child.castShadow = true;
 								child.receiveShadow = true;
+								
 								sceneMeshes.push(child);
 							}
 						} );

@@ -273,7 +273,7 @@
 					const roughnessMipmapper2 = new RoughnessMipmapper( renderer );
 
 					scene.add( glb.scene );
-					glb.scene.translateY(-1)
+					glb.scene.translateY(-1.3)
 
 					materialLogo = new THREE.MeshBasicMaterial({
 						// color: 0xffffff,
@@ -528,7 +528,7 @@
 				requestAnimationFrame( render );
 				var delta = clock.getDelta();
 				if ( mixer ) mixer.update( delta );
-				
+
 				postprocessing.composer.render( 0.1 );
 			}
 

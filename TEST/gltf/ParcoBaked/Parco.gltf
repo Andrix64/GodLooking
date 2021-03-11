@@ -22,7 +22,7 @@
                     "export_image_format" : "AUTO",
                     "export_tangents" : 1,
                     "export_texture_dir" : "texture",
-                    "use_selection" : 0
+                    "use_selection" : 1
                 }
             },
             "name" : "Scene",
@@ -59,30 +59,10 @@
     ],
     "nodes" : [
         {
-            "mesh" : 0,
-            "name" : "Bank_02",
-            "rotation" : [
-                0.6495468020439148,
-                -0.279975950717926,
-                0.2802188992500305,
-                0.6489836573600769
-            ],
-            "scale" : [
-                0.01329751592129469,
-                0.01329751592129469,
-                0.01329751592129469
-            ],
-            "translation" : [
-                -0.8734285831451416,
-                -1.054016351699829,
-                -0.9299107789993286
-            ]
-        },
-        {
             "extras" : {
                 "renderset_uuid" : "9e2f53c48fdd4c8db0fc12d8b6945402"
             },
-            "mesh" : 1,
+            "mesh" : 0,
             "name" : "Tree_Picea-abies_C_spring-summer-autumn.001",
             "translation" : [
                 1.5314819812774658,
@@ -91,7 +71,7 @@
             ]
         },
         {
-            "mesh" : 2,
+            "mesh" : 1,
             "name" : "street_lamp.001",
             "rotation" : [
                 0.7071068286895752,
@@ -111,7 +91,7 @@
             ]
         },
         {
-            "mesh" : 3,
+            "mesh" : 2,
             "name" : "street_lamp.002",
             "rotation" : [
                 0.7071068286895752,
@@ -131,7 +111,7 @@
             ]
         },
         {
-            "mesh" : 4,
+            "mesh" : 3,
             "name" : "street_lamp.003",
             "rotation" : [
                 0.7071068286895752,
@@ -151,7 +131,7 @@
             ]
         },
         {
-            "mesh" : 5,
+            "mesh" : 4,
             "name" : "street_lamp.004",
             "rotation" : [
                 0.7071068286895752,
@@ -171,7 +151,7 @@
             ]
         },
         {
-            "mesh" : 6,
+            "mesh" : 5,
             "name" : "street_lamp.005",
             "rotation" : [
                 0.7071068286895752,
@@ -191,7 +171,7 @@
             ]
         },
         {
-            "mesh" : 7,
+            "mesh" : 6,
             "name" : "street_lamp.006",
             "rotation" : [
                 0.7071068286895752,
@@ -211,7 +191,7 @@
             ]
         },
         {
-            "mesh" : 8,
+            "mesh" : 7,
             "name" : "street_lamp.007",
             "rotation" : [
                 0.7071068286895752,
@@ -231,7 +211,7 @@
             ]
         },
         {
-            "mesh" : 9,
+            "mesh" : 8,
             "name" : "street_lamp.008",
             "rotation" : [
                 0.7071068286895752,
@@ -251,7 +231,7 @@
             ]
         },
         {
-            "mesh" : 10,
+            "mesh" : 9,
             "name" : "street_lamp.009",
             "rotation" : [
                 0.7071068286895752,
@@ -271,7 +251,7 @@
             ]
         },
         {
-            "mesh" : 11,
+            "mesh" : 10,
             "name" : "street_lamp.010",
             "rotation" : [
                 0.7071068286895752,
@@ -291,7 +271,7 @@
             ]
         },
         {
-            "mesh" : 12,
+            "mesh" : 11,
             "name" : "street_lamp.011",
             "rotation" : [
                 0.7071068286895752,
@@ -311,7 +291,7 @@
             ]
         },
         {
-            "mesh" : 13,
+            "mesh" : 12,
             "name" : "street_lamp.012",
             "rotation" : [
                 0.7071068286895752,
@@ -331,7 +311,7 @@
             ]
         },
         {
-            "mesh" : 14,
+            "mesh" : 13,
             "name" : "street_lamp.013",
             "rotation" : [
                 0.7071068286895752,
@@ -351,7 +331,7 @@
             ]
         },
         {
-            "mesh" : 15,
+            "mesh" : 14,
             "name" : "street_lamp.014",
             "rotation" : [
                 0.7071068286895752,
@@ -371,7 +351,7 @@
             ]
         },
         {
-            "mesh" : 16,
+            "mesh" : 15,
             "name" : "street_lamp.015",
             "rotation" : [
                 0.7071068286895752,
@@ -391,7 +371,7 @@
             ]
         },
         {
-            "mesh" : 17,
+            "mesh" : 16,
             "name" : "street_lamp.016",
             "rotation" : [
                 0.7071068286895752,
@@ -411,7 +391,7 @@
             ]
         },
         {
-            "mesh" : 18,
+            "mesh" : 17,
             "name" : "street_lamp.017",
             "rotation" : [
                 0.7071068286895752,
@@ -431,7 +411,7 @@
             ]
         },
         {
-            "mesh" : 19,
+            "mesh" : 18,
             "name" : "street_lamp.018",
             "rotation" : [
                 0.7071068286895752,
@@ -451,7 +431,7 @@
             ]
         },
         {
-            "mesh" : 20,
+            "mesh" : 19,
             "name" : "street_lamp.019",
             "rotation" : [
                 0.7071068286895752,
@@ -471,7 +451,7 @@
             ]
         },
         {
-            "mesh" : 21,
+            "mesh" : 20,
             "name" : "street_lamp.020",
             "rotation" : [
                 0.7071068286895752,
@@ -491,7 +471,7 @@
             ]
         },
         {
-            "mesh" : 22,
+            "mesh" : 21,
             "name" : "street_lamp.021",
             "rotation" : [
                 0.7071068286895752,
@@ -511,7 +491,7 @@
             ]
         },
         {
-            "mesh" : 23,
+            "mesh" : 22,
             "name" : "street_lamp.022",
             "rotation" : [
                 0.7071068286895752,
@@ -531,7 +511,7 @@
             ]
         },
         {
-            "mesh" : 24,
+            "mesh" : 23,
             "name" : "street_lamp.023",
             "rotation" : [
                 0.7071068286895752,
@@ -551,7 +531,7 @@
             ]
         },
         {
-            "mesh" : 25,
+            "mesh" : 24,
             "name" : "Plane.001",
             "scale" : [
                 42.9766960144043,
@@ -565,7 +545,7 @@
             ]
         },
         {
-            "mesh" : 26,
+            "mesh" : 25,
             "name" : "Plane.002",
             "scale" : [
                 42.9766960144043,
@@ -577,44 +557,34 @@
                 1.4575713872909546,
                 6.012317180633545
             ]
+        },
+        {
+            "mesh" : 26,
+            "name" : "Bank_02",
+            "rotation" : [
+                0.6495468020439148,
+                -0.279975950717926,
+                0.2802188992500305,
+                0.6489836573600769
+            ],
+            "scale" : [
+                0.01329751592129469,
+                0.01329751592129469,
+                0.01329751592129469
+            ],
+            "translation" : [
+                -0.8734285831451416,
+                -1.054016351699829,
+                -0.9299107789993286
+            ]
         }
     ],
     "materials" : [
         {
             "doubleSided" : true,
-            "name" : "wire_153228214",
-            "normalTexture" : {
-                "index" : 0,
-                "texCoord" : 0
-            },
-            "pbrMetallicRoughness" : {
-                "baseColorTexture" : {
-                    "index" : 1,
-                    "texCoord" : 0
-                },
-                "metallicFactor" : 0,
-                "metallicRoughnessTexture" : {
-                    "index" : 2,
-                    "texCoord" : 0
-                }
-            }
-        },
-        {
-            "doubleSided" : true,
-            "name" : "wire_135059008",
-            "pbrMetallicRoughness" : {
-                "baseColorTexture" : {
-                    "index" : 3,
-                    "texCoord" : 0
-                },
-                "roughnessFactor" : 0.3772730827331543
-            }
-        },
-        {
-            "doubleSided" : true,
             "name" : "Bark_Picea-abies",
             "normalTexture" : {
-                "index" : 4,
+                "index" : 0,
                 "scale" : 2,
                 "texCoord" : 0
             },
@@ -626,7 +596,7 @@
                     1
                 ],
                 "baseColorTexture" : {
-                    "index" : 5,
+                    "index" : 1,
                     "texCoord" : 0
                 },
                 "metallicFactor" : 0,
@@ -639,13 +609,13 @@
             "doubleSided" : true,
             "name" : "Leaf_Picea-abies",
             "normalTexture" : {
-                "index" : 6,
+                "index" : 2,
                 "scale" : 10,
                 "texCoord" : 0
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 7,
+                    "index" : 3,
                     "texCoord" : 0
                 },
                 "metallicFactor" : 0
@@ -694,10 +664,11 @@
             "name" : "TerrenoLD",
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 8,
+                    "index" : 4,
                     "texCoord" : 0
                 },
-                "metallicFactor" : 0
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.75
             }
         },
         {
@@ -705,16 +676,47 @@
             "name" : "TerrenoHD",
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
+                    "index" : 5,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.75
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "wire_153228214",
+            "normalTexture" : {
+                "index" : 6,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 7,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "metallicRoughnessTexture" : {
+                    "index" : 8,
+                    "texCoord" : 0
+                }
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "wire_135059008",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
                     "index" : 9,
                     "texCoord" : 0
                 },
-                "metallicFactor" : 0
+                "roughnessFactor" : 0.3772730827331543
             }
         }
     ],
     "meshes" : [
         {
-            "name" : "Bank_02",
+            "name" : "Tree_Picea-abies_C_spring-summer-autumn",
             "primitives" : [
                 {
                     "attributes" : {
@@ -759,7 +761,7 @@
             ]
         },
         {
-            "name" : "Tree_Picea-abies_C_spring-summer-autumn",
+            "name" : "street_lamp.001",
             "primitives" : [
                 {
                     "attributes" : {
@@ -804,7 +806,7 @@
             ]
         },
         {
-            "name" : "street_lamp.001",
+            "name" : "street_lamp.002",
             "primitives" : [
                 {
                     "attributes" : {
@@ -823,7 +825,7 @@
                         }
                     },
                     "indices" : 19,
-                    "material" : 4,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
@@ -843,13 +845,13 @@
                         }
                     },
                     "indices" : 23,
-                    "material" : 5,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.002",
+            "name" : "street_lamp.003",
             "primitives" : [
                 {
                     "attributes" : {
@@ -867,15 +869,15 @@
                             }
                         }
                     },
-                    "indices" : 27,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 28,
-                        "NORMAL" : 29,
-                        "TEXCOORD_0" : 30
+                        "POSITION" : 27,
+                        "NORMAL" : 28,
+                        "TEXCOORD_0" : 29
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -887,20 +889,20 @@
                             }
                         }
                     },
-                    "indices" : 31,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.003",
+            "name" : "street_lamp.004",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 32,
-                        "NORMAL" : 33,
-                        "TEXCOORD_0" : 34
+                        "POSITION" : 30,
+                        "NORMAL" : 31,
+                        "TEXCOORD_0" : 32
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -912,15 +914,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 35,
-                        "NORMAL" : 36,
-                        "TEXCOORD_0" : 37
+                        "POSITION" : 33,
+                        "NORMAL" : 34,
+                        "TEXCOORD_0" : 35
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -932,20 +934,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.004",
+            "name" : "street_lamp.005",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 38,
-                        "NORMAL" : 39,
-                        "TEXCOORD_0" : 40
+                        "POSITION" : 36,
+                        "NORMAL" : 37,
+                        "TEXCOORD_0" : 38
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -957,15 +959,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 41,
-                        "NORMAL" : 42,
-                        "TEXCOORD_0" : 43
+                        "POSITION" : 39,
+                        "NORMAL" : 40,
+                        "TEXCOORD_0" : 41
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -977,20 +979,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.005",
+            "name" : "street_lamp.006",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 44,
-                        "NORMAL" : 45,
-                        "TEXCOORD_0" : 46
+                        "POSITION" : 42,
+                        "NORMAL" : 43,
+                        "TEXCOORD_0" : 44
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1002,15 +1004,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 47,
-                        "NORMAL" : 48,
-                        "TEXCOORD_0" : 49
+                        "POSITION" : 45,
+                        "NORMAL" : 46,
+                        "TEXCOORD_0" : 47
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1022,20 +1024,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.006",
+            "name" : "street_lamp.007",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 50,
-                        "NORMAL" : 51,
-                        "TEXCOORD_0" : 52
+                        "POSITION" : 48,
+                        "NORMAL" : 49,
+                        "TEXCOORD_0" : 50
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1047,15 +1049,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 53,
-                        "NORMAL" : 54,
-                        "TEXCOORD_0" : 55
+                        "POSITION" : 51,
+                        "NORMAL" : 52,
+                        "TEXCOORD_0" : 53
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1067,20 +1069,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.007",
+            "name" : "street_lamp.008",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 56,
-                        "NORMAL" : 57,
-                        "TEXCOORD_0" : 58
+                        "POSITION" : 54,
+                        "NORMAL" : 55,
+                        "TEXCOORD_0" : 56
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1092,15 +1094,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 59,
-                        "NORMAL" : 60,
-                        "TEXCOORD_0" : 61
+                        "POSITION" : 57,
+                        "NORMAL" : 58,
+                        "TEXCOORD_0" : 59
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1112,20 +1114,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.008",
+            "name" : "street_lamp.009",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 62,
-                        "NORMAL" : 63,
-                        "TEXCOORD_0" : 64
+                        "POSITION" : 60,
+                        "NORMAL" : 61,
+                        "TEXCOORD_0" : 62
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1137,15 +1139,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 65,
-                        "NORMAL" : 66,
-                        "TEXCOORD_0" : 67
+                        "POSITION" : 63,
+                        "NORMAL" : 64,
+                        "TEXCOORD_0" : 65
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1157,20 +1159,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.009",
+            "name" : "street_lamp.010",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 68,
-                        "NORMAL" : 69,
-                        "TEXCOORD_0" : 70
+                        "POSITION" : 66,
+                        "NORMAL" : 67,
+                        "TEXCOORD_0" : 68
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1182,15 +1184,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 71,
-                        "NORMAL" : 72,
-                        "TEXCOORD_0" : 73
+                        "POSITION" : 69,
+                        "NORMAL" : 70,
+                        "TEXCOORD_0" : 71
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1202,20 +1204,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.010",
+            "name" : "street_lamp.011",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 74,
-                        "NORMAL" : 75,
-                        "TEXCOORD_0" : 76
+                        "POSITION" : 72,
+                        "NORMAL" : 73,
+                        "TEXCOORD_0" : 74
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1227,15 +1229,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 77,
-                        "NORMAL" : 78,
-                        "TEXCOORD_0" : 79
+                        "POSITION" : 75,
+                        "NORMAL" : 76,
+                        "TEXCOORD_0" : 77
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1247,20 +1249,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.011",
+            "name" : "street_lamp.012",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 80,
-                        "NORMAL" : 81,
-                        "TEXCOORD_0" : 82
+                        "POSITION" : 78,
+                        "NORMAL" : 79,
+                        "TEXCOORD_0" : 80
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1272,15 +1274,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 83,
-                        "NORMAL" : 84,
-                        "TEXCOORD_0" : 85
+                        "POSITION" : 81,
+                        "NORMAL" : 82,
+                        "TEXCOORD_0" : 83
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1292,20 +1294,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.012",
+            "name" : "street_lamp.013",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 86,
-                        "NORMAL" : 87,
-                        "TEXCOORD_0" : 88
+                        "POSITION" : 84,
+                        "NORMAL" : 85,
+                        "TEXCOORD_0" : 86
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1317,15 +1319,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 89,
-                        "NORMAL" : 90,
-                        "TEXCOORD_0" : 91
+                        "POSITION" : 87,
+                        "NORMAL" : 88,
+                        "TEXCOORD_0" : 89
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1337,20 +1339,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.013",
+            "name" : "street_lamp.014",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 92,
-                        "NORMAL" : 93,
-                        "TEXCOORD_0" : 94
+                        "POSITION" : 90,
+                        "NORMAL" : 91,
+                        "TEXCOORD_0" : 92
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1362,15 +1364,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 95,
-                        "NORMAL" : 96,
-                        "TEXCOORD_0" : 97
+                        "POSITION" : 93,
+                        "NORMAL" : 94,
+                        "TEXCOORD_0" : 95
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1382,20 +1384,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.014",
+            "name" : "street_lamp.015",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 98,
-                        "NORMAL" : 99,
-                        "TEXCOORD_0" : 100
+                        "POSITION" : 96,
+                        "NORMAL" : 97,
+                        "TEXCOORD_0" : 98
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1407,15 +1409,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 101,
-                        "NORMAL" : 102,
-                        "TEXCOORD_0" : 103
+                        "POSITION" : 99,
+                        "NORMAL" : 100,
+                        "TEXCOORD_0" : 101
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1427,20 +1429,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.015",
+            "name" : "street_lamp.016",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 104,
-                        "NORMAL" : 105,
-                        "TEXCOORD_0" : 106
+                        "POSITION" : 102,
+                        "NORMAL" : 103,
+                        "TEXCOORD_0" : 104
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1452,15 +1454,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 107,
-                        "NORMAL" : 108,
-                        "TEXCOORD_0" : 109
+                        "POSITION" : 105,
+                        "NORMAL" : 106,
+                        "TEXCOORD_0" : 107
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1472,20 +1474,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.016",
+            "name" : "street_lamp.017",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 110,
-                        "NORMAL" : 111,
-                        "TEXCOORD_0" : 112
+                        "POSITION" : 108,
+                        "NORMAL" : 109,
+                        "TEXCOORD_0" : 110
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1497,15 +1499,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 113,
-                        "NORMAL" : 114,
-                        "TEXCOORD_0" : 115
+                        "POSITION" : 111,
+                        "NORMAL" : 112,
+                        "TEXCOORD_0" : 113
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1517,20 +1519,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.017",
+            "name" : "street_lamp.018",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 116,
-                        "NORMAL" : 117,
-                        "TEXCOORD_0" : 118
+                        "POSITION" : 114,
+                        "NORMAL" : 115,
+                        "TEXCOORD_0" : 116
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1542,15 +1544,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 119,
-                        "NORMAL" : 120,
-                        "TEXCOORD_0" : 121
+                        "POSITION" : 117,
+                        "NORMAL" : 118,
+                        "TEXCOORD_0" : 119
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1562,20 +1564,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.018",
+            "name" : "street_lamp.019",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 122,
-                        "NORMAL" : 123,
-                        "TEXCOORD_0" : 124
+                        "POSITION" : 120,
+                        "NORMAL" : 121,
+                        "TEXCOORD_0" : 122
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1587,15 +1589,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 125,
-                        "NORMAL" : 126,
-                        "TEXCOORD_0" : 127
+                        "POSITION" : 123,
+                        "NORMAL" : 124,
+                        "TEXCOORD_0" : 125
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1607,20 +1609,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.019",
+            "name" : "street_lamp.020",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 128,
-                        "NORMAL" : 129,
-                        "TEXCOORD_0" : 130
+                        "POSITION" : 126,
+                        "NORMAL" : 127,
+                        "TEXCOORD_0" : 128
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1632,15 +1634,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 131,
-                        "NORMAL" : 132,
-                        "TEXCOORD_0" : 133
+                        "POSITION" : 129,
+                        "NORMAL" : 130,
+                        "TEXCOORD_0" : 131
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1652,20 +1654,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.020",
+            "name" : "street_lamp.021",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 134,
-                        "NORMAL" : 135,
-                        "TEXCOORD_0" : 136
+                        "POSITION" : 132,
+                        "NORMAL" : 133,
+                        "TEXCOORD_0" : 134
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1677,15 +1679,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 137,
-                        "NORMAL" : 138,
-                        "TEXCOORD_0" : 139
+                        "POSITION" : 135,
+                        "NORMAL" : 136,
+                        "TEXCOORD_0" : 137
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1697,20 +1699,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.021",
+            "name" : "street_lamp.022",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 140,
-                        "NORMAL" : 141,
-                        "TEXCOORD_0" : 142
+                        "POSITION" : 138,
+                        "NORMAL" : 139,
+                        "TEXCOORD_0" : 140
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1722,15 +1724,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 143,
-                        "NORMAL" : 144,
-                        "TEXCOORD_0" : 145
+                        "POSITION" : 141,
+                        "NORMAL" : 142,
+                        "TEXCOORD_0" : 143
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1742,20 +1744,20 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.022",
+            "name" : "street_lamp.023",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 146,
-                        "NORMAL" : 147,
-                        "TEXCOORD_0" : 148
+                        "POSITION" : 144,
+                        "NORMAL" : 145,
+                        "TEXCOORD_0" : 146
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1767,15 +1769,15 @@
                             }
                         }
                     },
-                    "indices" : 19,
-                    "material" : 4,
+                    "indices" : 11,
+                    "material" : 2,
                     "mode" : 4
                 },
                 {
                     "attributes" : {
-                        "POSITION" : 149,
-                        "NORMAL" : 150,
-                        "TEXCOORD_0" : 151
+                        "POSITION" : 147,
+                        "NORMAL" : 148,
+                        "TEXCOORD_0" : 149
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1787,40 +1789,21 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 15,
+                    "material" : 3,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "street_lamp.023",
+            "name" : "Plane",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 152,
-                        "NORMAL" : 153,
-                        "TEXCOORD_0" : 154
-                    },
-                    "extensions" : {
-                        "KHR_draco_mesh_compression" : {
-                            "bufferView" : 48,
-                            "attributes" : {
-                                "POSITION" : 0,
-                                "NORMAL" : 1,
-                                "TEXCOORD_0" : 2
-                            }
-                        }
-                    },
-                    "indices" : 19,
-                    "material" : 4,
-                    "mode" : 4
-                },
-                {
-                    "attributes" : {
-                        "POSITION" : 155,
-                        "NORMAL" : 156,
-                        "TEXCOORD_0" : 157
+                        "POSITION" : 150,
+                        "NORMAL" : 151,
+                        "TANGENT" : 152,
+                        "TEXCOORD_0" : 153
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1832,21 +1815,21 @@
                             }
                         }
                     },
-                    "indices" : 23,
-                    "material" : 5,
+                    "indices" : 154,
+                    "material" : 4,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "Plane",
+            "name" : "Plane.001",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 158,
-                        "NORMAL" : 159,
-                        "TANGENT" : 160,
-                        "TEXCOORD_0" : 161
+                        "POSITION" : 155,
+                        "NORMAL" : 156,
+                        "TANGENT" : 157,
+                        "TEXCOORD_0" : 158
                     },
                     "extensions" : {
                         "KHR_draco_mesh_compression" : {
@@ -1858,20 +1841,39 @@
                             }
                         }
                     },
-                    "indices" : 162,
-                    "material" : 6,
+                    "indices" : 159,
+                    "material" : 5,
                     "mode" : 4
                 }
             ]
         },
         {
-            "name" : "Plane.001",
+            "name" : "Bank_02",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 163,
-                        "NORMAL" : 164,
-                        "TANGENT" : 165,
+                        "POSITION" : 160,
+                        "NORMAL" : 161,
+                        "TEXCOORD_0" : 162
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 52,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 163,
+                    "material" : 6,
+                    "mode" : 4
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 164,
+                        "NORMAL" : 165,
                         "TEXCOORD_0" : 166
                     },
                     "extensions" : {
@@ -1906,10 +1908,6 @@
         },
         {
             "sampler" : 0,
-            "source" : 1
-        },
-        {
-            "sampler" : 0,
             "source" : 3
         },
         {
@@ -1931,24 +1929,13 @@
         {
             "sampler" : 0,
             "source" : 8
+        },
+        {
+            "sampler" : 0,
+            "source" : 7
         }
     ],
     "images" : [
-        {
-            "mimeType" : "image/png",
-            "name" : "Normal_Panchina_2k",
-            "uri" : "texture/Normal_Panchina_2k.png"
-        },
-        {
-            "mimeType" : "image/png",
-            "name" : "Panchina_2k",
-            "uri" : "texture/Panchina_2k.png"
-        },
-        {
-            "mimeType" : "image/png",
-            "name" : "Roughtness_Panchina_2k",
-            "uri" : "texture/Roughtness_Panchina_2k.png"
-        },
         {
             "mimeType" : "image/jpeg",
             "name" : "Bark_Tilia-europaea_Normal",
@@ -1971,76 +1958,31 @@
         },
         {
             "mimeType" : "image/png",
-            "name" : "Terreno_4k_LD",
-            "uri" : "texture/Terreno_4k_LD.png"
+            "name" : "Terreno_2k_LD",
+            "uri" : "texture/Terreno_2k_LD.png"
         },
         {
             "mimeType" : "image/png",
             "name" : "Terreno_2k",
             "uri" : "texture/Terreno_2k.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Normal_Panchina_2k",
+            "uri" : "texture/Normal_Panchina_2k.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Panchina_2k",
+            "uri" : "texture/Panchina_2k.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Roughtness_Panchina_2k",
+            "uri" : "texture/Roughtness_Panchina_2k.png"
         }
     ],
     "accessors" : [
-        {
-            "componentType" : 5126,
-            "count" : 272,
-            "max" : [
-                63.54779815673828,
-                32.357200622558594,
-                -2.439359426498413
-            ],
-            "min" : [
-                -63.547698974609375,
-                -32.359901428222656,
-                -79.15760040283203
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 272,
-            "type" : "VEC3"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 272,
-            "type" : "VEC2"
-        },
-        {
-            "componentType" : 5123,
-            "count" : 408,
-            "type" : "SCALAR"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 1820,
-            "max" : [
-                63.54779815673828,
-                32.76599884033203,
-                -2.439359426498413
-            ],
-            "min" : [
-                -63.54779815673828,
-                -32.76599884033203,
-                -79.80860137939453
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 1820,
-            "type" : "VEC3"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 1820,
-            "type" : "VEC2"
-        },
-        {
-            "componentType" : 5123,
-            "count" : 4848,
-            "type" : "SCALAR"
-        },
         {
             "componentType" : 5126,
             "count" : 75341,
@@ -3292,7 +3234,7 @@
             "type" : "VEC3"
         },
         {
-            "bufferView" : 50,
+            "bufferView" : 48,
             "componentType" : 5126,
             "count" : 89868,
             "type" : "VEC4"
@@ -3328,7 +3270,7 @@
             "type" : "VEC3"
         },
         {
-            "bufferView" : 52,
+            "bufferView" : 50,
             "componentType" : 5126,
             "count" : 2754,
             "type" : "VEC4"
@@ -3342,278 +3284,338 @@
             "componentType" : 5123,
             "count" : 15900,
             "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 272,
+            "max" : [
+                63.54779815673828,
+                32.357200622558594,
+                -2.439359426498413
+            ],
+            "min" : [
+                -63.547698974609375,
+                -32.359901428222656,
+                -79.15760040283203
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 272,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 272,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 408,
+            "type" : "SCALAR"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 1820,
+            "max" : [
+                63.54779815673828,
+                32.76599884033203,
+                -2.439359426498413
+            ],
+            "min" : [
+                -63.54779815673828,
+                -32.76599884033203,
+                -79.80860137939453
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 1820,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 1820,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 4848,
+            "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 2075,
+            "byteLength" : 538588,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 11303,
-            "byteOffset" : 2076
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 538588,
-            "byteOffset" : 13380
-        },
-        {
-            "buffer" : 0,
             "byteLength" : 499639,
-            "byteOffset" : 551968
+            "byteOffset" : 538588
         },
         {
             "buffer" : 0,
             "byteLength" : 27044,
-            "byteOffset" : 1051608
+            "byteOffset" : 1038228
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1078652
+            "byteOffset" : 1065272
         },
         {
             "buffer" : 0,
             "byteLength" : 39798,
-            "byteOffset" : 1081404
+            "byteOffset" : 1068024
         },
         {
             "buffer" : 0,
             "byteLength" : 3314,
-            "byteOffset" : 1121204
+            "byteOffset" : 1107824
         },
         {
             "buffer" : 0,
             "byteLength" : 27099,
-            "byteOffset" : 1124520
+            "byteOffset" : 1111140
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1151620
+            "byteOffset" : 1138240
         },
         {
             "buffer" : 0,
             "byteLength" : 27063,
-            "byteOffset" : 1154372
+            "byteOffset" : 1140992
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1181436
+            "byteOffset" : 1168056
         },
         {
             "buffer" : 0,
             "byteLength" : 27091,
-            "byteOffset" : 1184188
+            "byteOffset" : 1170808
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1211280
+            "byteOffset" : 1197900
         },
         {
             "buffer" : 0,
             "byteLength" : 27089,
-            "byteOffset" : 1214032
+            "byteOffset" : 1200652
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1241124
+            "byteOffset" : 1227744
         },
         {
             "buffer" : 0,
             "byteLength" : 27089,
-            "byteOffset" : 1243876
+            "byteOffset" : 1230496
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1270968
+            "byteOffset" : 1257588
         },
         {
             "buffer" : 0,
             "byteLength" : 27057,
-            "byteOffset" : 1273720
+            "byteOffset" : 1260340
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1300780
+            "byteOffset" : 1287400
         },
         {
             "buffer" : 0,
             "byteLength" : 27044,
-            "byteOffset" : 1303532
+            "byteOffset" : 1290152
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1330576
+            "byteOffset" : 1317196
         },
         {
             "buffer" : 0,
             "byteLength" : 27083,
-            "byteOffset" : 1333328
+            "byteOffset" : 1319948
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1360412
+            "byteOffset" : 1347032
         },
         {
             "buffer" : 0,
             "byteLength" : 27058,
-            "byteOffset" : 1363164
+            "byteOffset" : 1349784
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1390224
+            "byteOffset" : 1376844
         },
         {
             "buffer" : 0,
             "byteLength" : 27093,
-            "byteOffset" : 1392976
+            "byteOffset" : 1379596
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1420072
+            "byteOffset" : 1406692
         },
         {
             "buffer" : 0,
             "byteLength" : 27083,
-            "byteOffset" : 1422824
+            "byteOffset" : 1409444
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1449908
+            "byteOffset" : 1436528
         },
         {
             "buffer" : 0,
             "byteLength" : 27051,
-            "byteOffset" : 1452660
+            "byteOffset" : 1439280
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1479712
+            "byteOffset" : 1466332
         },
         {
             "buffer" : 0,
             "byteLength" : 27054,
-            "byteOffset" : 1482464
+            "byteOffset" : 1469084
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1509520
+            "byteOffset" : 1496140
         },
         {
             "buffer" : 0,
             "byteLength" : 27055,
-            "byteOffset" : 1512272
+            "byteOffset" : 1498892
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1539328
+            "byteOffset" : 1525948
         },
         {
             "buffer" : 0,
             "byteLength" : 27049,
-            "byteOffset" : 1542080
+            "byteOffset" : 1528700
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1569132
+            "byteOffset" : 1555752
         },
         {
             "buffer" : 0,
             "byteLength" : 27099,
-            "byteOffset" : 1571884
+            "byteOffset" : 1558504
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1598984
+            "byteOffset" : 1585604
         },
         {
             "buffer" : 0,
             "byteLength" : 27048,
-            "byteOffset" : 1601736
+            "byteOffset" : 1588356
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1628784
+            "byteOffset" : 1615404
         },
         {
             "buffer" : 0,
             "byteLength" : 27042,
-            "byteOffset" : 1631536
+            "byteOffset" : 1618156
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1658580
+            "byteOffset" : 1645200
         },
         {
             "buffer" : 0,
             "byteLength" : 27048,
-            "byteOffset" : 1661332
+            "byteOffset" : 1647952
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1688380
+            "byteOffset" : 1675000
         },
         {
             "buffer" : 0,
             "byteLength" : 27052,
-            "byteOffset" : 1691132
+            "byteOffset" : 1677752
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1718184
+            "byteOffset" : 1704804
         },
         {
             "buffer" : 0,
             "byteLength" : 27041,
-            "byteOffset" : 1720936
+            "byteOffset" : 1707556
         },
         {
             "buffer" : 0,
             "byteLength" : 2751,
-            "byteOffset" : 1747980
+            "byteOffset" : 1734600
         },
         {
             "buffer" : 0,
             "byteLength" : 1437888,
-            "byteOffset" : 1750732
+            "byteOffset" : 1737352
         },
         {
             "buffer" : 0,
             "byteLength" : 248782,
-            "byteOffset" : 3188620
+            "byteOffset" : 3175240
         },
         {
             "buffer" : 0,
             "byteLength" : 44064,
-            "byteOffset" : 3437404
+            "byteOffset" : 3424024
         },
         {
             "buffer" : 0,
             "byteLength" : 10001,
-            "byteOffset" : 3481468
+            "byteOffset" : 3468088
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2075,
+            "byteOffset" : 3478092
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 11303,
+            "byteOffset" : 3480168
         }
     ],
     "samplers" : [

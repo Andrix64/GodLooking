@@ -8566,18 +8566,18 @@
     "images" : [
         {
             "mimeType" : "image/jpeg",
-            "name" : "t_brick_floor_002_DX_Normal_2k",
-            "uri" : "texture/t_brick_floor_002_DX_Normal_2k.jpg"
+            "name" : "t_brick_floor_002_DX_Normal_1k",
+            "uri" : "texture/t_brick_floor_002_DX_Normal_1k.jpg"
         },
         {
             "mimeType" : "image/jpeg",
-            "name" : "t_brick_floor_002_Diffuse_2k",
-            "uri" : "texture/t_brick_floor_002_Diffuse_2k.jpg"
+            "name" : "t_brick_floor_002_Diffuse_1k",
+            "uri" : "texture/t_brick_floor_002_Diffuse_1k.jpg"
         },
         {
             "mimeType" : "image/png",
-            "name" : "t_brick_floor_002_Rough_2k",
-            "uri" : "texture/t_brick_floor_002_Rough_2k.png"
+            "name" : "t_brick_floor_002_Rough_1k",
+            "uri" : "texture/t_brick_floor_002_Rough_1k.png"
         },
         {
             "mimeType" : "image/jpeg",
@@ -8626,18 +8626,18 @@
         },
         {
             "mimeType" : "image/jpeg",
-            "name" : "asphalt_02_nor_2k",
-            "uri" : "texture/asphalt_02_nor_2k.jpg"
+            "name" : "asphalt_02_nor_1k",
+            "uri" : "texture/asphalt_02_nor_1k.jpg"
         },
         {
             "mimeType" : "image/jpeg",
-            "name" : "asphalt_02_diff_2k",
-            "uri" : "texture/asphalt_02_diff_2k.jpg"
+            "name" : "asphalt_02_diff_1k",
+            "uri" : "texture/asphalt_02_diff_1k.jpg"
         },
         {
             "mimeType" : "image/png",
-            "name" : "asphalt_02_rough_2k",
-            "uri" : "texture/asphalt_02_rough_2k.png"
+            "name" : "asphalt_02_rough_1k",
+            "uri" : "texture/asphalt_02_rough_1k.png"
         },
         {
             "mimeType" : "image/jpeg",
@@ -8656,33 +8656,33 @@
         },
         {
             "mimeType" : "image/jpeg",
-            "name" : "red_brick_03_bump_2k",
-            "uri" : "texture/red_brick_03_bump_2k.jpg"
+            "name" : "red_brick_03_bump_1k",
+            "uri" : "texture/red_brick_03_bump_1k.jpg"
         },
         {
             "mimeType" : "image/jpeg",
-            "name" : "red_brick_03_diff_2k",
-            "uri" : "texture/red_brick_03_diff_2k.jpg"
+            "name" : "red_brick_03_diff_1k",
+            "uri" : "texture/red_brick_03_diff_1k.jpg"
         },
         {
             "mimeType" : "image/png",
-            "name" : "red_brick_03_rough_2k",
-            "uri" : "texture/red_brick_03_rough_2k.png"
+            "name" : "red_brick_03_rough_1k",
+            "uri" : "texture/red_brick_03_rough_1k.png"
         },
         {
             "mimeType" : "image/jpeg",
-            "name" : "grey_roof_tiles_02_nor_2k",
-            "uri" : "texture/grey_roof_tiles_02_nor_2k.jpg"
+            "name" : "grey_roof_tiles_02_nor_1k",
+            "uri" : "texture/grey_roof_tiles_02_nor_1k.jpg"
         },
         {
             "mimeType" : "image/jpeg",
-            "name" : "grey_roof_tiles_02_albedo_2k",
-            "uri" : "texture/grey_roof_tiles_02_albedo_2k.jpg"
+            "name" : "grey_roof_tiles_02_albedo_1k",
+            "uri" : "texture/grey_roof_tiles_02_albedo_1k.jpg"
         },
         {
             "mimeType" : "image/png",
-            "name" : "grey_roof_tiles_02_rough_2k",
-            "uri" : "texture/grey_roof_tiles_02_rough_2k.png"
+            "name" : "grey_roof_tiles_02_rough_1k",
+            "uri" : "texture/grey_roof_tiles_02_rough_1k.png"
         },
         {
             "mimeType" : "image/jpeg",
