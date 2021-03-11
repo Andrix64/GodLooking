@@ -118,6 +118,7 @@
 			let allrend=0;
 			let materialLogo;
 			let dimensionLogo;
+			let mixer,clock;
 			const postprocessing = {};
 
 			//configurazione del color-picker
@@ -185,6 +186,9 @@
 				const container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
+				//Clock per animazione
+				clock = new THREE.Clock();
+
 				//posizione camera
 				camera = new THREE.PerspectiveCamera( 40, 1,0.1, 10000 );
 				camera.position.set(-10,0,10);
@@ -232,15 +236,15 @@
 					
 						roughnessMipmapper.dispose();
 
-						var gridLength=5;
-						for(var y=-gridLength;y<=gridLength;y++)
-						{
-							if(y!=0){
-								let re=gltf.scene.clone();
-								re.position.set(0,0,(y*600));
-								scene.add( re );
-							}
-						}
+						//ANIMATIONS
+						mixer = new THREE.AnimationMixer( gltf.scene );
+
+						gltf.animations.forEach( ( clip ) => {
+
+							mixer.clipAction( clip ).play();
+
+						} );
+						//END ANIMATIONS
 
 
 						render();
@@ -521,7 +525,8 @@
 			//funzione per il render generale
 			function render() {
 				requestAnimationFrame( render );
-				
+				var delta = clock.getDelta();
+				if ( mixer ) mixer.update( delta );
 				postprocessing.composer.render( 0.1 );
 			}
 
