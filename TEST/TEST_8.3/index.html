@@ -141,6 +141,7 @@
 				} );
 			});
 
+			//Gestione inserimento logo
 			$("#file").on("change", changeLogo);
 
 			function changeLogo(){
@@ -236,7 +237,7 @@
 					
 						roughnessMipmapper.dispose();
 
-						//ANIMATIONS
+						//carica Animazione
 						mixer = new THREE.AnimationMixer( gltf.scene );
 
 						gltf.animations.forEach( ( clip ) => {
@@ -244,9 +245,8 @@
 							mixer.clipAction( clip ).play();
 
 						} );
-						//END ANIMATIONS
 
-
+						//renderizza la scena
 						render();
 						allRendered();
 				},
