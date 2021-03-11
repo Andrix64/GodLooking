@@ -378,6 +378,8 @@
 				const sceneMeshes = new Array();
 				let dir = new THREE.Vector3();
 				let intersects = new Array();
+				let intersectsOBJ= new Array();
+				const raycasterBlur = new THREE.Raycaster();
 
 				//Quando la telecamera cambia posizione
 				controls.addEventListener("change", function() {
@@ -399,7 +401,13 @@
 					}
 
 					//depth of field
-					postprocessing.bokeh.uniforms[ "focus" ].value = Math.sqrt(Math.sqrt(Math.pow(camera.position.x-controls.target.x, 2)+Math.pow(camera.position.y-controls.target.y, 2))+Math.pow(camera.position.z-controls.target.z, 2))+5;
+					raycasterBlur.setFromCamera(new THREE.Vector2( 0, 0 ),camera);
+					if(objectShown!=undefined)
+					{
+						intersectsOBJ = raycasterBlur.intersectObjects( objectShown.children );
+						if(intersectsOBJ[0]!=undefined)
+							postprocessing.bokeh.uniforms[ "focus" ].value = intersectsOBJ[0].distance;
+					}
 				})
 
 				controls.update();
@@ -418,7 +426,7 @@
 
 				const bokehPass = new BokehPass( scene, camera, {
 					focus: 13.0,
-					aperture: 0.0002,
+					aperture: 0.0005,
 					maxblur: 0.01,
 
 					width: window.innerWidth, 
@@ -426,7 +434,7 @@
 				} );
 				const saoPass = new SAOPass( scene, camera, false, true );
 				saoPass.params['output']=SAOPass.OUTPUT.Default;
-				saoPass.params['saoIntensity']=0.00015;
+				saoPass.params['saoIntensity']=0.00005;
 				saoPass.params['saoBias']=0.5;
 				const composer = new EffectComposer( renderer );
 
