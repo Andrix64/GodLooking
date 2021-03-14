@@ -88,6 +88,11 @@
 				</div>
 			</div>
 		</nav>
+		
+		<!--container del renderer-->
+		<div id="scene-container">
+
+		</div>
 
 		<!-- Three.js-->
 		<script type="module">
@@ -183,8 +188,7 @@
 			//Funzione principale
 			function init() {
 				//posizionamento della finestra di render nella pagina
-				const container = document.createElement( 'div' );
-				document.body.appendChild( container );
+				const container = document.getElementById( 'scene-container' );
 
 				//posizione camera
 				camera = new THREE.PerspectiveCamera( 40, 1,0.01, 1000 );

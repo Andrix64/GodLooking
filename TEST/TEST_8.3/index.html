@@ -89,6 +89,11 @@
 			</div>
 		</nav>
 
+		<!--container del renderer-->
+		<div id="scene-container">
+
+		</div>
+
 		<!-- Three.js-->
 		<script type="module">
 			//importa three.js
@@ -185,8 +190,7 @@
 			//Funzione principale
 			function init() {
 				//posizionamento della finestra di render nella pagina
-				const container = document.createElement( 'div' );
-				document.body.appendChild( container );
+				const container = document.getElementById( 'scene-container' );
 
 				//Clock per animazione
 				clock = new THREE.Clock();
