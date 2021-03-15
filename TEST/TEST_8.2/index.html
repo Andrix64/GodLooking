@@ -230,8 +230,6 @@
 						roughnessMipmapper.dispose();
 
 
-
-						render();
 						allRendered();
 				},
 					function ( xhr ) {
@@ -267,8 +265,6 @@
 						roughnessMipmapper.dispose();
 
 
-
-						render();
 						allRendered();
 				},
 				function ( xhr ) {
@@ -303,7 +299,6 @@
 					
 						roughnessMipmapper.dispose();
 
-						render();
 						allRendered();
 				},
 				function ( xhr ) {
@@ -530,6 +525,7 @@
 					window.addEventListener( 'resize', onWindowResize );
 					onWindowResize();
 					pmremGenerator.compileEquirectangularShader();
+					render();
 				}
 			}
 
@@ -579,7 +575,6 @@
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				postprocessing.composer.setSize( window.innerWidth, window.innerHeight );
-				render();
 
 			}
 

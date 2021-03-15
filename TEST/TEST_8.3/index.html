@@ -184,9 +184,7 @@
 				
 			}
 
-			//chiamata alla funzione principale
-			init();
-
+			
 			//Funzione principale
 			function init() {
 				//posizionamento della finestra di render nella pagina
@@ -234,7 +232,7 @@
 								if(child.name=="Glass")
 								{
 									child.material.transparent=true;
-									child.material.opacity=0.2;
+									child.material.opacity=0.4;
 								}
 							}
 						} );
@@ -252,7 +250,6 @@
 						} );
 
 						//renderizza la scena
-						render();
 						allRendered();
 				},
 					function ( xhr ) {
@@ -435,13 +432,17 @@
 				allRendered();
 			}
 
+
+			//chiamata alla funzione principale
+			init();
+
 			//init del postprocessing
 			function initPostprocessing() {
 				const renderPass = new RenderPass( scene, camera );
 
 				const bokehPass = new BokehPass( scene, camera, {
 					focus: 1.3,
-					aperture: 0.0025,
+					aperture: 0.0005,
 					maxblur: 0.015,
 
 					width: window.innerWidth, 
@@ -489,6 +490,7 @@
 					window.addEventListener( 'resize', onWindowResize );
 					onWindowResize();
 					pmremGenerator.compileEquirectangularShader();
+					render();
 				}
 			}
 
@@ -538,7 +540,6 @@
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				postprocessing.composer.setSize( window.innerWidth, window.innerHeight );
-				render();
 
 			}
 
@@ -549,7 +550,7 @@
 				var delta = clock.getDelta();
 				if ( mixer ) mixer.update( delta );
 
-				postprocessing.composer.render( 0.1 );
+				postprocessing.composer.render( delta );
 			}
 
 		</script>
