@@ -6,7 +6,6 @@ import { OrbitControls } from '../../../three.js/examples/jsm/controls/OrbitCont
 
 //importa i loader di modelli,texture e decompressori
 import { GLTFLoader } from '../../../three.js/examples/jsm/loaders/GLTFLoader.js';
-import { MTLLoader } from '../../../three.js/examples/jsm/loaders/MTLLoader.js';
 import { EXRLoader } from '../../../three.js/examples/jsm/loaders/EXRLoader.js';
 import { DRACOLoader } from '../../../three.js/examples/jsm/loaders/DRACOLoader.js';
 
@@ -25,24 +24,26 @@ import { SAOPass } from '../../../three.js/examples/jsm/postprocessing/SAOPass.j
 
 
 class Mondo {
-    constructor(container) {
+    constructor(container,camerapos,sceneColor) //Costruttore (setta le basi)
+    {
+        
         this.container = container;
         this.postprocessing = {};
-        this.camera= new THREE.PerspectiveCamera( 40, 1,0.01, 1000 );
-        this.camera.position.set(-1,0,1);
+        this.camera= new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight ,0.01, 100 );
+        this.camera.position.set(camerapos.x,camerapos.y,camerapos.z);
 
-        
+        this.controls;
+        this.sceneMeshes = new Array();
 
         this.dracoLoader = new DRACOLoader();
         this.dracoLoader.setDecoderPath( '../../../three.js/examples/js/libs/draco/' );
 
         this.scene = new THREE.Scene();
         {
-            const color = 'lightblue';
-            this.scene.background = new THREE.Color(color);
+            this.scene.background = new THREE.Color(sceneColor);
         }
 
-        this.mixer = new THREE.AnimationMixer( this.scene );
+        this.mixers = [];
 
         this.clock = new THREE.Clock();
 
@@ -59,27 +60,191 @@ class Mondo {
         this.container.appendChild( this.renderer.domElement );
 
         this.initPostprocessing()
-        this.initScene()
     }
 
-    async initScene() {
-        const paths=["../gltf/Cittadino/Cittadina.gltf","../gltf/LowPolyTotem/Totem.gltf"]//oggetti da caricare
+    //pathsOBJ è un oggetto che contiene i link agli oggetti e all'environment da aggiungere nella scena e la posizione x,y,z in cui posizionarli. ESEMPIO { "oggetti":[ { "path":"./link/Oggetto.gltf","position":{"x":0,"y":0,"z":0},"collide": true },.... ], "environment": "./link/Environment.exr" }
+    async initScene(paths) 
+    {
+        console.log(paths)
+        const requests = paths["oggetti"].map((path) => { 
+            return this.LoadObject(path["path"]);
+        });
 
-        const requests = paths.map((path) => { 
-            return this.LoadObject(path) // Async function to send the mail.
-        })
-        const objects= await Promise.all(requests);
-        console.log(objects);
-        for(var i=0;i<objects.length;i++){
-            this.scene.add(objects[i].scene);
+        var allReturn,posObj;
+
+        if(paths["environment"]!=undefined){
+            posObj=1
+
+            allReturn=await Promise.all([
+                this.LoadEquirectangular(paths["environment"]),
+                requests,
+            ]); 
+    
+            const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
+            const envMap = pmremGenerator.fromEquirectangular( allReturn[0] ).texture;
+            const rt = new THREE.WebGLCubeRenderTarget(allReturn[0].image.height);
+            rt.fromEquirectangularTexture(this.renderer, allReturn[0]);
+            this.scene.background = rt;
+            this.scene.environment = envMap;
+            allReturn[0].dispose();
+        }else{
+            allReturn=await Promise.all([
+                requests,
+            ]); 
+            posObj=0
         }
 
-        this.renderer.setSize( window.innerWidth, window.innerHeight );
-        this.postprocessing.composer.setSize( window.innerWidth, window.innerHeight );
-        this.render();
+        var mix=this.mixers;
+        var scena=this.scene;
+        var meshscene=this.sceneMeshes
+        for(var i=0;i<allReturn[posObj].length;i++)
+        {
+            await allReturn[posObj][i].then(function(result) {
+                //ADD MIXER
+                mix.push( new THREE.AnimationMixer( result.scene ))
+                result.animations.forEach( ( clip ) => {
+                    
+                    mix[mix.length-1].clipAction( clip ).play();
+            
+                });
+                
+                //ADD SCENE
+                if(paths["oggetti"][i]["collide"])
+                {
+                    result.scene.traverse( function ( child ) {
+                        if ( child.isMesh ) {
+                            meshscene.push(child);
+                        }
+                    } );
+                }
+                    
+                result.scene.position.set(paths["oggetti"][i]["position"].x,paths["oggetti"][i]["position"].y,paths["oggetti"][i]["position"].z);
+                scena.add(result.scene);
+            });
+        }
+
+        console.log(this.scene)
     }
 
-    initPostprocessing() {
+    //Setta il controller della telecamera prendendo il massimo e il minimo che la telecamera può zoomare
+    SetCameraControl(zoomMin,zoomMax)
+    {
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.minDistance = zoomMin;
+        this.controls.maxDistance = zoomMax;
+        this.controls.maxPolarAngle = Math.PI / 2;
+        this.controls.enablePan = true;
+        this.controls.target.set(0, 0, 0);
+
+        
+
+        this.controls.update();
+    }
+
+    //Aggiunge il listener per la collisione con la scena
+    async CameraCollision()
+    {
+        
+        //Variabili per collisione
+        const raycaster = new THREE.Raycaster();
+        let dir = new THREE.Vector3();
+        let intersects = new Array();
+        
+        console.log(this.controls)
+        var con=this.controls,cam=this.camera,meshscene=this.sceneMeshes;
+        //Quando la telecamera cambia posizione
+        this.controls.addEventListener("change", function() {
+
+            //collision detector
+            raycaster.set(con.target, dir.subVectors(cam.position, con.target).normalize())
+            intersects = raycaster.intersectObjects(meshscene, false);
+            if (intersects.length > 0) {
+                if (intersects[0].distance < con.target.distanceTo(cam.position)) {
+                    cam.position.copy(intersects[0].point)
+                }
+            }
+            
+        })
+
+        this.controls.update();
+    }
+
+    //Aggiunge il listener per il movimento consentito della telecamera prendendo il massimo e il minimo 
+    async CameraMovement(MiPan,MaPan)
+    {
+        //variabili per spostamento
+        var minPan = new THREE.Vector3( MiPan.x, MiPan.y, MiPan.z );
+        var maxPan = new THREE.Vector3( MaPan.x, MaPan.y, MaPan.z );
+        var _v = new THREE.Vector3();
+
+        //Quando la telecamera cambia posizione
+        var con=this.controls,cam=this.camera;
+        this.controls.addEventListener("change", function() {
+            //movimento camera
+            _v.copy(con.target);
+            con.target.clamp(minPan, maxPan);
+            _v.sub(con.target);
+            cam.position.sub(_v);
+            
+        })
+
+        this.controls.update();
+    }
+
+    //Setta tutte le mesh in modo che possano dare e ricevere ombra
+    async AllCastShadow()
+    {
+        this.scene.traverse( function ( child ) {
+            if ( child.isMesh ) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+    }
+    
+    //Modifica i materiali con trasparenza prendendo due vettori che contengono il primo il nome delle mesh e il secondo l'opacita da settargli 
+    async changeMaterialOpacity(name,opacity)
+    { 
+        this.scene.traverse( function ( child ) {
+            if ( child.isMesh ) {
+                for(var i=0;i<name.length;i++)
+                {
+                    if(child.name==name[i])
+                    {
+                        child.material.transparent=true;
+                        child.material.opacity=opacity[i];
+                    }
+                }
+
+            }
+
+        } );
+    }
+
+    //setta come listener il resizer della finestra
+    SetResizeFunction()
+    {
+        var Ccamera=this.camera,Crenderer=this.renderer,Cpostprocessing=this.postprocessing;
+        var fun=this.onWindowResize;
+        window.addEventListener( 'resize', function(){
+            fun(Ccamera,Crenderer,Cpostprocessing)
+        } );
+    }
+
+    //Sistema i render in base alla grandezza e ratio della finestra
+    onWindowResize(Ccamera,Crenderer,Cpostprocessing) 
+    {
+        Ccamera.aspect = window.innerWidth / window.innerHeight;
+        Ccamera.updateProjectionMatrix();
+    
+        Crenderer.setSize( window.innerWidth, window.innerHeight );
+        Cpostprocessing.composer.setSize( window.innerWidth, window.innerHeight );
+    
+    }
+
+    //setta i filtri postprocessing
+    initPostprocessing() 
+    {
         const renderPass = new RenderPass( this.scene, this.camera );
     
         const bokehPass = new BokehPass( this.scene, this.camera, {
@@ -111,34 +276,21 @@ class Mondo {
         this.postprocessing.saoPass =saoPass
     }
 
-    LoadEquirectangular(path){
+    //carica l'Equirectangular dal link
+    async LoadEquirectangular(path)
+    {
+        const loader = new EXRLoader();
+        loader.setDataType( THREE.UnsignedByteType )
 
-        new EXRLoader()
-        .setDataType( THREE.UnsignedByteType )
-        .load( '../hdr/suburban_parking_area_2k.exr', function ( texture ) {
-            const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
-            const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
-              rt.fromEquirectangularTexture(renderer, texture);
-            scene.background = rt;
-
-            scene.environment = envMap;
-
-            texture.dispose();
-            pmremGenerator.dispose();
-            allRendered();
-
-        },
-        function ( xhr ) {
-            document.getElementById("load3").innerHTML="EXR: "+Math.floor( xhr.loaded / xhr.total * 100 )+"% loaded";
-        },
-        function ( error ) {
-            document.getElementById("load3").innerHTML="An error happened loading EXR";
-
-        } );
-        
+        const texture = await Promise.all([
+            loader.loadAsync(path),
+        ]);
+        return texture[0];
     }
 
-    async LoadObject(path){
+    //carica gli oggetti dal link
+    async LoadObject(path)
+    {
 
         const loader = new GLTFLoader();
         loader.setDRACOLoader( this.dracoLoader );
@@ -146,24 +298,36 @@ class Mondo {
         const object = await Promise.all([
             loader.loadAsync(path),
         ]);
-        console.log(object[0]);
-    
-        
-        object[0].animations.forEach( ( clip ) => {
-    
-            this.mixer.clipAction( clip ).play();
-    
-        } );
-        
-    
         return object[0];
     }
 
-    render() {
-        var delta = this.clock.getDelta();
-        if ( this.mixer ) this.mixer.update( delta );
+    //Fa partire il game loop
+    start() 
+    {
+        this.onWindowResize(this.camera,this.renderer,this.postprocessing);
+        this.postprocessing.composer.renderer.setAnimationLoop(() => {
+            // tell every animated object to tick forward one frame
+            this.tick();
 
-        this.postprocessing.composer.render( delta );
+            // render a frame
+            this.postprocessing.composer.render( this.clock.getDelta() );
+        });
+    }
+
+    //Stoppa il game loop
+    stop() 
+    {
+        this.renderer.setAnimationLoop(null);
+    }
+
+    //Cosa fa il game loop ad ogni tick;
+    tick() 
+    {
+        const delta = this.clock.getDelta();
+        if ( this.mixers.length!=0 ) {
+            for(var i=0;i<this.mixers.length;i++)
+                this.mixers[i].update( delta );
+        }
     }
 }
 
