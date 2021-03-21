@@ -12,6 +12,15 @@
     "scene" : 0,
     "scenes" : [
         {
+            "extras" : {
+                "glTF2ExportSettings" : {
+                    "export_apply" : 1,
+                    "export_draco_mesh_compression_enable" : 1,
+                    "export_extras" : 1,
+                    "export_format" : "GLTF_SEPARATE",
+                    "export_texture_dir" : "texture"
+                }
+            },
             "name" : "Scene",
             "nodes" : [
                 0,
@@ -88,10 +97,10 @@
             "mesh" : 4,
             "name" : "Logo0",
             "rotation" : [
-                0.5,
-                -0.5,
-                0.4999999701976776,
-                0.5000000596046448
+                0,
+                0,
+                -1,
+                1.910685676922942e-15
             ],
             "scale" : [
                 0.1648346334695816,
@@ -108,10 +117,10 @@
             "mesh" : 5,
             "name" : "Logo1",
             "rotation" : [
+                -1,
                 0,
-                -0.7071068286895752,
-                0.7071067690849304,
-                5.338507946817117e-08
+                0,
+                1.910685676922942e-15
             ],
             "scale" : [
                 0.1648346334695816,
@@ -128,10 +137,10 @@
             "mesh" : 6,
             "name" : "Logo2",
             "rotation" : [
-                0.5,
-                0.5,
-                -0.4999999701976776,
-                0.5000000596046448
+                0,
+                0,
+                -1,
+                1.910685676922942e-15
             ],
             "scale" : [
                 0.1648346334695816,
@@ -148,10 +157,10 @@
             "mesh" : 7,
             "name" : "Logo3",
             "rotation" : [
-                0.7071067690849304,
+                -1,
                 0,
                 0,
-                0.7071068286895752
+                1.910685676922942e-15
             ],
             "scale" : [
                 0.1648346334695816,
@@ -545,14 +554,14 @@
             "componentType" : 5126,
             "count" : 4,
             "max" : [
+                1.5163318778377288e-07,
                 1,
-                0,
-                1
+                0.9916282296180725
             ],
             "min" : [
+                -1.5163318778377288e-07,
                 -1,
-                0,
-                -1
+                -0.9916282296180725
             ],
             "type" : "VEC3"
         },
@@ -576,13 +585,38 @@
             "count" : 4,
             "max" : [
                 1,
-                0,
-                1
+                1,
+                2.2522959852722124e-07
             ],
             "min" : [
                 -1,
-                0,
-                -1
+                -1,
+                -2.2522959852722124e-07
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "max" : [
+                1.5163318778377288e-07,
+                1,
+                0.9916282296180725
+            ],
+            "min" : [
+                -1.5163318778377288e-07,
+                -1,
+                -0.9916282296180725
             ],
             "type" : "VEC3"
         },
@@ -601,38 +635,13 @@
             "count" : 4,
             "max" : [
                 1,
-                0,
-                1
-            ],
-            "min" : [
-                -1,
-                0,
-                -1
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 4,
-            "type" : "VEC3"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 4,
-            "type" : "VEC2"
-        },
-        {
-            "componentType" : 5126,
-            "count" : 4,
-            "max" : [
                 1,
-                0,
-                1
+                7.549790126404332e-08
             ],
             "min" : [
                 -1,
-                0,
-                -1
+                -1,
+                -7.549790126404332e-08
             ],
             "type" : "VEC3"
         },
@@ -670,28 +679,28 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 186,
+            "byteLength" : 192,
             "byteOffset" : 157708
         },
         {
             "buffer" : 0,
-            "byteLength" : 186,
-            "byteOffset" : 157896
+            "byteLength" : 185,
+            "byteOffset" : 157900
         },
         {
             "buffer" : 0,
-            "byteLength" : 186,
-            "byteOffset" : 158084
+            "byteLength" : 194,
+            "byteOffset" : 158088
         },
         {
             "buffer" : 0,
-            "byteLength" : 186,
-            "byteOffset" : 158272
+            "byteLength" : 185,
+            "byteOffset" : 158284
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 158460,
+            "byteLength" : 158472,
             "uri" : "Totem.bin"
         }
     ]

@@ -28,11 +28,13 @@ class Mondo {
     {
         
         this.container = container;
+        this.loadingscreen=undefined;
+        this.loadingbar=undefined;
         this.postprocessing = {};
         this.camera= new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight ,0.01, 100 );
         this.camera.position.set(camerapos.x,camerapos.y,camerapos.z);
 
-        this.controls;
+        this.controls=null;
         this.sceneMeshes = new Array();
 
         this.dracoLoader = new DRACOLoader();
@@ -40,7 +42,8 @@ class Mondo {
 
         this.scene = new THREE.Scene();
         {
-            this.scene.background = new THREE.Color(sceneColor);
+            if(sceneColor!=undefined)
+                this.scene.background = new THREE.Color(sceneColor);
         }
 
         this.mixers = [];
@@ -63,15 +66,29 @@ class Mondo {
         this.onWindowResize(this.camera,this.renderer,this.postprocessing);
     }
 
+    SetLoadingScreen(loadscreen,loadbar){
+        this.loadingscreen=loadscreen;
+        this.loadingbar=loadbar;
+    }
+
     //pathsOBJ è un oggetto che contiene i link agli oggetti e all'environment da aggiungere nella scena e la posizione x,y,z in cui posizionarli. ESEMPIO { "oggetti":[ { "path":"./link/Oggetto.gltf","position":{"x":0,"y":0,"z":0},"collide": true },.... ], "environment": "./link/Environment.exr" }
     async initScene(paths) 
     {
-        console.log(paths)
+        if(this.loadingbar!=undefined)
+        {
+            this.loadingbar.style.width="5%";
+        }
+
         const requests = paths["oggetti"].map((path) => { 
             return this.LoadObject(path["path"]);
         });
 
         var allReturn,posObj;
+
+        if(this.loadingbar!=undefined)
+        {
+            this.loadingbar.style.width="25%";
+        }
 
         if(paths["environment"]!=undefined){
             posObj=1
@@ -93,6 +110,10 @@ class Mondo {
                 requests,
             ]); 
             posObj=0
+        }
+        if(this.loadingbar!=undefined)
+        {
+            this.loadingbar.style.width="50%";
         }
 
         var mix=this.mixers;
@@ -124,7 +145,25 @@ class Mondo {
             });
         }
 
-        console.log(this.scene)
+        if(this.loadingbar!=undefined)
+        {
+            this.loadingbar.style.width="100%";
+        }
+        if(this.loadingscreen!=undefined)
+        {
+            async function fadeout(load){
+                load.style.opacity-=0.05;
+                if(load.style.opacity>0){
+                    setTimeout(function(){fadeout(load)}, 50);
+                }else{
+                    load.style.width="1px";
+                    load.style.height="1px";
+                }
+            }
+
+            fadeout(this.loadingscreen);
+        }
+
     }
 
     //Setta il controller della telecamera prendendo il massimo e il minimo che la telecamera può zoomare
@@ -146,13 +185,11 @@ class Mondo {
     //Aggiunge il listener per la collisione con la scena
     async CameraCollision()
     {
-        
         //Variabili per collisione
         const raycaster = new THREE.Raycaster();
         let dir = new THREE.Vector3();
         let intersects = new Array();
         
-        console.log(this.controls)
         var con=this.controls,cam=this.camera,meshscene=this.sceneMeshes;
         //Quando la telecamera cambia posizione
         this.controls.addEventListener("change", function() {
@@ -282,6 +319,7 @@ class Mondo {
         this.postprocessing.bokeh = bokehPass;
         this.postprocessing.saoPass =saoPass
     }
+
     //carica l'Equirectangular dal link
     async LoadEquirectangular(path)
     {
@@ -305,6 +343,94 @@ class Mondo {
             loader.loadAsync(path),
         ]);
         return object[0];
+    }
+
+    //setta il cambio colore
+    ColorChanger(name){
+        $(name).spectrum({
+            type: "component",
+            showPalette: false,
+            disabled: true,
+            showButtons: false,
+            allowEmpty: false,
+            showAlpha: false
+        
+        });
+
+        var Cscene=this.scene;
+        Cscene.traverse( function ( child ) {
+            if ( child.isMesh && child.name=="Struttura") {
+                console.log(child.material.color.getHexString())
+                $(name).spectrum("set", child.material.color.getHexString()); 
+            }
+        } );
+        
+        
+        
+        $(name).on("dragstop.spectrum", function(e,color) {
+            Cscene.traverse( function ( child ) {
+                if ( child.isMesh && child.name=="Struttura") {
+                    child.material.color.setHex("0x"+color.toHexString().substring(1)); 
+                }
+        
+            } );
+        });
+        $(name).spectrum("enable");
+    }
+
+    //setta il loader per il logo
+    LogoChanger(logo)
+    {
+
+        var materialLogo = new THREE.MeshBasicMaterial({
+            transparent: true,
+            opacity:0,
+            combine:THREE.MixOperation,
+            reflectivity:1,
+            side : THREE.BackSide
+        })
+
+        var dimensionLogo=0;
+
+        this.scene.traverse( function ( child ) {
+            if ( child.isMesh  && child.name.substring(0,4)=="Logo")
+            {
+                dimensionLogo=child.scale.x;
+                child.material=materialLogo;
+            }
+        });
+        var Cscene=this.scene;
+        logo.addEventListener("change", changeLogo);
+        
+        function changeLogo(){
+            if(this!=undefined){
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    let proporzione=1;
+                    const textureLoaded = new THREE.TextureLoader().load(reader.result, function ( tex ) {
+                        proporzione=tex.image.height/tex.image.width;
+                        console.log(dimensionLogo+" | "+tex.image.height+" | "+tex.image.width)
+                        console.log(materialLogo)
+        
+                        materialLogo.map=textureLoaded;
+                        materialLogo.opacity=1;
+                        textureLoaded.needsUpdate=true;
+                        materialLogo.needsUpdate=true;
+                        Cscene.traverse( function ( child ) {
+                            if ( child.isMesh && child.name.substring(0,4)=="Logo")
+                            {
+                                if(proporzione>1)
+                                    child.scale.set(dimensionLogo*1/proporzione,child.scale.y,child.scale.z);
+                                else
+                                    child.scale.set(child.scale.x,dimensionLogo*proporzione,child.scale.z);
+                            }
+                        });
+                    });
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     }
 
     //Fa partire il game loop
