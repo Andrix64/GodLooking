@@ -36,7 +36,7 @@ class Mondo {
         this.sceneMeshes = new Array();
 
         this.dracoLoader = new DRACOLoader();
-        this.dracoLoader.setDecoderPath( '../../../three.js/examples/js/libs/draco/' );
+        this.dracoLoader.setDecoderPath( '../../three.js/examples/js/libs/draco/' );
 
         this.scene = new THREE.Scene();
         {
@@ -60,6 +60,7 @@ class Mondo {
         this.container.appendChild( this.renderer.domElement );
 
         this.initPostprocessing()
+        this.onWindowResize(this.camera,this.renderer,this.postprocessing);
     }
 
     //pathsOBJ è un oggetto che contiene i link agli oggetti e all'environment da aggiungere nella scena e la posizione x,y,z in cui posizionarli. ESEMPIO { "oggetti":[ { "path":"./link/Oggetto.gltf","position":{"x":0,"y":0,"z":0},"collide": true },.... ], "environment": "./link/Environment.exr" }
@@ -127,16 +128,17 @@ class Mondo {
     }
 
     //Setta il controller della telecamera prendendo il massimo e il minimo che la telecamera può zoomare
-    SetCameraControl(zoomMin,zoomMax)
+    SetCameraControl(zoomMin,zoomMax,target)
     {
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.minDistance = zoomMin;
         this.controls.maxDistance = zoomMax;
         this.controls.maxPolarAngle = Math.PI / 2;
         this.controls.enablePan = true;
-        this.controls.target.set(0, 0, 0);
-
-        
+        if(target!=undefined)
+            this.controls.target.set(target.x, target.y, target.x);
+        else
+            this.controls.target.set(0,0,0);
 
         this.controls.update();
     }
@@ -246,6 +248,15 @@ class Mondo {
     initPostprocessing() 
     {
         const renderPass = new RenderPass( this.scene, this.camera );
+        const composer = new EffectComposer( this.renderer );
+    
+        composer.addPass( renderPass );
+        
+    
+        this.postprocessing.composer = composer;
+    }
+
+    async addPostprocessing(){
     
         const bokehPass = new BokehPass( this.scene, this.camera, {
             focus: 1.3,
@@ -264,18 +275,13 @@ class Mondo {
         saoPass.params['saoMinResolution']=0;
         saoPass.params['saoBlur']=true;
         saoPass.params['saoBlurRadius']=53.8;
-        const composer = new EffectComposer( this.renderer );
     
-        composer.addPass( renderPass );
-        composer.addPass( saoPass );
-        composer.addPass( bokehPass );
+        this.postprocessing.composer.addPass( saoPass );
+        this.postprocessing.composer.addPass( bokehPass );
         
-    
-        this.postprocessing.composer = composer;
         this.postprocessing.bokeh = bokehPass;
         this.postprocessing.saoPass =saoPass
     }
-
     //carica l'Equirectangular dal link
     async LoadEquirectangular(path)
     {
