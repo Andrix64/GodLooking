@@ -5,13 +5,18 @@ const SchermataCaricamento =document.querySelector('#cover');
 const LoadingBar=document.querySelector("#progress-bar");
 const FileLogo=document.querySelector("#file");
 
-const world = new Mondo(container,{"x":-1,"y":0,"z":1});
+//const response = await fetch('./scene/Cittadina.json');
+//const response = await fetch('./scene/Parco.json');
+const response = await fetch('./scene/Industriale.json');
+const json = await response.json();
+
+const world = new Mondo(container,json["cameraPos"],json["scenecolor"]);
 world.SetLoadingScreen(SchermataCaricamento,LoadingBar);
 
 
 world.SetCameraControl(0.7,30);
-await world.initScene({ "oggetti":[ { "path":"../gltf/Cittadino/Cittadina.gltf","position":{"x":0,"y":0,"z":0},"collide": true },{ "path":"../gltf/LowPolyTotem/Totem.gltf","position":{"x":0,"y":-0.13,"z":0} ,"collide": false} ], "environment": "../hdr/suburban_parking_area_2k.exr" });
-world.changeMaterialOpacity(["Finestra","Glass"],[0.1 , 0.4]);
+await world.initScene(json["scena"]);
+world.changeMaterialOpacity(json["materialOpacity"]);
 
 world.ColorChanger('#color-picker');
 world.LogoChanger(FileLogo)

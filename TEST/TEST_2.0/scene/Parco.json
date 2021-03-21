@@ -1,0 +1,17 @@
+{
+    "scena":{ 
+        "oggetti":[ 
+            { "path":"../gltf/ParcoBaked/Parco.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true },
+            { "path":"../gltf/WoodRender/Wood.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true },
+            { "path":"../gltf/ParcoBaked/Lamp/Lamp.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true },
+            { "path":"../gltf/LowPolyTotem/Totem.gltf","position":{"x":0,"y":-0.13,"z":0},"rotate":-45,"collide": false} 
+        ], 
+        "environment": "../hdr/rooitou_park_2k.hdr" 
+    },
+    "scenecolor":null,
+    "cameraPos":{"x":-1,"y":0,"z":1},
+    "materialOpacity":[
+        { "name":"Finestra","value":0.1 }
+    ]
+
+}

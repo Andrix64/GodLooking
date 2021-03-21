@@ -6,7 +6,9 @@ import { OrbitControls } from '../../../three.js/examples/jsm/controls/OrbitCont
 
 //importa i loader di modelli,texture e decompressori
 import { GLTFLoader } from '../../../three.js/examples/jsm/loaders/GLTFLoader.js';
+import { OBJLoader } from '../../../three.js/examples/jsm/loaders/OBJLoader.js';
 import { EXRLoader } from '../../../three.js/examples/jsm/loaders/EXRLoader.js';
+import { RGBELoader } from '../../../three.js/examples/jsm/loaders/RGBELoader.js';
 import { DRACOLoader } from '../../../three.js/examples/jsm/loaders/DRACOLoader.js';
 
 //importa il mapper dei riflessi hdr
@@ -42,7 +44,7 @@ class Mondo {
 
         this.scene = new THREE.Scene();
         {
-            if(sceneColor!=undefined)
+            if(sceneColor!=undefined && sceneColor!=null)
                 this.scene.background = new THREE.Color(sceneColor);
         }
 
@@ -69,6 +71,9 @@ class Mondo {
     SetLoadingScreen(loadscreen,loadbar){
         this.loadingscreen=loadscreen;
         this.loadingbar=loadbar;
+        this.loadingscreen.style.opacity=1;
+        this.loadingscreen.style.width="100%";
+        this.loadingscreen.style.height="100%";
     }
 
     //pathsOBJ è un oggetto che contiene i link agli oggetti e all'environment da aggiungere nella scena e la posizione x,y,z in cui posizionarli. ESEMPIO { "oggetti":[ { "path":"./link/Oggetto.gltf","position":{"x":0,"y":0,"z":0},"collide": true },.... ], "environment": "./link/Environment.exr" }
@@ -97,14 +102,20 @@ class Mondo {
                 this.LoadEquirectangular(paths["environment"]),
                 requests,
             ]); 
-    
-            const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
-            const envMap = pmremGenerator.fromEquirectangular( allReturn[0] ).texture;
-            const rt = new THREE.WebGLCubeRenderTarget(allReturn[0].image.height);
-            rt.fromEquirectangularTexture(this.renderer, allReturn[0]);
-            this.scene.background = rt;
-            this.scene.environment = envMap;
-            allReturn[0].dispose();
+            if(allReturn[0]!=0){
+                const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
+                const envMap = pmremGenerator.fromEquirectangular( allReturn[0] ).texture;
+                const rt = new THREE.WebGLCubeRenderTarget(allReturn[0].image.height);
+                rt.fromEquirectangularTexture(this.renderer, allReturn[0]);
+                console.log(this.scene.background)
+                if(this.scene.background==null)
+                {
+                    this.scene.background = rt;
+                }
+                this.scene.environment = envMap;
+                allReturn[0].dispose();
+            }
+            
         }else{
             allReturn=await Promise.all([
                 requests,
@@ -122,27 +133,33 @@ class Mondo {
         for(var i=0;i<allReturn[posObj].length;i++)
         {
             await allReturn[posObj][i].then(function(result) {
-                //ADD MIXER
-                mix.push( new THREE.AnimationMixer( result.scene ))
-                result.animations.forEach( ( clip ) => {
-                    
-                    mix[mix.length-1].clipAction( clip ).play();
-            
-                });
+                if(result!=0){
+                    //ADD MIXER
+                    mix.push( new THREE.AnimationMixer( result.scene ))
+                    result.animations.forEach( ( clip ) => {
+                        
+                        mix[mix.length-1].clipAction( clip ).play();
                 
-                //ADD SCENE
-                if(paths["oggetti"][i]["collide"])
-                {
-                    result.scene.traverse( function ( child ) {
-                        if ( child.isMesh ) {
-                            meshscene.push(child);
-                        }
-                    } );
-                }
+                    });
                     
-                result.scene.position.set(paths["oggetti"][i]["position"].x,paths["oggetti"][i]["position"].y,paths["oggetti"][i]["position"].z);
-                scena.add(result.scene);
-            });
+                    //ADD SCENE
+                    if(paths["oggetti"][i]["collide"])
+                    {
+                        result.scene.traverse( function ( child ) {
+                            if ( child.isMesh ) {
+                                meshscene.push(child);
+                            }
+                        } );
+                    }
+                    result.scene.rotation.y=Math.PI / (180/paths["oggetti"][i]["rotate"]);
+                    result.scene.position.set(paths["oggetti"][i]["position"].x,paths["oggetti"][i]["position"].y,paths["oggetti"][i]["position"].z);
+                    scena.add(result.scene);
+                }else{
+                    alert("Elemento "+i+" : Formato non supportato")
+                }
+            }); 
+            
+            
         }
 
         if(this.loadingbar!=undefined)
@@ -241,17 +258,17 @@ class Mondo {
         });
     }
     
-    //Modifica i materiali con trasparenza prendendo due vettori che contengono il primo il nome delle mesh e il secondo l'opacita da settargli 
-    async changeMaterialOpacity(name,opacity)
+    //Modifica i materiali con trasparenza prendendo un vettore che contiene il nome delle mesh e l'opacita da settargli 
+    async changeMaterialOpacity(vec)
     { 
         this.scene.traverse( function ( child ) {
             if ( child.isMesh ) {
-                for(var i=0;i<name.length;i++)
+                for(var i=0;i<vec.length;i++)
                 {
-                    if(child.name==name[i])
+                    if(child.name==vec[i]["name"])
                     {
                         child.material.transparent=true;
-                        child.material.opacity=opacity[i];
+                        child.material.opacity=vec[i]["value"];
                     }
                 }
 
@@ -261,7 +278,7 @@ class Mondo {
     }
 
     //setta come listener il resizer della finestra
-    SetResizeFunction()
+    async SetResizeFunction()
     {
         var Ccamera=this.camera,Crenderer=this.renderer,Cpostprocessing=this.postprocessing;
         var fun=this.onWindowResize;
@@ -323,7 +340,22 @@ class Mondo {
     //carica l'Equirectangular dal link
     async LoadEquirectangular(path)
     {
-        const loader = new EXRLoader();
+        var estensione=path.split("/").slice(-1)[0].split(".").slice(-1)[0].toLowerCase() ;
+        var loader,errore=false;
+        switch(estensione){
+            case "exr":
+                loader = new EXRLoader();
+                break;
+
+            case "hdr":
+                loader = new RGBELoader()
+                break;
+            default:
+                errore=true;
+        }
+        if(errore){
+            return 0;
+        }
         loader.setDataType( THREE.UnsignedByteType )
 
         const texture = await Promise.all([
@@ -335,9 +367,23 @@ class Mondo {
     //carica gli oggetti dal link
     async LoadObject(path)
     {
+        var estensione=path.split("/").slice(-1)[0].split(".").slice(-1)[0].toLowerCase() ;
 
-        const loader = new GLTFLoader();
-        loader.setDRACOLoader( this.dracoLoader );
+        var loader,errore=false;
+        switch(estensione){
+            case "gltf":
+            case "glb":
+                loader = new GLTFLoader();
+                loader.setDRACOLoader( this.dracoLoader );
+                break;
+            case "obj":
+                loader = new OBJLoader();
+            default:
+                errore=true;
+        }
+        if(errore){
+            return 0;
+        }
     
         const object = await Promise.all([
             loader.loadAsync(path),
@@ -360,7 +406,6 @@ class Mondo {
         var Cscene=this.scene;
         Cscene.traverse( function ( child ) {
             if ( child.isMesh && child.name=="Struttura") {
-                console.log(child.material.color.getHexString())
                 $(name).spectrum("set", child.material.color.getHexString()); 
             }
         } );
@@ -410,8 +455,6 @@ class Mondo {
                     let proporzione=1;
                     const textureLoaded = new THREE.TextureLoader().load(reader.result, function ( tex ) {
                         proporzione=tex.image.height/tex.image.width;
-                        console.log(dimensionLogo+" | "+tex.image.height+" | "+tex.image.width)
-                        console.log(materialLogo)
         
                         materialLogo.map=textureLoaded;
                         materialLogo.opacity=1;
