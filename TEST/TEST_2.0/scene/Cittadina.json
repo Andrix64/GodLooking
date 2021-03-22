@@ -11,5 +11,9 @@
     "materialOpacity":[
         { "name":"Finestra","value":0.1 },
         { "name":"Glass","value":0.4 } 
-    ]
+    ],
+    "zoom":{
+        "max":30,
+        "min":0.7
+    }
 }
