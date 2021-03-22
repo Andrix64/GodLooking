@@ -1,8 +1,8 @@
 {
     "scena":{ 
         "oggetti":[ 
-            { "path":"../gltf/Industriale/Industrial.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true },
-            { "path":"../gltf/LowPolyTotem/Totem.gltf","position":{"x":0,"y":-0.13,"z":0},"rotate":-90,"collide": false } 
+            { "path":"../gltf/Industriale/Industrial.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true,"expose":false },
+            { "path":"../gltf/LowPolyTotem/Totem.gltf","position":{"x":0,"y":-0.13,"z":0},"rotate":-90,"collide": false,"expose":true } 
         ], 
         "environment": "../hdr/canary_wharf_2k.hdr" 
     },

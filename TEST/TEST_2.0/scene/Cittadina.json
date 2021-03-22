@@ -1,8 +1,8 @@
 {
     "scena":{ 
         "oggetti":[ 
-            { "path":"../gltf/Cittadino/Cittadina.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true },
-            { "path":"../gltf/LowPolyTotem/Totem.gltf","position":{"x":0,"y":-0.13,"z":0} ,"rotate":0,"collide": false} 
+            { "path":"../gltf/Cittadino/Cittadina.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true,"expose":false },
+            { "path":"../gltf/LowPolyTotem/Totem.gltf","position":{"x":0,"y":-0.13,"z":0} ,"rotate":0,"collide": false,"expose":true } 
         ], 
         "environment": "../hdr/suburban_parking_area_2k.exr" 
     },

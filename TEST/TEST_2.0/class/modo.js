@@ -11,9 +11,6 @@ import { EXRLoader } from '../../../three.js/examples/jsm/loaders/EXRLoader.js';
 import { RGBELoader } from '../../../three.js/examples/jsm/loaders/RGBELoader.js';
 import { DRACOLoader } from '../../../three.js/examples/jsm/loaders/DRACOLoader.js';
 
-//importa il mapper dei riflessi hdr
-import { RoughnessMipmapper } from '../../../three.js/examples/jsm/utils/RoughnessMipmapper.js';
-
 //Importa necessario per post processing
 import { EffectComposer } from '../../../three.js/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from '../../../three.js/examples/jsm/postprocessing/RenderPass.js';
@@ -23,12 +20,11 @@ import { SAOPass } from '../../../three.js/examples/jsm/postprocessing/SAOPass.j
 
 
 
-
+var debug = false;
 
 class Mondo {
     constructor(container, camerapos, sceneColor) //Costruttore (setta le basi)
     {
-
         this.container = container;
         this.loadingscreen = undefined;
         this.loadingbar = undefined;
@@ -47,7 +43,7 @@ class Mondo {
             if (sceneColor != undefined && sceneColor != null)
                 this.scene.background = new THREE.Color(sceneColor);
         }
-
+        this.exposeObj = new Array();
         this.mixers = [];
 
         this.clock = new THREE.Clock();
@@ -68,6 +64,7 @@ class Mondo {
         this.onWindowResize(this.camera, this.renderer, this.postprocessing);
     }
 
+    //pulisce la scena per l'inserimento di un altra(soppa anche il render per evitare problemi con le animazioni)
     clear() {
         this.stop();
         this.scene.remove.apply(this.scene, this.scene.children);
@@ -77,6 +74,16 @@ class Mondo {
         $("#picker").spectrum("hide");
     }
 
+    toggleDebugMode() {
+        debug = !debug;
+    }
+
+    SetCameraListeners() {
+        this.SetDepthOfField()
+        this.CameraCollision();
+        this.CameraMovement({ "x": 0, "y": -0.5, "z": 0 }, { "x": 0, "y": 0.7, "z": 0 });
+    }
+    //setta la posizione della camera e il colore della scena(inoltre setta la schermata di caricamento)
     SetNewScene(camerapos, sceneColor) {
         if (sceneColor != undefined && sceneColor != null) {
             this.scene.background = new THREE.Color(sceneColor);
@@ -85,12 +92,34 @@ class Mondo {
         this.SetLoadingScreen(this.loadingscreen, this.loadingbar)
     }
 
+    //setta la schermata di caricamento
     SetLoadingScreen(loadscreen, loadbar) {
         this.loadingscreen = loadscreen;
         this.loadingbar = loadbar;
         this.loadingscreen.style.opacity = 1;
         this.loadingscreen.style.width = "100%";
         this.loadingscreen.style.height = "100%";
+    }
+
+    async SetDepthOfField() {
+        //Variabili per collisione
+        let intersectsOBJ = new Array();
+        const raycasterBlur = new THREE.Raycaster();
+        var Cpostprocessing = this.postprocessing, Ccamera = this.camera;
+        var CexposeObj = this.exposeObj
+
+        this.controls.addEventListener("change", DoFListen)
+        DoFListen()
+        //this.controls.dispatchEvent(new Event('change'));
+        function DoFListen() {
+            //depth of field
+            raycasterBlur.setFromCamera(new THREE.Vector2(0, 0), Ccamera);
+            if (CexposeObj.length != 0) {
+                intersectsOBJ = raycasterBlur.intersectObjects(CexposeObj);
+                if (intersectsOBJ[0] != undefined)
+                    Cpostprocessing.bokeh.uniforms["focus"].value = intersectsOBJ[0].distance;
+            }
+        }
     }
 
     //pathsOBJ è un oggetto che contiene i link agli oggetti e all'environment da aggiungere nella scena e la posizione x,y,z in cui posizionarli. ESEMPIO { "oggetti":[ { "path":"./link/Oggetto.gltf","position":{"x":0,"y":0,"z":0},"collide": true },.... ], "environment": "./link/Environment.exr" }
@@ -141,6 +170,7 @@ class Mondo {
         var mix = this.mixers;
         var scena = this.scene;
         var meshscene = this.sceneMeshes
+        var CexposeObj = this.exposeObj
         for (var i = 0; i < allReturn[posObj].length; i++) {
             await allReturn[posObj][i].then(function (result) {
                 if (result != 0) {
@@ -160,6 +190,16 @@ class Mondo {
                             }
                         });
                     }
+
+                    //Oggetti che subiscono il raycast del depth of field
+                    if (paths["oggetti"][i]["expose"]) {
+                        result.scene.traverse(function (child) {
+                            if (child.isMesh) {
+                                CexposeObj.push(child);
+                            }
+                        });
+                    }
+
                     result.scene.rotation.y = Math.PI / (180 / paths["oggetti"][i]["rotate"]);
                     result.scene.position.set(paths["oggetti"][i]["position"].x, paths["oggetti"][i]["position"].y, paths["oggetti"][i]["position"].z);
                     scena.add(result.scene);
@@ -222,11 +262,13 @@ class Mondo {
         this.controls.addEventListener("change", function () {
 
             //collision detector
-            raycaster.set(con.target, dir.subVectors(cam.position, con.target).normalize())
-            intersects = raycaster.intersectObjects(meshscene, false);
-            if (intersects.length > 0) {
-                if (intersects[0].distance < con.target.distanceTo(cam.position)) {
-                    cam.position.copy(intersects[0].point)
+            if (!debug) {
+                raycaster.set(con.target, dir.subVectors(cam.position, con.target).normalize())
+                intersects = raycaster.intersectObjects(meshscene, false);
+                if (intersects.length > 0) {
+                    if (intersects[0].distance < con.target.distanceTo(cam.position)) {
+                        cam.position.copy(intersects[0].point)
+                    }
                 }
             }
 
@@ -246,11 +288,12 @@ class Mondo {
         var con = this.controls, cam = this.camera;
         this.controls.addEventListener("change", function () {
             //movimento camera
-            _v.copy(con.target);
-            con.target.clamp(minPan, maxPan);
-            _v.sub(con.target);
-            cam.position.sub(_v);
-
+            if (!debug) {
+                _v.copy(con.target);
+                con.target.clamp(minPan, maxPan);
+                _v.sub(con.target);
+                cam.position.sub(_v);
+            }
         })
 
         this.controls.update();
@@ -310,9 +353,6 @@ class Mondo {
 
 
         this.postprocessing.composer = composer;
-    }
-
-    async addPostprocessing() {
 
         const bokehPass = new BokehPass(this.scene, this.camera, {
             focus: 1.3,
@@ -336,7 +376,19 @@ class Mondo {
         this.postprocessing.composer.addPass(bokehPass);
 
         this.postprocessing.bokeh = bokehPass;
-        this.postprocessing.saoPass = saoPass
+        this.postprocessing.saoPass = saoPass;
+    }
+
+    //attiva/disattiva il postprocessing
+    async togglePostProcessing() {
+        if (this.postprocessing.composer.passes.length > 1) {
+            this.postprocessing.composer.removePass(this.postprocessing.saoPass)
+            this.postprocessing.composer.removePass(this.postprocessing.bokeh)
+        } else {
+            this.postprocessing.composer.addPass(this.postprocessing.saoPass)
+            this.postprocessing.composer.addPass(this.postprocessing.bokeh)
+        }
+
     }
 
     //carica l'Equirectangular dal link
@@ -433,7 +485,7 @@ class Mondo {
         });
 
         if (colore != null) {
-            $(name).trigger("dragstop.spectrum",[colorCur])
+            $(name).trigger("dragstop.spectrum", [colorCur])
         }
 
         $(name).spectrum("enable");
