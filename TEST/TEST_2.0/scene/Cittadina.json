@@ -1,19 +1,120 @@
 {
-    "scena":{ 
-        "oggetti":[ 
-            { "path":"../gltf/Cittadino/Cittadina.gltf","position":{"x":0,"y":0,"z":0},"rotate":0,"collide": true,"expose":false },
-            { "path":"../gltf/LowPolyTotem/Totem.gltf","position":{"x":0,"y":-0.13,"z":0} ,"rotate":0,"collide": false,"expose":true } 
-        ], 
-        "environment": "../hdr/suburban_parking_area_2k.exr" 
+    "scena": {
+        "oggetti": [
+            {
+                "path": "../gltf/Cittadino/Cittadina.gltf",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "rotate": 0,
+                "collide": true,
+                "expose": false
+            },
+            {
+                "path": "../gltf/LowPolyTotem/Totem.gltf",
+                "position": {
+                    "x": 0,
+                    "y": -0.13,
+                    "z": 0
+                },
+                "rotate": 0,
+                "collide": false,
+                "expose": true
+            }
+        ],
+        "scenecolor": null,
+        "environment": "../hdr/suburban_parking_area_2k.exr",
+        "repeat": null
     },
-    "scenecolor":null,
-    "cameraPos":{"x":-1,"y":0,"z":1},
-    "materialOpacity":[
-        { "name":"Finestra","value":0.1 },
-        { "name":"Glass","value":0.4 } 
+    "camera": {
+        "cameraPos": {
+            "x": -1,
+            "y": 0,
+            "z": 1
+        },
+        "CameraMovement": {
+            "min": {
+                "x": 0,
+                "y": -0.5,
+                "z": 0
+            },
+            "max": {
+                "x": 0,
+                "y": 0.7,
+                "z": 0
+            }
+        },
+        "zoom": {
+            "max": 30,
+            "min": 0.7
+        }
+    },
+    "materialOpacity": [
+        {
+            "name": "Finestra",
+            "value": 0.1
+        },
+        {
+            "name": "Glass",
+            "value": 0.4
+        }
     ],
-    "zoom":{
-        "max":30,
-        "min":0.7
-    }
+    "postprocess": [
+        {
+            "name": "SAOPass",
+            "config": [
+                {
+                    "name": "saoBias",
+                    "value": 1
+                },
+                {
+                    "name": "saoIntensity",
+                    "value": 0.002
+                },
+                {
+                    "name": "saoScale",
+                    "value": 1.5
+                },
+                {
+                    "name": "saoKernelRadius",
+                    "value": 49
+                },
+                {
+                    "name": "saoMinResolution",
+                    "value": 0
+                },
+                {
+                    "name": "saoBlur",
+                    "value": true
+                },
+                {
+                    "name": "saoBlurRadius",
+                    "value": 53.8
+                },
+                {
+                    "name": "output",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "name": "BokehPass",
+            "config": [
+                {
+                    "name": "focus",
+                    "value": 1.3
+                },
+                {
+                    "name": "aperture",
+                    "value": 0.0005
+                },
+                {
+                    "name": "maxblur",
+                    "value": 0.015
+                }
+            ]
+        }
+    ]
 }

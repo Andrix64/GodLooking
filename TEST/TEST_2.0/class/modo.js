@@ -23,13 +23,13 @@ import { SAOPass } from '../../../three.js/examples/jsm/postprocessing/SAOPass.j
 var debug = false;
 
 class Mondo {
-    constructor(container, camerapos, sceneColor) //Costruttore (setta le basi)
+    constructor(container, camerapos, sceneColor, post) //Costruttore (setta le basi)
     {
         this.container = container;
         this.loadingscreen = undefined;
         this.loadingbar = undefined;
         this.postprocessing = {};
-        this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 100);
+        this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 300);
         this.camera.position.set(camerapos.x, camerapos.y, camerapos.z);
 
         this.controls = null;
@@ -61,6 +61,7 @@ class Mondo {
         this.container.appendChild(this.renderer.domElement);
 
         this.initPostprocessing()
+        this.togglePostProcessing(post)
         this.onWindowResize(this.camera, this.renderer, this.postprocessing);
     }
 
@@ -78,10 +79,10 @@ class Mondo {
         debug = !debug;
     }
 
-    SetCameraListeners() {
+    SetCameraListeners(boundaries) {
         this.SetDepthOfField()
         this.CameraCollision();
-        this.CameraMovement({ "x": 0, "y": -0.5, "z": 0 }, { "x": 0, "y": 0.7, "z": 0 });
+        this.CameraMovement(boundaries["min"], boundaries["max"]);
     }
     //setta la posizione della camera e il colore della scena(inoltre setta la schermata di caricamento)
     SetNewScene(camerapos, sceneColor) {
@@ -145,17 +146,7 @@ class Mondo {
                 this.LoadEquirectangular(paths["environment"]),
                 requests,
             ]);
-            if (allReturn[0] != 0) {
-                const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-                const envMap = pmremGenerator.fromEquirectangular(allReturn[0]).texture;
-                const rt = new THREE.WebGLCubeRenderTarget(allReturn[0].image.height);
-                rt.fromEquirectangularTexture(this.renderer, allReturn[0]);
-                if (this.scene.background == null) {
-                    this.scene.background = rt;
-                }
-                this.scene.environment = envMap;
-                allReturn[0].dispose();
-            }
+            this.PrepareSceneEnviroment(allReturn[0]);
 
         } else {
             allReturn = await Promise.all([
@@ -167,15 +158,52 @@ class Mondo {
             this.loadingbar.style.width = "50%";
         }
 
+        await this.PrepareSceneObject(allReturn[posObj], paths);
+
+        if (this.loadingbar != undefined) {
+            this.loadingbar.style.width = "100%";
+        }
+        if (this.loadingscreen != undefined) {
+            async function fadeout(load, loadingbar) {
+                load.style.opacity -= 0.05;
+                if (load.style.opacity > 0) {
+                    setTimeout(function () { fadeout(load, loadingbar) }, 50);
+                } else {
+                    load.style.width = "1px";
+                    load.style.height = "1px";
+                    loadingbar.style.width = "0%";
+                }
+            }
+
+            fadeout(this.loadingscreen, this.loadingbar);
+        }
+
+    }
+
+    PrepareSceneEnviroment(Return) {
+        if (Return != 0) {
+            const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+            const envMap = pmremGenerator.fromEquirectangular(Return).texture;
+            const rt = new THREE.WebGLCubeRenderTarget(Return.image.height);
+            rt.fromEquirectangularTexture(this.renderer, Return);
+            if (this.scene.background == null) {
+                this.scene.background = rt;
+            }
+            this.scene.environment = envMap;
+            Return.dispose();
+        }
+    }
+
+    async PrepareSceneObject(Return, paths) {
         var mix = this.mixers;
         var scena = this.scene;
-        var meshscene = this.sceneMeshes
-        var CexposeObj = this.exposeObj
-        for (var i = 0; i < allReturn[posObj].length; i++) {
-            await allReturn[posObj][i].then(function (result) {
+        var meshscene = this.sceneMeshes;
+        var CexposeObj = this.exposeObj;
+        for (var i = 0; i < Return.length; i++) {
+            await Return[i].then(function (result) {
                 if (result != 0) {
                     //ADD MIXER
-                    mix.push(new THREE.AnimationMixer(result.scene))
+                    mix.push(new THREE.AnimationMixer(result.scene));
                     result.animations.forEach((clip) => {
 
                         mix[mix.length - 1].clipAction(clip).play();
@@ -204,42 +232,31 @@ class Mondo {
                     result.scene.position.set(paths["oggetti"][i]["position"].x, paths["oggetti"][i]["position"].y, paths["oggetti"][i]["position"].z);
                     scena.add(result.scene);
                 } else {
-                    alert("Elemento " + i + " : Formato non supportato")
+                    alert("Elemento " + i + " : Formato non supportato");
                 }
+
             });
-
-
         }
-
-        if (this.loadingbar != undefined) {
-            this.loadingbar.style.width = "100%";
-        }
-        if (this.loadingscreen != undefined) {
-            async function fadeout(load, loadingbar) {
-                load.style.opacity -= 0.05;
-                if (load.style.opacity > 0) {
-                    setTimeout(function () { fadeout(load, loadingbar) }, 50);
-                } else {
-                    load.style.width = "1px";
-                    load.style.height = "1px";
-                    loadingbar.style.width = "0%";
+        if (paths["repeat"] != null) {
+            for (var y = -paths["repeat"]["times"]; y <= paths["repeat"]["times"]; y++) {
+                if (y != 0) {
+                    let re = this.scene.clone();
+                    re.position.set(y * paths["repeat"]["offset"]["x"], y * paths["repeat"]["offset"]["y"], y * paths["repeat"]["offset"]["z"]);
+                    this.scene.add(re);
                 }
             }
-
-            fadeout(this.loadingscreen, this.loadingbar);
         }
-
     }
 
     //Setta il controller della telecamera prendendo il massimo e il minimo che la telecamera può zoomare
-    SetCameraControl(zoomMin, zoomMax, target) {
+    SetCameraControl(zoom, target) {
         if (this.controls != null) {
             this.controls.dispose();
         }
 
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.controls.minDistance = zoomMin;
-        this.controls.maxDistance = zoomMax;
+        this.controls.minDistance = zoom["min"];
+        this.controls.maxDistance = zoom["max"];
         this.controls.maxPolarAngle = Math.PI / 2;
         this.controls.enablePan = true;
         if (target != undefined)
@@ -355,40 +372,60 @@ class Mondo {
         this.postprocessing.composer = composer;
 
         const bokehPass = new BokehPass(this.scene, this.camera, {
-            focus: 1.3,
-            aperture: 0.0005,
-            maxblur: 0.015,
-
             width: window.innerWidth,
             height: window.innerHeight
         });
         const saoPass = new SAOPass(this.scene, this.camera, false, true);
-        saoPass.params['output'] = SAOPass.OUTPUT.Default;
-        saoPass.params['saoBias'] = 1;
-        saoPass.params['saoIntensity'] = 0.002;
-        saoPass.params['saoScale'] = 1.5;
-        saoPass.params['saoKernelRadius'] = 49;
-        saoPass.params['saoMinResolution'] = 0;
-        saoPass.params['saoBlur'] = true;
-        saoPass.params['saoBlurRadius'] = 53.8;
-
-        this.postprocessing.composer.addPass(saoPass);
-        this.postprocessing.composer.addPass(bokehPass);
-
+        
         this.postprocessing.bokeh = bokehPass;
         this.postprocessing.saoPass = saoPass;
     }
 
-    //attiva/disattiva il postprocessing
-    async togglePostProcessing() {
-        if (this.postprocessing.composer.passes.length > 1) {
-            this.postprocessing.composer.removePass(this.postprocessing.saoPass)
-            this.postprocessing.composer.removePass(this.postprocessing.bokeh)
-        } else {
-            this.postprocessing.composer.addPass(this.postprocessing.saoPass)
-            this.postprocessing.composer.addPass(this.postprocessing.bokeh)
+    async configPostProcessing(effect, conf) {
+        for (var k = 0; k < conf.length; k++) {
+            if(typeof effect.uniforms !== "undefined" )
+                effect.uniforms[conf[k]["name"]].value = conf[k]["value"]
+            else
+                effect.params[conf[k]["name"]] = conf[k]["value"]
         }
+    }
 
+    //attiva/disattiva il postprocessing
+    async togglePostProcessing(postproc) {
+        if (this.postprocessing.composer.passes.length > 1) {
+            for (var i = 0; i < postproc.length; i++) {
+                switch (postproc[i]["name"]) {
+                    case "SAOPass":
+                        this.postprocessing.composer.removePass(this.postprocessing.saoPass)
+                        break;
+                    case "BokehPass":
+                        this.postprocessing.composer.removePass(this.postprocessing.bokeh)
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            return false;
+
+        } else {
+            for (var i = 0; i < postproc.length; i++) {
+                switch (postproc[i]["name"]) {
+                    case "SAOPass":
+                        this.postprocessing.composer.addPass(this.postprocessing.saoPass)
+                        this.configPostProcessing(this.postprocessing.saoPass, postproc[i]["config"])
+                        break;
+                    case "BokehPass":
+                        this.postprocessing.composer.addPass(this.postprocessing.bokeh)
+                        this.configPostProcessing(this.postprocessing.bokeh, postproc[i]["config"])
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            return true;
+        }
     }
 
     //carica l'Equirectangular dal link

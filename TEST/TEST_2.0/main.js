@@ -9,13 +9,13 @@ var FileLogo = document.querySelector("#file");
 var response = await fetch('./scene/Cittadina.json');
 var json = await response.json();
 
-const world = new Mondo(container, json["cameraPos"], json["scenecolor"]);
+const world = new Mondo(container, json["camera"]["cameraPos"], json["scena"]["scenecolor"],json["postprocess"]);
 world.SetLoadingScreen(SchermataCaricamento, LoadingBar);
 
 
-world.SetCameraControl(json["zoom"]["min"], json["zoom"]["max"]);
+world.SetCameraControl(json["camera"]["zoom"]);
 await world.initScene(json["scena"]);
-world.SetCameraListeners()
+world.SetCameraListeners(json["camera"]["CameraMovement"]);
 world.changeMaterialOpacity(json["materialOpacity"]);
 
 world.ColorChanger('#color-picker');
@@ -28,18 +28,24 @@ world.start();
 console.log("La funzione per liberare la telecamera e muoversi liberamente è 'debugMode();'");
 
 window.changescene = async function (num, fileJson) {
+    if(await world.togglePostProcessing(json["postprocess"]))
+    {
+        await world.togglePostProcessing(json["postprocess"]);
+    }
+
     for (var i = 0; i < document.getElementsByName("ambiente").length; i++) {
         document.getElementsByName("ambiente")[i].style.fontWeight = "normal";
     }
     document.getElementsByName("ambiente")[num].style.fontWeight = "bold";
 
-    var response = await fetch('./scene/' + fileJson);
-    var json = await response.json();
+    response = await fetch('./scene/' + fileJson);
+    json = await response.json();
+    await world.togglePostProcessing(json["postprocess"]);
     world.clear()
-    world.SetNewScene(json["cameraPos"], json["scenecolor"])
-    world.SetCameraControl(json["zoom"]["min"], json["zoom"]["max"]);
+    world.SetNewScene(json["camera"]["cameraPos"], json["scena"]["scenecolor"])
+    world.SetCameraControl(json["camera"]["zoom"]);
     await world.initScene(json["scena"]);
-    world.SetCameraListeners()
+    world.SetCameraListeners(json["camera"]["CameraMovement"]);
     world.changeMaterialOpacity(json["materialOpacity"]);
 
     world.ColorChanger('#color-picker');
@@ -50,7 +56,7 @@ window.changescene = async function (num, fileJson) {
 }
 
 window.togglePostProcessing = function () {
-    world.togglePostProcessing();
+    world.togglePostProcessing(json["postprocess"]);
     return "Postprocessing toggle"
 }
 
