@@ -46,6 +46,90 @@
                 "expose": true
             }
         ],
+        "lights":[
+            {   
+                "type":"spot",
+                "color":"#ffffff",
+                "intensity":30,
+                "angle": 0.50,
+                "decay":1,
+                "focus": 1,
+                "penumbra": 0.3,
+                "distance":20,
+                "position": {
+                    "x": -3,
+                    "y": 3,
+                    "z": 3
+                },
+                "target": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "shadow":{
+                    "castShadow" : true,
+                    "focus":1,
+                    "mapWidth":2048,
+                    "mapHeight":2048,
+                    "cameraNear":1,
+                    "cameraFar":8,
+                    "bias":-0.00025,
+                    "showCamera":true
+                },
+                "attiva":false
+            },
+            {
+                "type":"point",
+                "color":"#ffffa1",
+                "intensity":50,
+                "decay":2,
+                "distance":0,
+                "position": {
+                    "x": -4.6,
+                    "y": 1,
+                    "z": 0.97
+                },
+                "shadow":{
+                    "castShadow" : true,
+                    "focus":1,
+                    "mapWidth":2048,
+                    "mapHeight":2048,
+                    "cameraNear":1,
+                    "cameraFar":400,
+                    "bias":-0.00002,
+                    "showCamera":false
+                },
+                "attiva":true
+            },
+            {
+                "type":"directional",
+                "color":"#ffffe0",
+                "intensity":1,
+                "position": {
+                    "x": 370,
+                    "y": 90,
+                    "z": 300
+                },
+                "target": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "shadow":{
+                    "castShadow" : true,
+                    "focus":1,
+                    "mapWidth":4058,
+                    "mapHeight":4058,
+                    "cameraNear":100,
+                    "cameraFar":1000,
+                    "cameraSize":30,
+                    "bias":-0.0002,
+                    "showCamera":false
+                },
+                "attiva":true
+            }
+
+        ],
         "scenecolor": null,
         "environment": "../hdr/rooitou_park_2k.hdr",
         "repeat": null

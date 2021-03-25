@@ -15,6 +15,7 @@ world.SetLoadingScreen(SchermataCaricamento, LoadingBar);
 
 world.SetCameraControl(json["camera"]["zoom"]);
 await world.initScene(json["scena"]);
+world.AllCastShadow()
 world.SetCameraListeners(json["camera"]["CameraMovement"]);
 world.changeMaterialOpacity(json["materialOpacity"]);
 
@@ -45,6 +46,7 @@ window.changescene = async function (num, fileJson) {
     world.SetNewScene(json["camera"]["cameraPos"], json["scena"]["scenecolor"])
     world.SetCameraControl(json["camera"]["zoom"]);
     await world.initScene(json["scena"]);
+    world.AllCastShadow()
     world.SetCameraListeners(json["camera"]["CameraMovement"]);
     world.changeMaterialOpacity(json["materialOpacity"]);
 

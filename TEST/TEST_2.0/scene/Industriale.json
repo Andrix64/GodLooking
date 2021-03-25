@@ -24,7 +24,7 @@
                 "expose": true
             }
         ],
-        "scenecolor": "lightblue",
+        "scenecolor": null,
         "environment": "../hdr/canary_wharf_2k.hdr",
         "repeat": {
             "times": 3,

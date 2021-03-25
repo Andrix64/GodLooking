@@ -54,73 +54,15 @@ class Mondo {
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
-
+        
         this.renderer.shadowMap.enabled = false;//SHADOWMAP
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;//SHADOWMAP TYPE
-
+        this.renderer.physicallyCorrectLights=true;
         this.container.appendChild(this.renderer.domElement);
 
         this.initPostprocessing()
         this.togglePostProcessing(post)
         this.onWindowResize(this.camera, this.renderer, this.postprocessing);
-    }
-
-    //pulisce la scena per l'inserimento di un altra(soppa anche il render per evitare problemi con le animazioni)
-    clear() {
-        this.stop();
-        this.scene.remove.apply(this.scene, this.scene.children);
-        this.scene.background = null;
-        this.mixers.splice(0, this.mixers.length);
-        this.sceneMeshes.splice(0, this.sceneMeshes.length);
-        $("#picker").spectrum("hide");
-    }
-
-    toggleDebugMode() {
-        debug = !debug;
-    }
-
-    SetCameraListeners(boundaries) {
-        this.SetDepthOfField()
-        this.CameraCollision();
-        this.CameraMovement(boundaries["min"], boundaries["max"]);
-    }
-    //setta la posizione della camera e il colore della scena(inoltre setta la schermata di caricamento)
-    SetNewScene(camerapos, sceneColor) {
-        if (sceneColor != undefined && sceneColor != null) {
-            this.scene.background = new THREE.Color(sceneColor);
-        }
-        this.camera.position.set(camerapos.x, camerapos.y, camerapos.z);
-        this.SetLoadingScreen(this.loadingscreen, this.loadingbar)
-    }
-
-    //setta la schermata di caricamento
-    SetLoadingScreen(loadscreen, loadbar) {
-        this.loadingscreen = loadscreen;
-        this.loadingbar = loadbar;
-        this.loadingscreen.style.opacity = 1;
-        this.loadingscreen.style.width = "100%";
-        this.loadingscreen.style.height = "100%";
-    }
-
-    async SetDepthOfField() {
-        //Variabili per collisione
-        let intersectsOBJ = new Array();
-        const raycasterBlur = new THREE.Raycaster();
-        var Cpostprocessing = this.postprocessing, Ccamera = this.camera;
-        var CexposeObj = this.exposeObj
-
-        this.controls.addEventListener("change", DoFListen)
-        DoFListen()
-        //this.controls.dispatchEvent(new Event('change'));
-        function DoFListen() {
-            //depth of field
-            raycasterBlur.setFromCamera(new THREE.Vector2(0, 0), Ccamera);
-            if (CexposeObj.length != 0) {
-                intersectsOBJ = raycasterBlur.intersectObjects(CexposeObj);
-                if (intersectsOBJ[0] != undefined)
-                    Cpostprocessing.bokeh.uniforms["focus"].value = intersectsOBJ[0].distance;
-            }
-        }
     }
 
     //pathsOBJ è un oggetto che contiene i link agli oggetti e all'environment da aggiungere nella scena e la posizione x,y,z in cui posizionarli. ESEMPIO { "oggetti":[ { "path":"./link/Oggetto.gltf","position":{"x":0,"y":0,"z":0},"collide": true },.... ], "environment": "./link/Environment.exr" }
@@ -129,8 +71,8 @@ class Mondo {
             this.loadingbar.style.width = "5%";
         }
 
-        const requests = paths["oggetti"].map((path) => {
-            return this.LoadObject(path["path"]);
+        const requests = paths.oggetti.map((link) => {
+            return this.LoadObject(link.path);
         });
 
         var allReturn, posObj;
@@ -139,11 +81,11 @@ class Mondo {
             this.loadingbar.style.width = "25%";
         }
 
-        if (paths["environment"] != undefined) {
+        if (paths.environment != undefined) {
             posObj = 1
 
             allReturn = await Promise.all([
-                this.LoadEquirectangular(paths["environment"]),
+                this.LoadEquirectangular(paths.environment),
                 requests,
             ]);
             this.PrepareSceneEnviroment(allReturn[0]);
@@ -154,6 +96,13 @@ class Mondo {
             ]);
             posObj = 0
         }
+
+        if (paths.lights != undefined){
+            this.renderer.shadowMap.enabled = true;
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            this.LoadLights(paths.lights);
+        }
+        
         if (this.loadingbar != undefined) {
             this.loadingbar.style.width = "50%";
         }
@@ -180,6 +129,27 @@ class Mondo {
 
     }
 
+    //setta i filtri postprocessing
+    initPostprocessing() {
+        const renderPass = new RenderPass(this.scene, this.camera);
+        const composer = new EffectComposer(this.renderer);
+
+        composer.addPass(renderPass);
+
+
+        this.postprocessing.composer = composer;
+
+        const bokehPass = new BokehPass(this.scene, this.camera, {
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+        const saoPass = new SAOPass(this.scene, this.camera, false, true);
+        
+        this.postprocessing.bokeh = bokehPass;
+        this.postprocessing.saoPass = saoPass;
+    }
+
+    //preparare l'environment
     PrepareSceneEnviroment(Return) {
         if (Return != 0) {
             const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
@@ -194,6 +164,7 @@ class Mondo {
         }
     }
 
+    //preparare gli oggetti della scena
     async PrepareSceneObject(Return, paths) {
         var mix = this.mixers;
         var scena = this.scene;
@@ -211,7 +182,7 @@ class Mondo {
                     });
 
                     //ADD SCENE
-                    if (paths["oggetti"][i]["collide"]) {
+                    if (paths.oggetti[i].collide) {
                         result.scene.traverse(function (child) {
                             if (child.isMesh) {
                                 meshscene.push(child);
@@ -220,16 +191,29 @@ class Mondo {
                     }
 
                     //Oggetti che subiscono il raycast del depth of field
-                    if (paths["oggetti"][i]["expose"]) {
+                    if (paths.oggetti[i].expose) {
                         result.scene.traverse(function (child) {
                             if (child.isMesh) {
                                 CexposeObj.push(child);
                             }
                         });
                     }
+                    result.scene.traverse(function (child) {
+                        if (child.isMesh) {
+                            var customDepthMaterial = new THREE.MeshDepthMaterial( {
 
-                    result.scene.rotation.y = Math.PI / (180 / paths["oggetti"][i]["rotate"]);
-                    result.scene.position.set(paths["oggetti"][i]["position"].x, paths["oggetti"][i]["position"].y, paths["oggetti"][i]["position"].z);
+                                depthPacking: THREE.RGBADepthPacking,
+                            
+                                map: child.material.map, // or, alphaMap: myAlphaMap
+                            
+                                alphaTest: 0.5
+                            
+                            } );
+                            child.customDepthMaterial = customDepthMaterial;
+                        }
+                    });
+                    result.scene.rotation.y = Math.PI / (180 / paths.oggetti[i].rotate);
+                    result.scene.position.set(paths.oggetti[i].position.x, paths.oggetti[i].position.y, paths.oggetti[i].position.z);
                     scena.add(result.scene);
                 } else {
                     alert("Elemento " + i + " : Formato non supportato");
@@ -237,17 +221,42 @@ class Mondo {
 
             });
         }
-        if (paths["repeat"] != null) {
-            for (var y = -paths["repeat"]["times"]; y <= paths["repeat"]["times"]; y++) {
+        if (paths.repeat != null) {
+            for (var y = -paths.repeat.times; y <= paths.repeat.times; y++) {
                 if (y != 0) {
                     let re = this.scene.clone();
-                    re.position.set(y * paths["repeat"]["offset"]["x"], y * paths["repeat"]["offset"]["y"], y * paths["repeat"]["offset"]["z"]);
+                    re.position.set(y * paths.repeat.offset.x, y * paths.repeat.offset.y, y * paths.repeat.offset.z);
                     this.scene.add(re);
                 }
             }
         }
     }
+    
+    //Setta tutti i listener per il movimento della telecamera
+    SetCameraListeners(boundaries) {
+        this.SetDepthOfField()
+        this.CameraCollision();
+        this.CameraMovement(boundaries["min"], boundaries["max"]);
+    }
+    
+    //setta la posizione della camera e il colore della scena(inoltre setta la schermata di caricamento)
+    SetNewScene(camerapos, sceneColor) {
+        if (sceneColor != undefined && sceneColor != null) {
+            this.scene.background = new THREE.Color(sceneColor);
+        }
+        this.camera.position.set(camerapos.x, camerapos.y, camerapos.z);
+        this.SetLoadingScreen(this.loadingscreen, this.loadingbar)
+    }
 
+    //setta la schermata di caricamento
+    SetLoadingScreen(loadscreen, loadbar) {
+        this.loadingscreen = loadscreen;
+        this.loadingbar = loadbar;
+        this.loadingscreen.style.opacity = 1;
+        this.loadingscreen.style.width = "100%";
+        this.loadingscreen.style.height = "100%";
+    }
+    
     //Setta il controller della telecamera prendendo il massimo e il minimo che la telecamera può zoomare
     SetCameraControl(zoom, target) {
         if (this.controls != null) {
@@ -265,6 +274,153 @@ class Mondo {
             this.controls.target.set(0, 0, 0);
 
         this.controls.update();
+    }
+
+    //Setta il  listener per modificare il DoF in base alla posizione della telecamera e dell'oggetto
+    async SetDepthOfField() {
+        //Variabili per collisione
+        let intersectsOBJ = new Array();
+        const raycasterBlur = new THREE.Raycaster();
+        var Cpostprocessing = this.postprocessing, Ccamera = this.camera;
+        var CexposeObj = this.exposeObj
+
+        this.controls.addEventListener("change", DoFListen)
+        DoFListen()
+        //this.controls.dispatchEvent(new Event('change'));
+        function DoFListen() {
+            //depth of field
+            raycasterBlur.setFromCamera(new THREE.Vector2(0, 0), Ccamera);
+            if (CexposeObj.length != 0) {
+                intersectsOBJ = raycasterBlur.intersectObjects(CexposeObj);
+                if (intersectsOBJ[0] != undefined)
+                    Cpostprocessing.bokeh.uniforms["focus"].value = intersectsOBJ[0].distance;
+            }
+        }
+    }
+
+    //setta come listener il resizer della finestra
+    async SetResizeFunction() {
+        var Ccamera = this.camera, Crenderer = this.renderer, Cpostprocessing = this.postprocessing;
+        var fun = this.onWindowResize;
+        window.addEventListener('resize', function () {
+            fun(Ccamera, Crenderer, Cpostprocessing)
+        });
+    }
+
+    //carica l'Equirectangular dal link
+    async LoadEquirectangular(path) {
+        var estensione = path.split("/").slice(-1)[0].split(".").slice(-1)[0].toLowerCase();
+        var loader, errore = false;
+        switch (estensione) {
+            case "exr":
+                loader = new EXRLoader();
+                break;
+
+            case "hdr":
+                loader = new RGBELoader()
+                break;
+            default:
+                errore = true;
+        }
+        if (errore) {
+            return 0;
+        }
+        loader.setDataType(THREE.UnsignedByteType)
+
+        const texture = await Promise.all([
+            loader.loadAsync(path),
+        ]);
+        return texture[0];
+    }
+
+    //carica gli oggetti dal link
+    async LoadObject(path) {
+        var estensione = path.split("/").slice(-1)[0].split(".").slice(-1)[0].toLowerCase();
+
+        var loader, errore = false;
+        switch (estensione) {
+            case "gltf":
+            case "glb":
+                loader = new GLTFLoader();
+                loader.setDRACOLoader(this.dracoLoader);
+                break;
+            case "obj":
+                loader = new OBJLoader();
+            default:
+                errore = true;
+        }
+        if (errore) {
+            return 0;
+        }
+
+        const object = await Promise.all([
+            loader.loadAsync(path),
+        ]);
+        return object[0];
+    }
+
+    async LoadLights(path){
+        for(var i=0;i<path.length;i++)
+        {
+            if(path[i].attiva){
+                var light;
+                switch (path[i].type) {
+                    case "spot":
+                        
+                        light = new THREE.SpotLight(  path[i].color, path[i].intensity, path[i].distance ,path[i].angle,path[i].penumbra,path[i].decay);
+                        var targetObject = new THREE.Object3D();
+                        this.scene.add(targetObject);
+                        targetObject.position.set( path[i].target.x, path[i].target.y, path[i].target.z )
+
+                        light.target = targetObject;
+                        break;
+                    case "directional":
+                    
+                        light = new THREE.DirectionalLight( path[i].color, path[i].intensity )
+                        var targetObject = new THREE.Object3D();
+                        this.scene.add(targetObject);
+                        targetObject.position.set( path[i].target.x, path[i].target.y, path[i].target.z )
+                        light.target = targetObject;
+                        if(path[i].shadow.castShadow)
+                        {
+                            light.shadow.camera.left = -path[i].shadow.cameraSize;
+                            light.shadow.camera.right = path[i].shadow.cameraSize;
+                            light.shadow.camera.top = path[i].shadow.cameraSize;
+                            light.shadow.camera.bottom = -path[i].shadow.cameraSize;
+                        }
+                        break;
+                    case "point":
+                
+                        light = new THREE.PointLight( path[i].color, path[i].intensity,path[i].distance,path[i].decay )
+                        if(path[i].shadow.showCamera){
+                            var pointLightHelper = new THREE.PointLightHelper( light, 1 );
+                            this.scene.add( pointLightHelper );
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                light.position.set( path[i].position.x, path[i].position.y, path[i].position.z );
+                light.castShadow = path[i].shadow.castShadow; // default false
+
+                if(path[i].shadow.castShadow)
+                {
+                    light.shadow.mapSize.width = path[i].shadow.mapWidth; // default
+                    light.shadow.mapSize.height = path[i].shadow.mapHeight; // default
+                    light.shadow.camera.near = path[i].shadow.cameraNear; // default
+                    light.shadow.camera.far = path[i].shadow.cameraFar; // default
+                    light.shadow.focus = path[i].shadow.focus; // default
+                    light.shadow.bias= path[i].shadow.bias;
+                    if(path[i].shadow.showCamera&&path[i].type!="point"){
+                        var helper = new THREE.CameraHelper( light.shadow.camera );
+                        this.scene.add( helper );
+                    }
+                    
+                }
+                this.scene.add( light );
+            }
+        }
     }
 
     //Aggiunge il listener per la collisione con la scena
@@ -326,31 +482,6 @@ class Mondo {
         });
     }
 
-    //Modifica i materiali con trasparenza prendendo un vettore che contiene il nome delle mesh e l'opacita da settargli 
-    async changeMaterialOpacity(vec) {
-        this.scene.traverse(function (child) {
-            if (child.isMesh) {
-                for (var i = 0; i < vec.length; i++) {
-                    if (child.name == vec[i]["name"]) {
-                        child.material.transparent = true;
-                        child.material.opacity = vec[i]["value"];
-                    }
-                }
-
-            }
-
-        });
-    }
-
-    //setta come listener il resizer della finestra
-    async SetResizeFunction() {
-        var Ccamera = this.camera, Crenderer = this.renderer, Cpostprocessing = this.postprocessing;
-        var fun = this.onWindowResize;
-        window.addEventListener('resize', function () {
-            fun(Ccamera, Crenderer, Cpostprocessing)
-        });
-    }
-
     //Sistema i render in base alla grandezza e ratio della finestra
     onWindowResize(Ccamera, Crenderer, Cpostprocessing) {
         Ccamera.aspect = window.innerWidth / window.innerHeight;
@@ -361,26 +492,7 @@ class Mondo {
 
     }
 
-    //setta i filtri postprocessing
-    initPostprocessing() {
-        const renderPass = new RenderPass(this.scene, this.camera);
-        const composer = new EffectComposer(this.renderer);
-
-        composer.addPass(renderPass);
-
-
-        this.postprocessing.composer = composer;
-
-        const bokehPass = new BokehPass(this.scene, this.camera, {
-            width: window.innerWidth,
-            height: window.innerHeight
-        });
-        const saoPass = new SAOPass(this.scene, this.camera, false, true);
-        
-        this.postprocessing.bokeh = bokehPass;
-        this.postprocessing.saoPass = saoPass;
-    }
-
+    //Configura il postprocessing
     async configPostProcessing(effect, conf) {
         for (var k = 0; k < conf.length; k++) {
             if(typeof effect.uniforms !== "undefined" )
@@ -426,58 +538,6 @@ class Mondo {
             }
             return true;
         }
-    }
-
-    //carica l'Equirectangular dal link
-    async LoadEquirectangular(path) {
-        var estensione = path.split("/").slice(-1)[0].split(".").slice(-1)[0].toLowerCase();
-        var loader, errore = false;
-        switch (estensione) {
-            case "exr":
-                loader = new EXRLoader();
-                break;
-
-            case "hdr":
-                loader = new RGBELoader()
-                break;
-            default:
-                errore = true;
-        }
-        if (errore) {
-            return 0;
-        }
-        loader.setDataType(THREE.UnsignedByteType)
-
-        const texture = await Promise.all([
-            loader.loadAsync(path),
-        ]);
-        return texture[0];
-    }
-
-    //carica gli oggetti dal link
-    async LoadObject(path) {
-        var estensione = path.split("/").slice(-1)[0].split(".").slice(-1)[0].toLowerCase();
-
-        var loader, errore = false;
-        switch (estensione) {
-            case "gltf":
-            case "glb":
-                loader = new GLTFLoader();
-                loader.setDRACOLoader(this.dracoLoader);
-                break;
-            case "obj":
-                loader = new OBJLoader();
-            default:
-                errore = true;
-        }
-        if (errore) {
-            return 0;
-        }
-
-        const object = await Promise.all([
-            loader.loadAsync(path),
-        ]);
-        return object[0];
     }
 
     //setta il cambio colore
@@ -583,6 +643,27 @@ class Mondo {
         return logo;
     }
 
+    //Modifica i materiali con trasparenza prendendo un vettore che contiene il nome delle mesh e l'opacita da settargli 
+    async changeMaterialOpacity(vec) {
+        this.scene.traverse(function (child) {
+            if (child.isMesh) {
+                for (var i = 0; i < vec.length; i++) {
+                    if (child.name == vec[i]["name"]) {
+                        child.material.transparent = true;
+                        child.material.opacity = vec[i]["value"];
+                    }
+                }
+
+            }
+
+        });
+    }
+
+    //toggle della debug mode
+    toggleDebugMode() {
+        debug = !debug;
+    }
+    
     //Fa partire il game loop
     start() {
         this.onWindowResize(this.camera, this.renderer, this.postprocessing);
@@ -608,6 +689,17 @@ class Mondo {
                 this.mixers[i].update(delta);
         }
     }
+
+    //pulisce la scena per l'inserimento di un altra(soppa anche il render per evitare problemi con le animazioni)
+    clear() {
+        this.stop();
+        this.scene.remove.apply(this.scene, this.scene.children);
+        this.scene.background = null;
+        this.mixers.splice(0, this.mixers.length);
+        this.sceneMeshes.splice(0, this.sceneMeshes.length);
+        $("#picker").spectrum("hide");
+    }
+
 }
 
 

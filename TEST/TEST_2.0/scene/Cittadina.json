@@ -24,6 +24,36 @@
                 "expose": true
             }
         ],
+        "lights":[
+            {
+                "type":"directional",
+                "color":"#ffffa1",
+                "intensity":3,
+                "position": {
+                    "x": 350,
+                    "y": 60,
+                    "z": 50
+                },
+                "target": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "shadow":{
+                    "castShadow" : true,
+                    "focus":1,
+                    "mapWidth":4058,
+                    "mapHeight":4058,
+                    "cameraNear":100,
+                    "cameraFar":1000,
+                    "cameraSize":30,
+                    "bias":-0.0002,
+                    "showCamera":false
+                },
+                "attiva":true
+            }
+
+        ],
         "scenecolor": null,
         "environment": "../hdr/suburban_parking_area_2k.exr",
         "repeat": null
