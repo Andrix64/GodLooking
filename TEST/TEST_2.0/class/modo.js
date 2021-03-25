@@ -17,7 +17,8 @@ import { RenderPass } from '../../../three.js/examples/jsm/postprocessing/Render
 import { BokehPass } from '../../../three.js/examples/jsm/postprocessing/BokehPass.js';
 import { SAOPass } from '../../../three.js/examples/jsm/postprocessing/SAOPass.js';
 
-
+//lensflare
+import { Lensflare, LensflareElement } from '../../../three.js/examples/jsm/objects/Lensflare.js';
 
 
 var debug = false;
@@ -54,10 +55,10 @@ class Mondo {
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
-        
+
         this.renderer.shadowMap.enabled = false;//SHADOWMAP
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;//SHADOWMAP TYPE
-        this.renderer.physicallyCorrectLights=true;
+        this.renderer.physicallyCorrectLights = true;
         this.container.appendChild(this.renderer.domElement);
 
         this.initPostprocessing()
@@ -97,12 +98,12 @@ class Mondo {
             posObj = 0
         }
 
-        if (paths.lights != undefined){
+        if (paths.lights != undefined) {
             this.renderer.shadowMap.enabled = true;
             this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             this.LoadLights(paths.lights);
         }
-        
+
         if (this.loadingbar != undefined) {
             this.loadingbar.style.width = "50%";
         }
@@ -144,7 +145,7 @@ class Mondo {
             height: window.innerHeight
         });
         const saoPass = new SAOPass(this.scene, this.camera, false, true);
-        
+
         this.postprocessing.bokeh = bokehPass;
         this.postprocessing.saoPass = saoPass;
     }
@@ -200,15 +201,15 @@ class Mondo {
                     }
                     result.scene.traverse(function (child) {
                         if (child.isMesh) {
-                            var customDepthMaterial = new THREE.MeshDepthMaterial( {
+                            var customDepthMaterial = new THREE.MeshDepthMaterial({
 
                                 depthPacking: THREE.RGBADepthPacking,
-                            
+
                                 map: child.material.map, // or, alphaMap: myAlphaMap
-                            
+
                                 alphaTest: 0.5
-                            
-                            } );
+
+                            });
                             child.customDepthMaterial = customDepthMaterial;
                         }
                     });
@@ -231,14 +232,14 @@ class Mondo {
             }
         }
     }
-    
+
     //Setta tutti i listener per il movimento della telecamera
     SetCameraListeners(boundaries) {
         this.SetDepthOfField()
         this.CameraCollision();
         this.CameraMovement(boundaries["min"], boundaries["max"]);
     }
-    
+
     //setta la posizione della camera e il colore della scena(inoltre setta la schermata di caricamento)
     SetNewScene(camerapos, sceneColor) {
         if (sceneColor != undefined && sceneColor != null) {
@@ -256,7 +257,7 @@ class Mondo {
         this.loadingscreen.style.width = "100%";
         this.loadingscreen.style.height = "100%";
     }
-    
+
     //Setta il controller della telecamera prendendo il massimo e il minimo che la telecamera può zoomare
     SetCameraControl(zoom, target) {
         if (this.controls != null) {
@@ -359,30 +360,28 @@ class Mondo {
         return object[0];
     }
 
-    async LoadLights(path){
-        for(var i=0;i<path.length;i++)
-        {
-            if(path[i].attiva){
+    //carica le luci
+    async LoadLights(path) {
+        for (var i = 0; i < path.length; i++) {
+            if (path[i].attiva) {
                 var light;
                 switch (path[i].type) {
                     case "spot":
-                        
-                        light = new THREE.SpotLight(  path[i].color, path[i].intensity, path[i].distance ,path[i].angle,path[i].penumbra,path[i].decay);
+
+                        light = new THREE.SpotLight(path[i].color, path[i].intensity, path[i].distance, path[i].angle, path[i].penumbra, path[i].decay);
                         var targetObject = new THREE.Object3D();
                         this.scene.add(targetObject);
-                        targetObject.position.set( path[i].target.x, path[i].target.y, path[i].target.z )
-
+                        targetObject.position.set(path[i].target.x, path[i].target.y, path[i].target.z)
                         light.target = targetObject;
                         break;
                     case "directional":
-                    
-                        light = new THREE.DirectionalLight( path[i].color, path[i].intensity )
+
+                        light = new THREE.DirectionalLight(path[i].color, path[i].intensity)
                         var targetObject = new THREE.Object3D();
                         this.scene.add(targetObject);
-                        targetObject.position.set( path[i].target.x, path[i].target.y, path[i].target.z )
+                        targetObject.position.set(path[i].target.x, path[i].target.y, path[i].target.z)
                         light.target = targetObject;
-                        if(path[i].shadow.castShadow)
-                        {
+                        if (path[i].shadow !== undefined && path[i].shadow.castShadow) {
                             light.shadow.camera.left = -path[i].shadow.cameraSize;
                             light.shadow.camera.right = path[i].shadow.cameraSize;
                             light.shadow.camera.top = path[i].shadow.cameraSize;
@@ -390,37 +389,49 @@ class Mondo {
                         }
                         break;
                     case "point":
-                
-                        light = new THREE.PointLight( path[i].color, path[i].intensity,path[i].distance,path[i].decay )
-                        if(path[i].shadow.showCamera){
-                            var pointLightHelper = new THREE.PointLightHelper( light, 1 );
-                            this.scene.add( pointLightHelper );
+
+                        light = new THREE.PointLight(path[i].color, path[i].intensity, path[i].distance, path[i].decay)
+                        if (path[i].shadow !== undefined && path[i].shadow.showCamera) {
+                            var pointLightHelper = new THREE.PointLightHelper(light, 1);
+                            this.scene.add(pointLightHelper);
                         }
                         break;
                     default:
                         break;
                 }
 
-                light.position.set( path[i].position.x, path[i].position.y, path[i].position.z );
+                light.position.set(path[i].position.x, path[i].position.y, path[i].position.z);
                 light.castShadow = path[i].shadow.castShadow; // default false
 
-                if(path[i].shadow.castShadow)
-                {
+                if (path[i].Lensflare !== undefined && path[i].Lensflare.flare) {
+                    var textureLoader = new THREE.TextureLoader();
+                    for (var k = 0; k < path[i].Lensflare.list.length; k++) {
+                        var textureFlare = textureLoader.load(path[i].Lensflare.list[k].texture);
+                        var lensflare = new Lensflare();
+                        for (var j = 0; j < path[i].Lensflare.list[k].pos.length; j++)
+                            lensflare.addElement(new LensflareElement(textureFlare, path[i].Lensflare.list[k].pos[j].size, path[i].Lensflare.list[k].pos[j].distance, new THREE.Color(path[i].Lensflare.list[k].pos[j].color)));
+                        light.add(lensflare);
+                    }
+
+                }
+
+                if (path[i].shadow !== undefined && path[i].shadow.castShadow) {
                     light.shadow.mapSize.width = path[i].shadow.mapWidth; // default
                     light.shadow.mapSize.height = path[i].shadow.mapHeight; // default
                     light.shadow.camera.near = path[i].shadow.cameraNear; // default
                     light.shadow.camera.far = path[i].shadow.cameraFar; // default
                     light.shadow.focus = path[i].shadow.focus; // default
-                    light.shadow.bias= path[i].shadow.bias;
-                    if(path[i].shadow.showCamera&&path[i].type!="point"){
-                        var helper = new THREE.CameraHelper( light.shadow.camera );
-                        this.scene.add( helper );
+                    light.shadow.bias = path[i].shadow.bias;
+                    if (path[i].shadow.showCamera && path[i].type != "point") {
+                        var helper = new THREE.CameraHelper(light.shadow.camera);
+                        this.scene.add(helper);
                     }
-                    
+
                 }
-                this.scene.add( light );
+                this.scene.add(light);
             }
         }
+
     }
 
     //Aggiunge il listener per la collisione con la scena
@@ -495,7 +506,7 @@ class Mondo {
     //Configura il postprocessing
     async configPostProcessing(effect, conf) {
         for (var k = 0; k < conf.length; k++) {
-            if(typeof effect.uniforms !== "undefined" )
+            if (typeof effect.uniforms !== "undefined")
                 effect.uniforms[conf[k]["name"]].value = conf[k]["value"]
             else
                 effect.params[conf[k]["name"]] = conf[k]["value"]
@@ -663,7 +674,7 @@ class Mondo {
     toggleDebugMode() {
         debug = !debug;
     }
-    
+
     //Fa partire il game loop
     start() {
         this.onWindowResize(this.camera, this.renderer, this.postprocessing);

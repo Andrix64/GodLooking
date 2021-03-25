@@ -24,35 +24,64 @@
                 "expose": true
             }
         ],
-        "lights":[
+        "lights": [
             {
-                "type":"directional",
-                "color":"#ffffa1",
-                "intensity":3,
+                "type": "directional",
+                "color": "#ffffa1",
+                "intensity": 1,
                 "position": {
                     "x": 350,
                     "y": 60,
-                    "z": 50
+                    "z": 60
                 },
                 "target": {
                     "x": 0,
                     "y": 0,
-                    "z": 0
+                    "z": 0.5
                 },
-                "shadow":{
-                    "castShadow" : true,
-                    "focus":1,
-                    "mapWidth":4058,
-                    "mapHeight":4058,
-                    "cameraNear":100,
-                    "cameraFar":1000,
-                    "cameraSize":30,
-                    "bias":-0.0002,
-                    "showCamera":false
+                "shadow": {
+                    "castShadow": true,
+                    "focus": 1,
+                    "mapWidth": 4058,
+                    "mapHeight": 4058,
+                    "cameraNear": 100,
+                    "cameraFar": 1000,
+                    "cameraSize": 30,
+                    "bias": -0.0002,
+                    "showCamera": false
                 },
-                "attiva":true
+                "Lensflare": {
+                    "flare": true,
+                    "list": [
+                        {
+                            "texture": "../png/lensflarepart.png",
+                            "pos": [
+                                {
+                                    "size": 60,
+                                    "distance": 0.5,
+                                    "color": "#ffffe0"
+                                },
+                                {
+                                    "size": 70,
+                                    "distance": 0.6,
+                                    "color": "#ffffe0"
+                                },
+                                {
+                                    "size": 120,
+                                    "distance": 0.8,
+                                    "color": "#ffffe0"
+                                },
+                                {
+                                    "size": 70,
+                                    "distance": 1,
+                                    "color": "#ffffe0"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "attiva": true
             }
-
         ],
         "scenecolor": null,
         "environment": "../hdr/suburban_parking_area_2k.exr",
