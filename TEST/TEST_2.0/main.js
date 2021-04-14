@@ -15,7 +15,7 @@ world.SetLoadingScreen(SchermataCaricamento, LoadingBar);
 
 world.SetCameraControl(json["camera"]["zoom"]);
 await world.initScene(json["scena"]);
-world.AllCastShadow()
+world.AllCastShadow();
 world.SetCameraListeners(json["camera"]["CameraMovement"]);
 world.changeMaterialOpacity(json["materialOpacity"]);
 
@@ -24,7 +24,11 @@ FileLogo = await world.LogoChanger(FileLogo)
 world.SetResizeFunction();
 
 world.start();
+world.BakeShadow();
 
+window.Bake = function () {
+    world.BakeShadow();
+}
 
 console.log("La funzione per liberare la telecamera e muoversi liberamente è 'debugMode();'");
 
@@ -46,14 +50,15 @@ window.changescene = async function (num, fileJson) {
     world.SetNewScene(json["camera"]["cameraPos"], json["scena"]["scenecolor"])
     world.SetCameraControl(json["camera"]["zoom"]);
     await world.initScene(json["scena"]);
-    world.AllCastShadow()
+    world.AllCastShadow();
     world.SetCameraListeners(json["camera"]["CameraMovement"]);
     world.changeMaterialOpacity(json["materialOpacity"]);
 
     world.ColorChanger('#color-picker');
     FileLogo = await world.LogoChanger(FileLogo)
-
     world.start();
+    world.BakeShadow();
+
     return "Scene changed"
 }
 

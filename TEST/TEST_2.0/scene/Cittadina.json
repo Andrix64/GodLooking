@@ -1,5 +1,6 @@
 {
     "scena": {
+        "autoUpdate":false,
         "oggetti": [
             {
                 "path": "../gltf/Cittadino/Cittadina.gltf",
@@ -28,7 +29,7 @@
             {
                 "type": "directional",
                 "color": "#ffffa1",
-                "intensity": 3,
+                "intensity": 4,
                 "position": {
                     "x": 350,
                     "y": 60,
@@ -41,13 +42,14 @@
                 },
                 "shadow": {
                     "castShadow": true,
+                    "autoUpdate":false,
                     "focus": 1,
                     "mapWidth": 4058,
                     "mapHeight": 4058,
                     "cameraNear": 100,
                     "cameraFar": 1000,
                     "cameraSize": 30,
-                    "bias": -0.0002,
+                    "bias": -0.0001,
                     "showCamera": false
                 },
                 "Lensflare": {
@@ -122,43 +124,6 @@
     ],
     "postprocess": [
         {
-            "name": "SAOPass",
-            "config": [
-                {
-                    "name": "saoBias",
-                    "value": 1
-                },
-                {
-                    "name": "saoIntensity",
-                    "value": 0.002
-                },
-                {
-                    "name": "saoScale",
-                    "value": 1.5
-                },
-                {
-                    "name": "saoKernelRadius",
-                    "value": 49
-                },
-                {
-                    "name": "saoMinResolution",
-                    "value": 0
-                },
-                {
-                    "name": "saoBlur",
-                    "value": true
-                },
-                {
-                    "name": "saoBlurRadius",
-                    "value": 53.8
-                },
-                {
-                    "name": "output",
-                    "value": 0
-                }
-            ]
-        },
-        {
             "name": "BokehPass",
             "config": [
                 {
@@ -167,7 +132,7 @@
                 },
                 {
                     "name": "aperture",
-                    "value": 0.0002
+                    "value": 0.00005
                 },
                 {
                     "name": "maxblur",

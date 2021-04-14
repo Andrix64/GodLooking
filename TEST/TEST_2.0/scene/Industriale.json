@@ -1,5 +1,6 @@
 {
     "scena": {
+        "autoUpdate":false,
         "oggetti": [
             {
                 "path": "../gltf/Industriale/Industrial.gltf",
@@ -65,43 +66,6 @@
         }
     ],
     "postprocess": [
-        {
-            "name": "SAOPass",
-            "config": [
-                {
-                    "name": "saoBias",
-                    "value": 1
-                },
-                {
-                    "name": "saoIntensity",
-                    "value": 0.002
-                },
-                {
-                    "name": "saoScale",
-                    "value": 1.5
-                },
-                {
-                    "name": "saoKernelRadius",
-                    "value": 49
-                },
-                {
-                    "name": "saoMinResolution",
-                    "value": 0
-                },
-                {
-                    "name": "saoBlur",
-                    "value": true
-                },
-                {
-                    "name": "saoBlurRadius",
-                    "value": 53.8
-                },
-                {
-                    "name": "output",
-                    "value": 1
-                }
-            ]
-        },
         {
             "name": "BokehPass",
             "config": [

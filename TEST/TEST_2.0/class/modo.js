@@ -26,6 +26,8 @@ var debug = false;
 class Mondo {
     constructor(container, camerapos, sceneColor, post) //Costruttore (setta le basi)
     {
+        this.innerWidth=window.innerWidth
+        this.innerHeight=window.innerHeight
         this.container = container;
         this.loadingscreen = undefined;
         this.loadingbar = undefined;
@@ -49,18 +51,24 @@ class Mondo {
 
         this.clock = new THREE.Clock();
 
-        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        let AA = true
+        if (window.devicePixelRatio > 1) {
+            AA = false
+        }
+        this.renderer = new THREE.WebGLRenderer({ 
+            antialias: AA,
+            powerPreference: "high-performance"
+        });
         this.renderer.setPixelRatio(window.devicePixelRatio);
 
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
 
-        this.renderer.shadowMap.enabled = false;//SHADOWMAP
+        this.renderer.shadowMap.enabled = true;//SHADOWMAP
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;//SHADOWMAP TYPE
         this.renderer.physicallyCorrectLights = true;
         this.container.appendChild(this.renderer.domElement);
-
         this.initPostprocessing()
         this.togglePostProcessing(post)
         this.onWindowResize(this.camera, this.renderer, this.postprocessing);
@@ -97,18 +105,17 @@ class Mondo {
             ]);
             posObj = 0
         }
-
-        if (paths.lights != undefined) {
-            this.renderer.shadowMap.enabled = true;
-            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-            this.LoadLights(paths.lights);
-        }
-
         if (this.loadingbar != undefined) {
             this.loadingbar.style.width = "50%";
         }
 
         await this.PrepareSceneObject(allReturn[posObj], paths);
+        this.renderer.shadowMap.autoUpdate = paths.autoUpdate;
+        if (paths.lights != undefined) {
+            this.renderer.shadowMap.enabled = true;
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            await this.LoadLights(paths.lights);
+        }
 
         if (this.loadingbar != undefined) {
             this.loadingbar.style.width = "100%";
@@ -167,39 +174,35 @@ class Mondo {
 
     //preparare gli oggetti della scena
     async PrepareSceneObject(Return, paths) {
-        var mix = this.mixers;
-        var scena = this.scene;
-        var meshscene = this.sceneMeshes;
-        var CexposeObj = this.exposeObj;
         for (var i = 0; i < Return.length; i++) {
-            await Return[i].then(function (result) {
+            await Return[i].then((result) => {
                 if (result != 0) {
                     //ADD MIXER
-                    mix.push(new THREE.AnimationMixer(result.scene));
+                    this.mixers.push(new THREE.AnimationMixer(result.scene));
                     result.animations.forEach((clip) => {
 
-                        mix[mix.length - 1].clipAction(clip).play();
+                        this.mixers[this.mixers.length - 1].clipAction(clip).play();
 
                     });
 
                     //ADD SCENE
                     if (paths.oggetti[i].collide) {
-                        result.scene.traverse(function (child) {
+                        result.scene.traverse((child) => {
                             if (child.isMesh) {
-                                meshscene.push(child);
+                                this.sceneMeshes.push(child);
                             }
                         });
                     }
 
                     //Oggetti che subiscono il raycast del depth of field
                     if (paths.oggetti[i].expose) {
-                        result.scene.traverse(function (child) {
+                        result.scene.traverse((child) => {
                             if (child.isMesh) {
-                                CexposeObj.push(child);
+                                this.exposeObj.push(child);
                             }
                         });
                     }
-                    result.scene.traverse(function (child) {
+                    result.scene.traverse((child) => {
                         if (child.isMesh) {
                             var customDepthMaterial = new THREE.MeshDepthMaterial({
 
@@ -215,7 +218,7 @@ class Mondo {
                     });
                     result.scene.rotation.y = Math.PI / (180 / paths.oggetti[i].rotate);
                     result.scene.position.set(paths.oggetti[i].position.x, paths.oggetti[i].position.y, paths.oggetti[i].position.z);
-                    scena.add(result.scene);
+                    this.scene.add(result.scene);
                 } else {
                     alert("Elemento " + i + " : Formato non supportato");
                 }
@@ -301,10 +304,9 @@ class Mondo {
 
     //setta come listener il resizer della finestra
     async SetResizeFunction() {
-        var Ccamera = this.camera, Crenderer = this.renderer, Cpostprocessing = this.postprocessing;
-        var fun = this.onWindowResize;
-        window.addEventListener('resize', function () {
-            fun(Ccamera, Crenderer, Cpostprocessing)
+        window.addEventListener('resize', () => {
+            this.innerWidth=window.innerWidth, this.innerHeight=window.innerHeight;
+            this.onWindowResize(this.camera, this.renderer, this.postprocessing)
         });
     }
 
@@ -362,6 +364,8 @@ class Mondo {
 
     //carica le luci
     async LoadLights(path) {
+        const lightgroup = new THREE.Group();
+
         for (var i = 0; i < path.length; i++) {
             if (path[i].attiva) {
                 var light;
@@ -428,7 +432,9 @@ class Mondo {
                     }
 
                 }
-                this.scene.add(light);
+                lightgroup.add( light );
+                lightgroup.name="light";
+                this.scene.add(lightgroup);
             }
         }
 
@@ -441,17 +447,16 @@ class Mondo {
         let dir = new THREE.Vector3();
         let intersects = new Array();
 
-        var con = this.controls, cam = this.camera, meshscene = this.sceneMeshes;
         //Quando la telecamera cambia posizione
-        this.controls.addEventListener("change", function () {
+        this.controls.addEventListener("change", () => {
 
             //collision detector
             if (!debug) {
-                raycaster.set(con.target, dir.subVectors(cam.position, con.target).normalize())
-                intersects = raycaster.intersectObjects(meshscene, false);
+                raycaster.set(this.controls.target, dir.subVectors(this.camera.position, this.controls.target).normalize())
+                intersects = raycaster.intersectObjects(this.sceneMeshes, false);
                 if (intersects.length > 0) {
-                    if (intersects[0].distance < con.target.distanceTo(cam.position)) {
-                        cam.position.copy(intersects[0].point)
+                    if (intersects[0].distance < this.controls.target.distanceTo(this.camera.position)) {
+                        this.camera.position.copy(intersects[0].point)
                     }
                 }
             }
@@ -469,38 +474,40 @@ class Mondo {
         var _v = new THREE.Vector3();
 
         //Quando la telecamera cambia posizione
-        var con = this.controls, cam = this.camera;
-        this.controls.addEventListener("change", function () {
+        this.controls.addEventListener("change", () => {
             //movimento camera
             if (!debug) {
-                _v.copy(con.target);
-                con.target.clamp(minPan, maxPan);
-                _v.sub(con.target);
-                cam.position.sub(_v);
+                _v.copy(this.controls.target);
+                this.controls.target.clamp(minPan, maxPan);
+                _v.sub(this.controls.target);
+                this.camera.position.sub(_v);
             }
         })
 
         this.controls.update();
     }
 
+    BakeShadow() {
+        this.renderer.shadowMap.needsUpdate=true
+    }
+
     //Setta tutte le mesh in modo che possano dare e ricevere ombra
     async AllCastShadow() {
-        this.scene.traverse(function (child) {
+        this.scene.traverse((child) => {
             if (child.isMesh) {
                 child.castShadow = true;
                 child.receiveShadow = true;
             }
         });
     }
-
+    
     //Sistema i render in base alla grandezza e ratio della finestra
-    onWindowResize(Ccamera, Crenderer, Cpostprocessing) {
-        Ccamera.aspect = window.innerWidth / window.innerHeight;
+    async onWindowResize(Ccamera, Crenderer, Cpostprocessing) {
+        Ccamera.aspect = this.innerWidth/this.innerHeight;
         Ccamera.updateProjectionMatrix();
 
-        Crenderer.setSize(window.innerWidth, window.innerHeight);
-        Cpostprocessing.composer.setSize(window.innerWidth, window.innerHeight);
-
+        Crenderer.setSize(this.innerWidth,this.innerHeight);
+        Cpostprocessing.composer.setSize(this.innerWidth,this.innerHeight);
     }
 
     //Configura il postprocessing
@@ -570,9 +577,8 @@ class Mondo {
             showAlpha: false
 
         });
-        var Cscene = this.scene;
         if (colore == null) {
-            Cscene.traverse(function (child) {
+            this.scene.traverse((child) => {
                 if (child.isMesh && child.name == "Struttura") {
                     $(name).spectrum("set", child.material.color.getHexString());
                 }
@@ -583,8 +589,8 @@ class Mondo {
         $(name).off("dragstop.spectrum");
 
 
-        $(name).on("dragstop.spectrum", function (e, color) {
-            Cscene.traverse(function (child) {
+        $(name).on("dragstop.spectrum",(e, color) => {
+            this.scene.traverse((child) =>  {
                 if (child.isMesh && child.name == "Struttura") {
                     child.material.color.setHex("0x" + color.toHexString().substring(1));
                 }
@@ -612,7 +618,7 @@ class Mondo {
 
         var dimensionLogo = 0;
 
-        this.scene.traverse(function (child) {
+        this.scene.traverse((child) => {
             if (child.isMesh && child.name.substring(0, 4) == "Logo") {
                 dimensionLogo = child.scale.x;
                 child.material = materialLogo;
@@ -656,7 +662,7 @@ class Mondo {
 
     //Modifica i materiali con trasparenza prendendo un vettore che contiene il nome delle mesh e l'opacita da settargli 
     async changeMaterialOpacity(vec) {
-        this.scene.traverse(function (child) {
+        this.scene.traverse((child)=>{
             if (child.isMesh) {
                 for (var i = 0; i < vec.length; i++) {
                     if (child.name == vec[i]["name"]) {
@@ -675,15 +681,46 @@ class Mondo {
         debug = !debug;
     }
 
+    async Framerate(delta){
+        if(this.second>=1){
+            var t=async ()=>{ console.log(this.frames);}
+            t();
+            
+            if(this.frames<30)
+            {
+                this.wait++;
+                if(this.wait>4){
+                    this.innerWidth/=(30/this.frames)
+                    this.innerHeight/=(30/this.frames)
+                    
+                    this.onWindowResize(this.camera,this.renderer,this.postprocessing)
+                    this.wait=0;
+                }
+                
+            }else{
+                this.wait=0;
+            }
+            this.second=0;
+            this.frames=0;
+        }else{
+            this.frames+=1;
+            this.second+=delta
+        }
+        
+    }
+
     //Fa partire il game loop
     start() {
+        this.frames=0,this.second=0,this.wait=0;
+        console.log(this.scene);
         this.onWindowResize(this.camera, this.renderer, this.postprocessing);
-        this.postprocessing.composer.renderer.setAnimationLoop(() => {
+        this.postprocessing.composer.renderer.setAnimationLoop(async () => {
             // tell every animated object to tick forward one frame
-            this.tick();
-
-            // render a frame
+            const delta =this.clock.getDelta();
+            this.tick(delta);
+            this.Framerate(delta)
             this.postprocessing.composer.render(this.clock.getDelta());
+            
         });
     }
 
@@ -693,8 +730,7 @@ class Mondo {
     }
 
     //Cosa fa il game loop ad ogni tick;
-    tick() {
-        const delta = this.clock.getDelta();
+    async tick(delta) {
         if (this.mixers.length != 0) {
             for (var i = 0; i < this.mixers.length; i++)
                 this.mixers[i].update(delta);
